@@ -1,0 +1,22 @@
+.button {
+  background-color: #f29166;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+
+  &__button {
+    margin-top: 10px;
+
+    &__icon {
+      width: 30px;
+    }
+  }
+}

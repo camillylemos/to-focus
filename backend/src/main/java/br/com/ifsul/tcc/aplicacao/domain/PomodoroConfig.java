@@ -2,7 +2,10 @@ package br.com.ifsul.tcc.aplicacao.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -20,7 +23,4 @@ public class PomodoroConfig {
 
     protected Integer tempoIntervaloLongo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    protected Usuario usuario;
 }
