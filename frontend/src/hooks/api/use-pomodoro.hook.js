@@ -1,18 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useMemo } from "react"
-import { useAxios } from "./use-axios"
+import { useMemo } from 'react'
+import { useAxios } from './use-axios'
 
 const usePomodoro = () => {
-    const { get } = useAxios()
+  const { get, post } = useAxios()
 
-    const carregarConfiguracaoPomodoros = () => get('/pomodoro')
+  const getPomodoroConfig = () => get('/pomodoro')
 
-    return useMemo(
-        () => ({
-            carregarConfiguracaoPomodoros
-        }),
-        []
-    )
+  const startPomodoro = id => post(`/pomodoro/iniciar/${id}`)
+
+  const finishPomodoro = id => post(`/pomodoro/finalizar/${id}`)
+
+  return useMemo(
+    () => ({
+      getPomodoroConfig,
+      startPomodoro,
+      finishPomodoro,
+    }),
+    []
+  )
 }
 
 export { usePomodoro }
