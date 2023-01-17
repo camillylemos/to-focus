@@ -1,5 +1,6 @@
+import { album, graphic, listCheck, matrix, note } from '@assets'
+
 import './menu.style.scss'
-import { album, graphic, listCheck, matrix, note } from '../../assets'
 
 const Menu = () => {
   return (

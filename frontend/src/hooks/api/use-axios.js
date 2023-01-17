@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { METODOS_API } from '../../constants/api.constant'
-import { RequestParams } from '../../utils/request-params.util'
+import { RequestParams } from '@utils'
+import { METODOS_API } from '@constants'
 
 const requisicaoAxios = axios.create({
   baseURL: 'http://localhost:8080/',
