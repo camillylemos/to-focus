@@ -1,4 +1,4 @@
-package br.com.ifsul.tcc.aplicacao.validator;
+package br.com.ifsul.tcc.aplicacao.represetation.validator;
 
 import br.com.ifsul.tcc.aplicacao.domain.Tarefa;
 import br.com.ifsul.tcc.aplicacao.exceptions.RegistroNaoEncontradoException;
