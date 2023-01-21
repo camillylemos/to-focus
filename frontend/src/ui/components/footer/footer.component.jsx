@@ -12,7 +12,7 @@ const Footer = () => {
         </IconButton>
 
         <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <LocalFireDepartment sx={{  fontSize: 27 }} color="primary"/>
+          <LocalFireDepartment sx={{ fontSize: 27 }} color="primary" />
         </IconButton>
       </div>
     </footer>

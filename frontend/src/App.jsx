@@ -15,11 +15,11 @@ const theme = createTheme({
       main: '#2E7F7B',
     },
     third: {
-      main: '#808080'
+      main: '#808080',
     },
     background: {
       default: '#F5F5F5',
-    }
+    },
   },
 })
 
