@@ -17,16 +17,11 @@ public class CriarTarefaServiceImpl implements CriarTarefaService {
     TarefaMapper tarefaMapper;
 
     @Override
-    public String criarTarefa(TarefaRequest request) {
+    public Tarefa criarTarefa(TarefaRequest request) {
         Tarefa tarefa = tarefaMapper.toDomain(request);
 
-        tarefaRepository.save(tarefa);
 
-        //TODO
-        //mensagem para todos os endpoints
-
-        String message = "deu certo";
-        return message;
+        return tarefaRepository.save(tarefa);
     }
 
 }

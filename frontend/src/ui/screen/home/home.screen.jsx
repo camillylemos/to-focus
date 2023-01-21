@@ -1,18 +1,22 @@
 import { Menu } from '@components'
-import { EisenhowerMatrixScreen, TaskScreen } from '../'
+import { RoutesConfigGlobal } from '@contexts'
+import { EisenhowerMatrixScreen, PomodoroScreen, TaskScreen } from '@screen'
 
 import './home.style.scss'
 
+const ScreenComponents = {
+  PomodoroScreen: <PomodoroScreen />,
+  TaskScreen: <TaskScreen />,
+  EisenhowerMatrixScreen: <EisenhowerMatrixScreen />,
+}
+
 const HomeScreen = () => {
+  const [routesConfig] = RoutesConfigGlobal()
+
   return (
     <section className="home">
       <div className="home__container">
-        <main>
-          {/* <EisenhowerMatrixScreen /> */}
-
-          <TaskScreen />
-        </main>
-
+        <main>{ScreenComponents[routesConfig]}</main>
         <Menu />
       </div>
     </section>

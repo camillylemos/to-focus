@@ -22,6 +22,9 @@ public class BuscarTarefasServiceImpl implements BuscarTarefasService {
 
         TarefaResponse tarefaResponse = new TarefaResponse();
 
+        //TODO
+        //passar isso pro mapper
+
         tarefaResponse.setUrgenteImportante(tarefas.stream().filter(tarefa -> tarefa.getPrioridade() == CATEGORIA.URGENTE_IMPORTANTE).toList());
 
         tarefaResponse.setNaoUrgenteImportante(tarefas.stream().filter(tarefa -> tarefa.getPrioridade() == CATEGORIA.NAO_URGENTE_IMPORTANTE).toList());

@@ -9,6 +9,7 @@ import br.com.ifsul.tcc.aplicacao.services.tarefa.BuscarTarefasService;
 import br.com.ifsul.tcc.aplicacao.services.tarefa.CriarTarefaService;
 import br.com.ifsul.tcc.aplicacao.services.tarefa.DeletarTarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,17 +37,18 @@ public class TarefaController {
 
 
     @PostMapping()
-    public String criarTarefa(@RequestBody @Valid TarefaRequest tarefaRequest) {
+    public Tarefa criarTarefa(@RequestBody @Valid TarefaRequest tarefaRequest) {
         return criarTarefaService.criarTarefa(tarefaRequest);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public Tarefa alterarTarefa(@RequestBody @Valid AlterarTarefaRequest alterarTarefaRequest, @PathVariable Integer id) {
         return alterarTarefaService.alterarTarefa(alterarTarefaRequest, id);
     }
 
     @DeleteMapping("/{id}")
-    public String deletarTarefa(@PathVariable Integer id) {
-        return deletarTarefaService.deletarTarefa(id);
+    public void deletarTarefa(@PathVariable Integer id) {
+        deletarTarefaService.deletarTarefa(id);
     }
 }
