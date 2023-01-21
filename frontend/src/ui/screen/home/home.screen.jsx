@@ -1,5 +1,5 @@
-import { Menu } from '../../components'
-import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
+import { Menu } from '@components'
+import { EisenhowerMatrixScreen, TaskScreen } from '../'
 
 import './home.style.scss'
 
@@ -8,7 +8,9 @@ const HomeScreen = () => {
     <section className="home">
       <div className="home__container">
         <main>
-          <PomodoroScreen />
+          {/* <EisenhowerMatrixScreen /> */}
+
+          <TaskScreen />
         </main>
 
         <Menu />

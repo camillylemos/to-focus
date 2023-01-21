@@ -1,15 +1,15 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useTimer } from 'react-timer-hook'
-import { usePomodoro } from '../../../hooks'
-import { formatDigit } from '../../../utils'
-import { POMODORO_STATUS } from '../../../constants'
 //import { CircularProgress } from '@mui/joy'; //circulo pomodoro
+import { useTimer } from 'react-timer-hook'
+import { usePomodoro } from '@hooks'
+import { formatDigit } from '@utils'
+import { POMODORO_STATUS } from './pomodoro-status.constant'
 
 import './pomodoro.style.scss'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
-  const [pomodoroSettingsList, setPomodoroSettingsList] = useState()
+  const [, setPomodoroSettingsList] = useState()
   const [pomodoroSettings, setPomodoroSettings] = useState({
     focus: 1,
     shortBreak: 0,
@@ -21,7 +21,9 @@ const PomodoroScreen = () => {
   const [pomodoroActive, setPomodoroActive] = useState(POMODORO_STATUS.INITIAL)
 
   const endPomodoro = async () => {
-    const resultado = await finishPomodoro(25)
+    // const resultado =
+
+    await finishPomodoro(35)
     //TODO
     //add se resultado deu certo
 
@@ -106,7 +108,9 @@ const PomodoroScreen = () => {
       start()
       setStatus(POMODORO_STATUS.PROGRESS)
     } else {
-      const resultado = await startPomodoro(pomodoroSelected.id)
+      // const resultado =
+
+      await startPomodoro(pomodoroSelected.id)
 
       //TODO
       //add se resultado deu certo

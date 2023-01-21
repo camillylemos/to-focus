@@ -1,0 +1,14 @@
+.eisenhower-matrix {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__list {
+    padding: 0;
+    margin: 20px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+}
