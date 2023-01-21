@@ -1,5 +1,7 @@
 package br.com.ifsul.tcc.aplicacao.services.pomodoro;
 
+import br.com.ifsul.tcc.aplicacao.domain.Pomodoro;
+
 public interface FinalizarPomodoroService {
-    void finalizarPomodoro(Integer id);
+    Pomodoro finalizarPomodoro(Integer id);
 }

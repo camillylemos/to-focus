@@ -1,40 +1,53 @@
 import { useEffect, useState, useCallback } from 'react'
 //import { CircularProgress } from '@mui/joy'; //circulo pomodoro
 import { useTimer } from 'react-timer-hook'
+import { Button } from '@mui/material'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
-import { POMODORO_STATUS } from './pomodoro-status.constant'
+import { POMODORO_STATUS } from '@constants'
+import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 
 import './pomodoro.style.scss'
-import { Button, IconButton } from '@mui/material'
-import { borderRadius } from '@mui/system'
-
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
-  const [, setPomodoroSettingsList] = useState()
+  const [formData, setFormData] = useState({ ...FORM_DATA_INITIAL })
+  const [pomodoroSettingsList, setPomodoroSettingsList] = useState()
+  const [pomodoroId, setPomodoroId] = useState()
+  const [pomodoroSelected, setPomodoroSelected] = useState()
+  const [pomodoroActive, setPomodoroActive] = useState()
   const [pomodoroSettings, setPomodoroSettings] = useState({
     focus: 1,
     shortBreak: 0,
     longBreak: 0,
     allPomodoro: false,
+  }) // refazer essa lógica TODO
+
+  const {
+    getPomodoroConfig,
+    createPomodoroConfig,
+    deletePomodoroConfig,
+    startPomodoro,
+    finishPomodoro,
+  } = usePomodoro()
+  const { hours, seconds, minutes, start, pause, restart } = useTimer({
+    autoStart: false,
+    expiryTimestamp: new Date(),
+    onExpire: () => timeActive(),
   })
-  const [pomodoroSelected, setPomodoroSelected] = useState()
-  const [pomodoroSelectedData, setPomodoroSelectedData] = useState()
-  const [pomodoroActive, setPomodoroActive] = useState(POMODORO_STATUS.INITIAL)
+
+  const restartInitial = () => {
+    setStatus(POMODORO_STATUS.INITIAL)
+    setPomodoroActive({ titulo: 'FOCO', tempo: pomodoroSelected.tempoFoco })
+  }
 
   const endPomodoro = async () => {
-    // const resultado =
-
-    await finishPomodoro(35)
-    //TODO
-    //add se resultado deu certo
-
-    setStatus(POMODORO_STATUS.INITIAL)
+    await finishPomodoro(pomodoroId)
   }
 
   const timeActive = () => {
     if (pomodoroSettings.allPomodoro) {
+      restartInitial()
       return endPomodoro()
     }
 
@@ -64,26 +77,21 @@ const PomodoroScreen = () => {
     }
   }
 
-  const { getPomodoroConfig, startPomodoro, finishPomodoro } = usePomodoro()
-  const { seconds, minutes, start, pause, restart } = useTimer({
-    autoStart: false,
-    expiryTimestamp: pomodoroSelectedData,
-    onExpire: () => timeActive(),
-  })
+  const getPomodoroConfigList = useCallback(async () => {
+    const resultado = await getPomodoroConfig()
+    setPomodoroSettingsList(resultado)
+  }, [getPomodoroConfig])
 
   useEffect(() => {
-    const getPomodoroConfigInitial = async () => {
-      const resultado = await getPomodoroConfig()
+    getPomodoroConfigList()
+  }, [getPomodoroConfigList])
 
-      if (resultado) {
-        setPomodoroSelected(resultado[0])
-        setPomodoroActive({ titulo: 'FOCO', tempo: resultado[0].tempoFoco })
-        setPomodoroSettingsList(resultado)
-      }
+  useEffect(() => {
+    if (!pomodoroSelected && pomodoroSettingsList) {
+      setPomodoroSelected(pomodoroSettingsList[0])
+      setPomodoroActive({ titulo: 'FOCO', tempo: pomodoroSettingsList[0].tempoFoco })
     }
-
-    getPomodoroConfigInitial()
-  }, [getPomodoroConfig])
+  }, [pomodoroSelected, pomodoroSettingsList])
 
   const countdown = useCallback(time => {
     const newDate = new Date()
@@ -91,10 +99,8 @@ const PomodoroScreen = () => {
   }, [])
 
   useEffect(() => {
-    if (pomodoroSelected) {
+    if (pomodoroActive) {
       const date = countdown(pomodoroActive.tempo)
-
-      setPomodoroSelectedData(date)
 
       if (status === POMODORO_STATUS.INITIAL) {
         restart(date, false)
@@ -104,23 +110,29 @@ const PomodoroScreen = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pomodoroSelected, pomodoroActive, status, countdown])
+  }, [pomodoroActive, countdown])
+
+  const handleClickStartPomodoroAfterPause = () => {
+    const newDate = new Date()
+    newDate.setSeconds(newDate.getSeconds() + seconds)
+    newDate.setMinutes(newDate.getMinutes() + minutes)
+    newDate.setHours(newDate.getHours() + hours)
+    restart(newDate, true)
+  }
 
   const handleClickStartPomodoro = async () => {
     if (status === POMODORO_STATUS.PAUSE) {
-      start()
-      setStatus(POMODORO_STATUS.PROGRESS)
+      handleClickStartPomodoroAfterPause()
     } else {
-      // const resultado =
+      const resultado = await startPomodoro(pomodoroSelected.id)
 
-      await startPomodoro(pomodoroSelected.id)
-
-      //TODO
-      //add se resultado deu certo
-
-      start()
-      setStatus(POMODORO_STATUS.PROGRESS)
+      if (resultado) {
+        setPomodoroId(resultado.id)
+        start()
+      }
     }
+
+    setStatus(POMODORO_STATUS.PROGRESS)
   }
 
   const handleClickPausePomodoro = async () => {
@@ -130,36 +142,122 @@ const PomodoroScreen = () => {
 
   const handleClickRestartPomodoro = async () => {
     setStatus(POMODORO_STATUS.INITIAL)
-    restart(countdown(), false)
+    restartInitial()
+  }
+
+  const handleSubmit = async ({ isValid, values }) => {
+    if (isValid && values) {
+      const data = {
+        nomeCategoria: values.name,
+        tempoFoco: values.pomodoro,
+        tempoIntervaloCurto: values.shortBreak,
+        tempoIntervaloLongo: values.longBreak,
+      }
+
+      await createPomodoroConfig(data)
+      getPomodoroConfigList()
+      setFormData({ ...FORM_DATA_INITIAL })
+    }
+  }
+
+  const handleClickDelete = async id => {
+    await deletePomodoroConfig(id)
+    getPomodoroConfigList()
+  }
+
+  const handleClick = ({
+    id,
+    nomeCategoria,
+    tempoFoco,
+    tempoIntervaloCurto,
+    tempoIntervaloLongo,
+  }) => {
+    setPomodoroSelected({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo })
+    setPomodoroActive({ titulo: 'FOCO', tempo: tempoFoco })
+    setStatus(POMODORO_STATUS.INITIAL)
+  }
+
+  const handleChange = event => {
+    const { name, value } = event.target
+
+    setFormData(formData => ({
+      ...formData,
+      [name]: {
+        ...formData[name],
+        value,
+        name,
+      },
+    }))
   }
 
   return (
-    <section className="pomodoro">
-      <main>
-        <span>{formatDigit(minutes)}</span>:<span>{formatDigit(seconds)}</span>
-      </main>
+    <>
+      <section className="pomodoro">
+        <main>
+          {!!hours && (
+            <>
+              <span>{formatDigit(hours)}</span>:
+            </>
+          )}
+          <span>{formatDigit(minutes)}</span>:<span>{formatDigit(seconds)}</span>
+        </main>
+        <div>{pomodoroActive?.titulo}</div>
 
-      <div>{pomodoroActive?.titulo}</div>
+        <Button
+          variant="contained"
+          href="pomodoro__pausar"
+          onClick={handleClickStartPomodoro}
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: 5,
+            opacity: 0.25,
+          }}
+          color="secondary"
+        >
+          Pausar
+        </Button>
 
-      <Button variant="contained" href="pomodoro__pausar" onClick={handleClickPausePomodoro} sx={{width:80,
-      height: 80,
-      borderRadius: 5,
-      opacity: 0.25
-      }}color="secondary">Pausar</Button>
-      
-      <Button variant="contained" href="pomodoro__iniciar" onClick={handleClickPausePomodoro} sx={{width:128,
-      height: 96,
-      borderRadius: 5,
-      margin:1
-      }} color="secondary">Iniciar</Button>
-      
-      <Button variant="contained" href="pomodoro__reiniciar" onClick={handleClickPausePomodoro} sx={{width:80,
-      height: 80,
-      borderRadius: 5,
-      opacity: 0.25
-      }}color="secondary">Reiniciar</Button>
+        <Button
+          variant="contained"
+          href="pomodoro__iniciar"
+          onClick={handleClickPausePomodoro}
+          sx={{
+            width: 128,
+            height: 96,
+            borderRadius: 5,
+            margin: 1,
+          }}
+          color="secondary"
+        >
+          Iniciar
+        </Button>
 
-    </section>
+        <Button
+          variant="contained"
+          href="pomodoro__reiniciar"
+          onClick={handleClickRestartPomodoro}
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: 5,
+            opacity: 0.25,
+          }}
+          color="secondary"
+        >
+          Reiniciar
+        </Button>
+      </section>
+
+      <ModalComponent
+        formData={formData}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        handleClick={handleClick}
+        handleClickDelete={handleClickDelete}
+        pomodoroSettingsList={pomodoroSettingsList}
+      />
+    </>
   )
 }
 

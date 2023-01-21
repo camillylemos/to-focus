@@ -16,18 +16,12 @@ public class DeletarTarefaServiceImpl implements DeletarTarefaService {
     TarefaValidator tarefaValidator;
 
     @Override
-    public String deletarTarefa(Integer id) {
+    public void deletarTarefa(Integer id) {
 
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
 
         tarefaValidator.accept(tarefa);
 
         tarefaRepository.delete(tarefa);
-
-        //TODO
-        //mensagem para todos os endpoints
-
-        String message = "deu certo";
-        return message;
     }
 }

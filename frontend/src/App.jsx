@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
-import { HomeScreen } from '@screen'
+import { RoutesConfigGlobalProvider } from '@contexts'
 import { Footer, Header } from '@components'
+import { HomeScreen } from '@screen'
 
 import './App.scss'
 
@@ -14,24 +15,26 @@ const theme = createTheme({
       main: '#2E7F7B',
     },
     third: {
-      main: '#808080'
+      main: '#808080',
     },
     background: {
       default: '#F5F5F5',
-    }
+    },
   },
 })
 
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-        </Routes>
-        <Footer />
-      </ThemeProvider>
+      <RoutesConfigGlobalProvider>
+        <ThemeProvider theme={theme}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+          </Routes>
+          <Footer />
+        </ThemeProvider>
+      </RoutesConfigGlobalProvider>
     </div>
   )
 }

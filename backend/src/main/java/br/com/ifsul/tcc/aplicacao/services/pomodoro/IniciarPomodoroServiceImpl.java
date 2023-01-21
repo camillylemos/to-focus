@@ -17,16 +17,14 @@ public class IniciarPomodoroServiceImpl implements IniciarPomodoroService {
     PomodoroConfigRepository pomodoroConfigRepository;
 
     @Override
-    public void iniciarPomodoro(Integer id) {
-
-        //TODO
-        //response com 201
-        //response com objeto que foi criado
+    public Pomodoro iniciarPomodoro(Integer id) {
 
         PomodoroConfig pomodoroConfig = pomodoroConfigRepository.findById(id).orElse(null);
 
         Pomodoro pomodoro = new Pomodoro(null, false, pomodoroConfig);
 
-        pomodoroRepository.save(pomodoro);
+        return pomodoroRepository.save(pomodoro);
+
+
     }
 }
