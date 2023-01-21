@@ -8,11 +8,11 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__config">
         <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <Headphones sx={{ color: '#2E7F7B', fontSize: 27 }} />
+          <Headphones sx={{ fontSize: 27 }} color="secondary" />
         </IconButton>
 
         <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <LocalFireDepartment sx={{ color: '#F29166', fontSize: 27 }} />
+          <LocalFireDepartment sx={{  fontSize: 27 }} color="primary"/>
         </IconButton>
       </div>
     </footer>

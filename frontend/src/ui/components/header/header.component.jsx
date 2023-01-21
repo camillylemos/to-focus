@@ -8,7 +8,7 @@ const Header = () => {
     <header className="header">
       <div className="header__icon">
         <IconButton aria-label="perfil">
-          <AccountCircle sx={{ color: '#2E7F7B', fontSize: 50 }} />
+          <AccountCircle sx={{ fontSize: 50 }} color="secondary" />
         </IconButton>
       </div>
     </header>
