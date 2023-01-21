@@ -1,6 +1,6 @@
 import { Menu } from '@components'
 import { RoutesConfigGlobal } from '@contexts'
-import { EisenhowerMatrixScreen, PomodoroScreen, TaskScreen } from '@screen'
+import { EisenhowerMatrixScreen, PomodoroScreen, TaskScreen } from '../'
 
 import './home.style.scss'
 

@@ -1,14 +1,13 @@
 import { useEffect, useState, useCallback } from 'react'
 //import { CircularProgress } from '@mui/joy'; //circulo pomodoro
 import { useTimer } from 'react-timer-hook'
+import { Button } from '@mui/material'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { POMODORO_STATUS } from '@constants'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 
 import './pomodoro.style.scss'
-import { Button, IconButton } from '@mui/material'
-import { borderRadius } from '@mui/system'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -207,7 +206,7 @@ const PomodoroScreen = () => {
         <Button
           variant="contained"
           href="pomodoro__pausar"
-          onClick={handleClickPausePomodoro}
+          onClick={handleClickStartPomodoro}
           sx={{
             width: 80,
             height: 80,
@@ -237,7 +236,7 @@ const PomodoroScreen = () => {
         <Button
           variant="contained"
           href="pomodoro__reiniciar"
-          onClick={handleClickPausePomodoro}
+          onClick={handleClickRestartPomodoro}
           sx={{
             width: 80,
             height: 80,
