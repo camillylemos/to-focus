@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { HomeScreen } from './ui/screen'
-import { createTheme, ThemeProvider } from '@mui/material';
-import { Footer, Header } from './ui/components';
+import { createTheme, ThemeProvider } from '@mui/material'
+import { Footer, Header } from './ui/components'
 
 import './App.scss'
 
@@ -11,12 +11,11 @@ const theme = createTheme({
       main: '#F29166',
     },
   },
-});
+})
 
 function App() {
   return (
     <div className="App">
-
       <ThemeProvider theme={theme}>
         <Header />
         <Routes>
@@ -25,7 +24,6 @@ function App() {
         <Footer />
       </ThemeProvider>
     </div>
-
   )
 }
 

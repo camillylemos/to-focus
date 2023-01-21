@@ -26,7 +26,7 @@ public class PomodoroController {
         return buscarConfiguracaoPomodoroService.buscarConfiguracaoPomodoro();
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("iniciar/{id}")
     void iniciarPomodoro(@PathVariable Integer id) {
         iniciarPomodoroService.iniciarPomodoro(id);
     }

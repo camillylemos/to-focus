@@ -21,6 +21,7 @@ public class IniciarPomodoroServiceImpl implements IniciarPomodoroService {
 
         //TODO
         //response com 201
+        //response com objeto que foi criado
 
         PomodoroConfig pomodoroConfig = pomodoroConfigRepository.findById(id).orElse(null);
 
