@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
-import { HomeScreen } from './ui/screen'
 import { createTheme, ThemeProvider } from '@mui/material'
-import { Footer, Header } from './ui/components'
+import { HomeScreen } from '@screen'
+import { Footer, Header } from '@components'
 
 import './App.scss'
 

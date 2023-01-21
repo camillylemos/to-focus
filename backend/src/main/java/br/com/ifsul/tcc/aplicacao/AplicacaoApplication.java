@@ -11,10 +11,5 @@ public class AplicacaoApplication {
         SpringApplication.run(AplicacaoApplication.class, args);
     }
 
-//	Usuario usu1 = new Usuario(null, "camilly", "sss", "camilly@gmail.com", new Date(12 - 11 - 2003));
-//
-//
-//	usuarioRepository.save(usu1);
-
 
 }
