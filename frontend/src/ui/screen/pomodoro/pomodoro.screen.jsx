@@ -205,8 +205,7 @@ const PomodoroScreen = () => {
 
         <Button
           variant="contained"
-          href="pomodoro__pausar"
-          onClick={handleClickStartPomodoro}
+          onClick={handleClickPausePomodoro}
           sx={{
             width: 80,
             height: 80,
@@ -220,8 +219,7 @@ const PomodoroScreen = () => {
 
         <Button
           variant="contained"
-          href="pomodoro__iniciar"
-          onClick={handleClickPausePomodoro}
+          onClick={handleClickStartPomodoro}
           sx={{
             width: 128,
             height: 96,
@@ -235,7 +233,6 @@ const PomodoroScreen = () => {
 
         <Button
           variant="contained"
-          href="pomodoro__reiniciar"
           onClick={handleClickRestartPomodoro}
           sx={{
             width: 80,

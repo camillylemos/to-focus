@@ -25,9 +25,8 @@ const ModalComponent = ({
       <div>
         {pomodoroSettingsList?.map(
           ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo }) => (
-            <div>
+            <div key={id}>
               <Button
-                key={id}
                 onClick={() =>
                   handleClick({
                     id,
