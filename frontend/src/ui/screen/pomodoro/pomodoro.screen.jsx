@@ -7,6 +7,8 @@ import { POMODORO_STATUS } from '@constants'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 
 import './pomodoro.style.scss'
+import { Button, IconButton } from '@mui/material'
+import { borderRadius } from '@mui/system'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -202,9 +204,50 @@ const PomodoroScreen = () => {
         </main>
         <div>{pomodoroActive?.titulo}</div>
 
-        <button onClick={handleClickStartPomodoro}>Iniciar</button>
-        <button onClick={handleClickPausePomodoro}>Pausar</button>
-        <button onClick={handleClickRestartPomodoro}>Reiniciar</button>
+        <Button
+          variant="contained"
+          href="pomodoro__pausar"
+          onClick={handleClickPausePomodoro}
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: 5,
+            opacity: 0.25,
+          }}
+          color="secondary"
+        >
+          Pausar
+        </Button>
+
+        <Button
+          variant="contained"
+          href="pomodoro__iniciar"
+          onClick={handleClickPausePomodoro}
+          sx={{
+            width: 128,
+            height: 96,
+            borderRadius: 5,
+            margin: 1,
+          }}
+          color="secondary"
+        >
+          Iniciar
+        </Button>
+
+        <Button
+          variant="contained"
+          href="pomodoro__reiniciar"
+          onClick={handleClickPausePomodoro}
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: 5,
+            opacity: 0.25,
+          }}
+          color="secondary"
+        >
+          Reiniciar
+        </Button>
       </section>
 
       <ModalComponent
