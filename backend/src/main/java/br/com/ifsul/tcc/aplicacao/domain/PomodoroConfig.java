@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -26,6 +23,10 @@ public class PomodoroConfig {
     protected Integer tempoIntervaloCurto;
 
     protected Integer tempoIntervaloLongo;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 
     public PomodoroConfig(String nomeCategoria, Integer tempoFoco, Integer tempoIntervaloCurto, Integer tempoIntervaloLongo) {
         this.nomeCategoria = nomeCategoria;
