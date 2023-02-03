@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BuscarConfiguracaoPomodoroService {
 
-    List<PomodoroConfig> buscarConfiguracaoPomodoro();
+    List<PomodoroConfig> buscarConfiguracaoPomodoro(String token);
 }

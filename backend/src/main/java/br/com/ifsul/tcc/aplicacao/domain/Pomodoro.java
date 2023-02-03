@@ -32,12 +32,13 @@ public class Pomodoro {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @JsonIgnore
     private Usuario usuario;
 
-    public Pomodoro(Integer id, boolean estaFinalizado, PomodoroConfig pomodoroConfig) {
-        this.id = id;
+
+    public Pomodoro(boolean estaFinalizado, PomodoroConfig pomodoroConfig, Usuario usuario) {
         this.estaFinalizado = estaFinalizado;
         this.pomodoroConfig = pomodoroConfig;
+        this.usuario = usuario;
     }
-
 }

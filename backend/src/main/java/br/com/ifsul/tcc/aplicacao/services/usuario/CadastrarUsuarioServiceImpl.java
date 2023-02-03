@@ -4,6 +4,7 @@ import br.com.ifsul.tcc.aplicacao.domain.Usuario;
 import br.com.ifsul.tcc.aplicacao.exceptions.RegistroJaPertenceABaseException;
 import br.com.ifsul.tcc.aplicacao.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -14,6 +15,9 @@ public class CadastrarUsuarioServiceImpl implements CadastrarUsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void cadastrarUsuario(Usuario request) {
 
@@ -22,6 +26,8 @@ public class CadastrarUsuarioServiceImpl implements CadastrarUsuarioService {
         if (usuario != null) {
             throw new RegistroJaPertenceABaseException("Esta email pertence a uma conta já existente!");
         }
+
+//        request.setSenha(passwordEncoder.encode(request.getSenha()));
 
         request.setSenha(Base64.getEncoder().encodeToString(request.getSenha().getBytes()));
 

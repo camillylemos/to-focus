@@ -3,7 +3,7 @@ package br.com.ifsul.tcc.aplicacao.controller;
 import br.com.ifsul.tcc.aplicacao.domain.Tarefa;
 import br.com.ifsul.tcc.aplicacao.represetation.request.AlterarTarefaRequest;
 import br.com.ifsul.tcc.aplicacao.represetation.request.TarefaRequest;
-import br.com.ifsul.tcc.aplicacao.represetation.response.TarefaResponse;
+import br.com.ifsul.tcc.aplicacao.represetation.response.TarefaAgrupadaResponse;
 import br.com.ifsul.tcc.aplicacao.services.tarefa.AlterarTarefaService;
 import br.com.ifsul.tcc.aplicacao.services.tarefa.BuscarTarefasService;
 import br.com.ifsul.tcc.aplicacao.services.tarefa.CriarTarefaService;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin(allowedHeaders = {"Authorization", "Origin"})
 @RestController
 @RequestMapping("tarefa")
 public class TarefaController {
@@ -31,14 +32,14 @@ public class TarefaController {
     DeletarTarefaService deletarTarefaService;
 
     @GetMapping()
-    public TarefaResponse buscarTarefas() {
-        return buscarTarefasService.buscarTarefas();
+    public TarefaAgrupadaResponse buscarTarefas(@RequestHeader String authorization) {
+        return buscarTarefasService.buscarTarefas(authorization);
     }
 
-
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public Tarefa criarTarefa(@RequestBody @Valid TarefaRequest tarefaRequest) {
-        return criarTarefaService.criarTarefa(tarefaRequest);
+    public void criarTarefa(@RequestBody @Valid TarefaRequest tarefaRequest, @RequestHeader String authorization) {
+        criarTarefaService.criarTarefa(tarefaRequest, authorization);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

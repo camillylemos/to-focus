@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(allowedHeaders = {"Authorization", "Origin"})
 @RestController
 @RequestMapping("pomodoro")
 public class PomodoroController {
@@ -29,13 +30,13 @@ public class PomodoroController {
     DeletarPomodoroConfigService deletarPomodoroConfigService;
 
     @GetMapping()
-    List<PomodoroConfig> buscarConfiguracaoPomodoro() {
-        return buscarConfiguracaoPomodoroService.buscarConfiguracaoPomodoro();
+    List<PomodoroConfig> buscarConfiguracaoPomodoro(@RequestHeader String authorization) {
+        return buscarConfiguracaoPomodoroService.buscarConfiguracaoPomodoro(authorization);
     }
 
     @PostMapping()
-    public PomodoroConfig criarPomodoroConfig(@RequestBody @Valid PomodoroConfig request) {
-        return criarPomodoroConfigService.criarPomodoroConfig(request);
+    public PomodoroConfig criarPomodoroConfig(@RequestBody @Valid PomodoroConfig request, @RequestHeader String authorization) {
+        return criarPomodoroConfigService.criarPomodoroConfig(request, authorization);
     }
 
     @DeleteMapping("/{id}")
@@ -45,13 +46,13 @@ public class PomodoroController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("iniciar/{id}")
-    public Pomodoro iniciarPomodoro(@PathVariable Integer id) {
-        return iniciarPomodoroService.iniciarPomodoro(id);
+    public Pomodoro iniciarPomodoro(@PathVariable Integer id, @RequestHeader String authorization) {
+        return iniciarPomodoroService.iniciarPomodoro(id, authorization);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("finalizar/{id}")
-    public Pomodoro finalizarPomodoro(@PathVariable Integer id) {
-        return finalizarPomodoroService.finalizarPomodoro(id);
+    public void finalizarPomodoro(@PathVariable Integer id) {
+        finalizarPomodoroService.finalizarPomodoro(id);
     }
 }

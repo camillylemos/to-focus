@@ -16,12 +16,12 @@ public class FinalizarPomodoroServiceImpl implements FinalizarPomodoroService {
     PomodoroValidator pomodoroValidator;
 
     @Override
-    public Pomodoro finalizarPomodoro(Integer id) {
+    public void finalizarPomodoro(Integer id) {
         Pomodoro pomodoro = pomodoroRepository.findById(id).orElse(null);
 
         pomodoroValidator.accept(pomodoro);
         pomodoro.setEstaFinalizado(true);
 
-        return pomodoroRepository.save(pomodoro);
+        pomodoroRepository.save(pomodoro);
     }
 }

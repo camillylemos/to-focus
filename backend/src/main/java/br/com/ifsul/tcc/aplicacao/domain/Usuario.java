@@ -11,7 +11,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -52,17 +51,17 @@ public class Usuario {
 //    @JoinColumn(name = "usuario_id")
 //    private List<Autenticacao> autenticacaos;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private List<Tarefa> tarefas;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "usuario_id")
+//    private List<Tarefa> tarefas;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private List<PomodoroConfig> pomodoroConfigs;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private List<Pomodoro> pomodoro;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "usuario_id")
+//    private List<PomodoroConfig> pomodoroConfigs;
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "usuario_id")
+//    private List<Pomodoro> pomodoro;
 
 
 }

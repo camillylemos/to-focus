@@ -1,2 +1,8 @@
-package br.com.ifsul.tcc.aplicacao.services.usuario;public interface UsuarioAutenticadoService {
+package br.com.ifsul.tcc.aplicacao.services.usuario;
+
+import br.com.ifsul.tcc.aplicacao.domain.Usuario;
+
+public interface UsuarioAutenticadoService {
+
+    Usuario get(String token);
 }
