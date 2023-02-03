@@ -23,31 +23,32 @@ const ModalComponent = ({
       </Form>
 
       <div>
-        {pomodoroSettingsList?.map(
-          ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo }) => (
-            <div key={id}>
-              <Button
-                onClick={() =>
-                  handleClick({
-                    id,
-                    nomeCategoria,
-                    tempoFoco,
-                    tempoIntervaloCurto,
-                    tempoIntervaloLongo,
-                  })
-                }
-              >
-                <div>{nomeCategoria}</div>
-                <div>{tempoFoco}</div>
-                <div>{tempoIntervaloCurto}</div>
-                <div>{tempoIntervaloLongo}</div>
-              </Button>
-              <IconButton onClick={() => handleClickDelete(id)}>
-                <Delete />
-              </IconButton>
-            </div>
-          )
-        )}
+        {!!pomodoroSettingsList &&
+          pomodoroSettingsList?.map(
+            ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo }) => (
+              <div key={id}>
+                <Button
+                  onClick={() =>
+                    handleClick({
+                      id,
+                      nomeCategoria,
+                      tempoFoco,
+                      tempoIntervaloCurto,
+                      tempoIntervaloLongo,
+                    })
+                  }
+                >
+                  <div>{nomeCategoria}</div>
+                  <div>{tempoFoco}</div>
+                  <div>{tempoIntervaloCurto}</div>
+                  <div>{tempoIntervaloLongo}</div>
+                </Button>
+                <IconButton onClick={() => handleClickDelete(id)}>
+                  <Delete />
+                </IconButton>
+              </div>
+            )
+          )}
       </div>
     </>
   )

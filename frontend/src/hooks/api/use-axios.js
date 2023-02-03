@@ -1,14 +1,19 @@
 import axios from 'axios'
 import { RequestParams } from '@utils'
 import { METODOS_API } from '@constants'
+import { useGlobalToken } from '@contexts'
 
 const requisicaoAxios = axios.create({
   baseURL: 'http://localhost:8080/',
 })
 
 const useAxios = () => {
+  const [token, setToken] = useGlobalToken()
+
   const chamarAPI = async (method, url, dadosRequisicao, config = {}) => {
-    const { headers } = config
+    // const { headers } = config
+
+    const headers = token ? { 'Authorization': token } : null
 
     const configRequisicao = {
       method,
@@ -18,12 +23,19 @@ const useAxios = () => {
       ...config,
     }
 
+    console.log(configRequisicao)
+
     try {
       const requisicao = await requisicaoAxios.request(configRequisicao)
       return requisicao.data
     } catch (requisicaoFalha) {
-      const { response } = requisicaoFalha
-      return response?.data
+      const { response, status } = requisicaoFalha
+      if (status === 401) {
+        setToken({})
+        localStorage.setItem('token', JSON.stringify({}))
+      }
+      // return response?.data TODO ARRUMAR AQUI
+      return null
     }
   }
 

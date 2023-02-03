@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TarefaResponse {
+public class TarefaAgrupadaResponse {
 
     List<Tarefa> urgenteImportante;
 
