@@ -1,8 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
-import { RoutesConfigGlobalProvider } from '@contexts'
+import { RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
 import { Footer, Header } from '@components'
 import { HomeScreen } from '@screen'
+
+import { LoginScreen } from 'ui/screen/login/login.screen'
 
 import './App.scss'
 
@@ -27,13 +29,18 @@ function App() {
   return (
     <div className="App">
       <RoutesConfigGlobalProvider>
-        <ThemeProvider theme={theme}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-          </Routes>
-          <Footer />
-        </ThemeProvider>
+        <TokenGlobalProvider>
+          <ThemeProvider theme={theme}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomeScreen />} exact />
+            </Routes>
+            <Routes>
+              <Route path="/login" element={<LoginScreen />} exact />
+            </Routes>
+            <Footer />
+          </ThemeProvider>
+        </TokenGlobalProvider>
       </RoutesConfigGlobalProvider>
     </div>
   )
