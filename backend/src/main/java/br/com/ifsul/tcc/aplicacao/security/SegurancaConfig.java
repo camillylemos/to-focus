@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -49,6 +50,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .csrf().disable()
+                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         ;
     }
 

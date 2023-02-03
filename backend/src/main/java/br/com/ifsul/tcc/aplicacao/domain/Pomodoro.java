@@ -1,5 +1,6 @@
 package br.com.ifsul.tcc.aplicacao.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,11 @@ public class Pomodoro {
     @ManyToOne(targetEntity = PomodoroConfig.class, fetch = FetchType.LAZY)
     @NotNull()
     @JsonIgnore
+    @JsonBackReference
     private PomodoroConfig pomodoroConfig;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 

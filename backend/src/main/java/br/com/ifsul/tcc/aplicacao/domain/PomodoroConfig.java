@@ -1,5 +1,6 @@
 package br.com.ifsul.tcc.aplicacao.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class PomodoroConfig {
     protected Integer tempoIntervaloLongo;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
