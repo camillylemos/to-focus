@@ -12,6 +12,7 @@ const ModalComponent = ({
   handleClickDelete,
   pomodoroSettingsList,
 }) => {
+  console.log(pomodoroSettingsList)
   return (
     <>
       <Form onSubmit={handleSubmit} formData={formData}>

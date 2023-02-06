@@ -80,7 +80,9 @@ const PomodoroScreen = () => {
   const getPomodoroConfigList = useCallback(async () => {
     const resultado = await getPomodoroConfig()
 
-    if (resultado.status === 200) {
+    console.log(resultado)
+
+    if (resultado.length) {
       setPomodoroSettingsList(resultado)
     } else {
       setPomodoroSettingsList([

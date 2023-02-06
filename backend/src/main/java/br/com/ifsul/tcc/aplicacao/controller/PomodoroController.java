@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("pomodoro")
+@CrossOrigin(origins = "*")
 public class PomodoroController {
 
     @Autowired
@@ -43,7 +44,6 @@ public class PomodoroController {
         deletarPomodoroConfigService.deletarPomodoroConfig(id);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("iniciar/{id}")
     public Pomodoro iniciarPomodoro(@PathVariable Integer id) {
         return iniciarPomodoroService.iniciarPomodoro(id);
