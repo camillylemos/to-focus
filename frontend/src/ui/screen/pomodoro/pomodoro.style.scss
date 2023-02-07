@@ -1,6 +1,10 @@
-.pomodoro{
-    &__botao{
-        width: 80;
-        height: 80;
-    }
+
+.play__icon {
+    transform: scale(2.0);
+}
+.dots__icon {
+    transform: scale(1.3);
+}
+.refresh__icon {
+    transform: scale(1.3);
 }

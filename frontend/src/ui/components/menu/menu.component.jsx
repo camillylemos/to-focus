@@ -1,5 +1,7 @@
 import { album, graphic, listCheck, matrix, note } from '@assets'
 import { RoutesConfigGlobal } from '@contexts'
+import { Button } from '@mui/material'
+import { FormatListBulletedRounded, GridViewRounded, CollectionsBookmarkRounded, TimerOutlined, Insights, StickyNote2Outlined } from '@mui/icons-material';
 import { useAuthentication } from 'hooks/api/use-authentication.hook'
 
 import './menu.style.scss'
@@ -15,27 +17,81 @@ const Menu = () => {
 
   return (
     <aside className="menu">
-      <button onClick={() => handleClick('PomodoroScreen')} className="button menu__button">
-        <img className="menu__button__icon" src={note} alt="" />
-      </button>
 
-      <button className="button menu__button">
-        <img className="menu__button__icon" src={album} alt="" />
-      </button>
+      <Button variant="contained" onClick={() => handleClick('PomodoroScreen')}
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
+        }}
+        color="primary"
+      >
+        {<TimerOutlined className='pomodoro__icon' />}
+      </Button>
 
-      <button onClick={() => handleClick('TaskScreen')} className="button menu__button">
-        <img className="menu__button__icon" src={listCheck} alt="" />
-      </button>
+      <Button variant="contained" onClick={() => handleClick('EisenhowerMatrixScreen')}
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
+        }}
+        color="primary"
+      >
+        {<GridViewRounded className='matrix__icon' />}
+      </Button>
 
-      <button onClick={() => {
-        login({ senha: 'camilly', email: 'email@email.com' })
-      }} className="button menu__button">
-        <img className="menu__button__icon" src={graphic} alt="" />
-      </button>
+      <Button variant="contained" onClick={() => handleClick('TaskScreen')}
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
 
-      <button onClick={() => handleClick('EisenhowerMatrixScreen')} className="button menu__button">
-        <img className="menu__button__icon" src={matrix} alt="" />
-      </button>
+        }}
+        color="primary"
+      >
+        {<FormatListBulletedRounded className='list__icon' />}
+      </Button>
+
+      <Button variant="contained"
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
+        }}
+        color="primary"
+      >
+        {<CollectionsBookmarkRounded className='albun__icon' />}
+      </Button>
+
+      <Button variant="contained"
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
+        }}
+        color="primary"
+      >
+        {<Insights className='graphic__icon' />}
+      </Button>
+
+      <Button variant="contained"
+        sx={{
+          borderRadius: 5,
+          margin: 0.4,
+          width: 60,
+          height: 60,
+        }}
+        color="primary"
+      >
+        {<StickyNote2Outlined className='notes__icon' />}
+      </Button>
+
+
     </aside>
   )
 }
