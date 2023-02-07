@@ -13,9 +13,7 @@ const useAxios = () => {
   const chamarAPI = async (method, url, dadosRequisicao, config = {}) => {
     // const { headers } = config
 
-    console.log(token)
-
-    const headers = token ? { 'Authorization': token } : null
+    const headers = token ? { 'Authorization': `${token}` } : null
 
     const configRequisicao = {
       method,
