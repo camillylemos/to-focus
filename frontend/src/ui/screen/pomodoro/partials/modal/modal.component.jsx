@@ -12,6 +12,7 @@ const ModalComponent = ({
   handleClickDelete,
   pomodoroSettingsList,
 }) => {
+  console.log(pomodoroSettingsList)
   return (
     <>
       <Form onSubmit={handleSubmit} formData={formData}>
@@ -23,7 +24,7 @@ const ModalComponent = ({
       </Form>
 
       <div>
-        {pomodoroSettingsList?.map(
+        {!!pomodoroSettingsList && pomodoroSettingsList?.map(
           ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo }) => (
             <div key={id}>
               <Button

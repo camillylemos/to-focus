@@ -1,7 +1,9 @@
 package br.com.ifsul.tcc.aplicacao.services.pomodoro;
 
 import br.com.ifsul.tcc.aplicacao.domain.PomodoroConfig;
+import br.com.ifsul.tcc.aplicacao.domain.Usuario;
 import br.com.ifsul.tcc.aplicacao.repository.PomodoroConfigRepository;
+import br.com.ifsul.tcc.aplicacao.services.usuario.UsuarioAutenticadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,15 @@ public class CriarPomodoroConfigServiceImpl implements CriarPomodoroConfigServic
     @Autowired
     PomodoroConfigRepository pomodoroConfigRepository;
 
+    @Autowired
+    UsuarioAutenticadoService usuarioAutenticadoService;
+
     @Override
     public PomodoroConfig criarPomodoroConfig(PomodoroConfig request) {
-        PomodoroConfig pomodoroConfig = new PomodoroConfig(request.getNomeCategoria(), request.getTempoFoco(), request.getTempoIntervaloCurto(), request.getTempoIntervaloLongo());
+        Usuario usuario = usuarioAutenticadoService.get();
 
-        return pomodoroConfigRepository.save(pomodoroConfig);
+        request.setUsuario(usuario);
+
+        return pomodoroConfigRepository.save(request);
     }
 }

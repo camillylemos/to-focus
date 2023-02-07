@@ -2,6 +2,7 @@ package br.com.ifsul.tcc.aplicacao.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Pomodoro {
 
     @Id
@@ -28,12 +30,15 @@ public class Pomodoro {
     @JsonIgnore
     private PomodoroConfig pomodoroConfig;
 
-    public Pomodoro(Integer id, boolean estaFinalizado, PomodoroConfig pomodoroConfig) {
-        this.id = id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
+
+    public Pomodoro(boolean estaFinalizado, PomodoroConfig pomodoroConfig, Usuario usuario) {
         this.estaFinalizado = estaFinalizado;
         this.pomodoroConfig = pomodoroConfig;
-    }
-
-    public Pomodoro() {
+        this.usuario = usuario;
     }
 }
