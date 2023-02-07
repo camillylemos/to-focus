@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
@@ -27,17 +26,32 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AutenticadorProvider provider;
 
-    @Override
-    public void configure(WebSecurity webSecurity) {
-        webSecurity
-                .ignoring()
-                .antMatchers("/**");
-    }
+//    @Override
+//    public void configure(WebSecurity webSecurity) {
+//        webSecurity
+//                .ignoring()
+//                .antMatchers("/**");
+//    }
 
     private static final RequestMatcher URLS_PROTEGIDAS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/pomodoro/**")
+            new AntPathRequestMatcher("/pomodoro/**"),
+            new AntPathRequestMatcher("/tarefa/**"),
+            new AntPathRequestMatcher("/autenticacao/**")
+
 
     );
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token", "authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,20 +67,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(URLS_PROTEGIDAS)
                 .authenticated()
                 .and()
-                .csrf().disable()
-                .cors();
-        //.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-        ;
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "OPTIONS", "PUT"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+                .cors().configurationSource(corsConfigurationSource()).and()
+                .csrf().disable();
     }
 
     @Bean

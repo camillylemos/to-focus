@@ -1,7 +1,6 @@
 package br.com.ifsul.tcc.aplicacao.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,17 +53,14 @@ public class Usuario {
 //    private List<Autenticacao> autenticacaos;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinColumn(name = "usuario_id")
     private List<Tarefa> tarefas;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinColumn(name = "usuario_id")
     private List<PomodoroConfig> pomodoroConfigs;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonManagedReference
     @JoinColumn(name = "usuario_id")
     private List<Pomodoro> pomodoro;
 

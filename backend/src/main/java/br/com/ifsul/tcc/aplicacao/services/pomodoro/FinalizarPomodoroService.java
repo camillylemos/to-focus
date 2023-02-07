@@ -1,7 +1,7 @@
 package br.com.ifsul.tcc.aplicacao.services.pomodoro;
 
-import br.com.ifsul.tcc.aplicacao.domain.Pomodoro;
+import br.com.ifsul.tcc.aplicacao.represetation.response.MensagemResponse;
 
 public interface FinalizarPomodoroService {
-    Pomodoro finalizarPomodoro(Integer id);
+    MensagemResponse finalizarPomodoro(Integer id);
 }

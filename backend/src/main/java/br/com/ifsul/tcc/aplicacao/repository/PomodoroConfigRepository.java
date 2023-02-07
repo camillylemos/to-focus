@@ -13,4 +13,8 @@ public interface PomodoroConfigRepository extends JpaRepository<PomodoroConfig, 
     Optional<PomodoroConfig> findById(Integer id);
 
     List<PomodoroConfig> findByUsuarioId(Integer id);
+
+    PomodoroConfig findByIdAndUsuarioId(Integer id, Integer usuarioId);
+
+
 }
