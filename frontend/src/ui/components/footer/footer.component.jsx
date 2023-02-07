@@ -1,4 +1,4 @@
-import { Headphones, LocalFireDepartment } from '@mui/icons-material'
+import {LocalFireDepartment, DarkMode } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 
 import './footer.style.scss'
@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__config">
         <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <Headphones sx={{ fontSize: 27 }} color="secondary" />
+          <DarkMode sx={{ fontSize: 27 }} color="secondary" />
         </IconButton>
 
         <IconButton aria-label="música" sx={{ p: 0.5 }}>
