@@ -1,15 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import { createTheme, ThemeProvider, useTheme } from '@mui/material'
-import { RoutesConfigGlobalProvider } from '@contexts'
+import { createTheme, ThemeProvider, } from '@mui/material'
+import { RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
 import { Footer, Header } from '@components'
 import { HomeScreen } from '@screen'
-import CssBaseline from '@mui/material/CssBaseline';
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 
+import { LoginScreen } from 'ui/screen/login/login.screen'
 
 import './App.scss'
 
@@ -17,7 +12,7 @@ import './App.scss'
 
 
 
- const defaultTheme = createTheme({
+const defaultTheme = createTheme({
   palette: {
     primary: {
       main: '#F29166',
@@ -42,7 +37,7 @@ const darkTheme = createTheme({
       main: '#2e2826',
     },
     secondary: {
-    main: '#768cb4',
+      main: '#768cb4',
     },
     third: {
       main: '#974081',
@@ -51,7 +46,7 @@ const darkTheme = createTheme({
       default: '#12131244'
     },
   },
-}); 
+});
 
 
 /* function App(){
@@ -113,20 +108,25 @@ export default function ToggleColorMode() {
   );
 } */
 
- function App() {
+function App() {
   return (
     <div className="App">
       <RoutesConfigGlobalProvider>
-        <ThemeProvider theme={defaultTheme}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-          </Routes>
-          <Footer />
-        </ThemeProvider>
+        <TokenGlobalProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomeScreen />} exact />
+            </Routes>
+            <Routes>
+              <Route path="/login" element={<LoginScreen />} exact />
+            </Routes>
+            <Footer />
+          </ThemeProvider>
+        </TokenGlobalProvider>
       </RoutesConfigGlobalProvider>
     </div>
   )
 }
- 
-  export default App
+
+export default App

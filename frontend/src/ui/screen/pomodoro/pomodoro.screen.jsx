@@ -84,7 +84,22 @@ const PomodoroScreen = () => {
 
   const getPomodoroConfigList = useCallback(async () => {
     const resultado = await getPomodoroConfig()
-    setPomodoroSettingsList(resultado)
+
+    console.log(resultado)
+
+    if (resultado.length) {
+      setPomodoroSettingsList(resultado)
+    } else {
+      setPomodoroSettingsList([
+        {
+          id: 1,
+          nomeCategoria: 'PADRAO',
+          tempoFoco: 25,
+          tempoIntervaloCurto: 5,
+          tempoIntervaloLongo: 15,
+        },
+      ])
+    }
   }, [getPomodoroConfig])
 
   useEffect(() => {
@@ -93,8 +108,14 @@ const PomodoroScreen = () => {
 
   useEffect(() => {
     if (!pomodoroSelected && pomodoroSettingsList) {
-      setPomodoroSelected(pomodoroSettingsList[0])
-      setPomodoroActive({ titulo: 'FOCO', tempo: pomodoroSettingsList[0].tempoFoco })
+      setPomodoroSelected({
+        id: 1,
+        nomeCategoria: 'PADRAO',
+        tempoFoco: 25,
+        tempoIntervaloCurto: 5,
+        tempoIntervaloLongo: 15,
+      })
+      setPomodoroActive({ titulo: 'FOCO', tempo: 25 })
     }
   }, [pomodoroSelected, pomodoroSettingsList])
 
