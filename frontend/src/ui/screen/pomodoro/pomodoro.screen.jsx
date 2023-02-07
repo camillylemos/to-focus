@@ -1,11 +1,16 @@
 import { useEffect, useState, useCallback } from 'react'
-//import { CircularProgress } from '@mui/joy'; //circulo pomodoro
+// import { CircularProgress } from '@mui/joy'; //circulo pomodoro
 import { useTimer } from 'react-timer-hook'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { POMODORO_STATUS } from '@constants'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import RefreshIcon from '@mui/icons-material/Refresh';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
+
 
 import './pomodoro.style.scss'
 
@@ -203,10 +208,11 @@ const PomodoroScreen = () => {
         </main>
         <div>{pomodoroActive?.titulo}</div>
 
-        <Button
-          variant="contained"
+
+        <Button 
+          variant="contained" 
           onClick={handleClickPausePomodoro}
-          sx={{
+          sx={{           
             width: 80,
             height: 80,
             borderRadius: 5,
@@ -214,11 +220,13 @@ const PomodoroScreen = () => {
           }}
           color="secondary"
         >
-          Pausar
+          {<MoreHorizIcon className='dots__icon'/>}
         </Button>
 
-        <Button
-          variant="contained"
+
+
+         <Button 
+          variant="contained" 
           onClick={handleClickStartPomodoro}
           sx={{
             width: 128,
@@ -227,12 +235,12 @@ const PomodoroScreen = () => {
             margin: 1,
           }}
           color="secondary"
-        >
-          Iniciar
-        </Button>
+        > 
+        {<PlayArrowIcon className='play__icon'/>} 
+        </Button> 
 
-        <Button
-          variant="contained"
+        <Button 
+          variant="contained" 
           onClick={handleClickRestartPomodoro}
           sx={{
             width: 80,
@@ -242,7 +250,7 @@ const PomodoroScreen = () => {
           }}
           color="secondary"
         >
-          Reiniciar
+        {<RefreshIcon className='refresh__icon'/>} 
         </Button>
       </section>
 
