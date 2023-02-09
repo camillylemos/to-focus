@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { createTheme, ThemeProvider, } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material'
 import { RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
 import { Footer, Header } from '@components'
 import { HomeScreen } from '@screen'
@@ -8,9 +8,7 @@ import { LoginScreen } from 'ui/screen/login/login.screen'
 
 import './App.scss'
 
-/* const ColorModeContext = React.createContext({ toggleColorMode: () => {} }) */;
-
-
+/* const ColorModeContext = React.createContext({ toggleColorMode: () => {} }) */
 
 const defaultTheme = createTheme({
   palette: {
@@ -29,25 +27,22 @@ const defaultTheme = createTheme({
   },
 })
 
-
-
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#2e2826',
-    },
-    secondary: {
-      main: '#768cb4',
-    },
-    third: {
-      main: '#974081',
-    },
-    background: {
-      default: '#12131244'
-    },
-  },
-});
-
+// const darkTheme = createTheme({
+//   palette: {
+//     primary: {
+//       main: '#2e2826',
+//     },
+//     secondary: {
+//       main: '#768cb4',
+//     },
+//     third: {
+//       main: '#974081',
+//     },
+//     background: {
+//       default: '#12131244'
+//     },
+//   },
+// });
 
 /* function App(){
 const theme = useTheme();

@@ -1,16 +1,14 @@
 import { useEffect, useState, useCallback } from 'react'
 // import { CircularProgress } from '@mui/joy'; //circulo pomodoro
 import { useTimer } from 'react-timer-hook'
-import { Button, IconButton } from '@mui/material'
+import { Button, Dialog } from '@mui/material'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { POMODORO_STATUS } from '@constants'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import RefreshIcon from '@mui/icons-material/Refresh';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
-
+import RefreshIcon from '@mui/icons-material/Refresh'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 
 import './pomodoro.style.scss'
 
@@ -27,6 +25,8 @@ const PomodoroScreen = () => {
     longBreak: 0,
     allPomodoro: false,
   }) // refazer essa lógica TODO
+  const [colecao, setColecao] = useState()
+  const [openModal, setOpenModal] = useState()
 
   const {
     getPomodoroConfig,
@@ -47,7 +47,12 @@ const PomodoroScreen = () => {
   }
 
   const endPomodoro = async () => {
-    await finishPomodoro(pomodoroId)
+    const resultado = await finishPomodoro(pomodoroId)
+
+    if (resultado?.mensagem) {
+      setColecao({ mensagem: resultado.mensagem })
+      setOpenModal(true)
+    }
   }
 
   const timeActive = () => {
@@ -84,8 +89,6 @@ const PomodoroScreen = () => {
 
   const getPomodoroConfigList = useCallback(async () => {
     const resultado = await getPomodoroConfig()
-
-    console.log(resultado)
 
     if (resultado.length) {
       setPomodoroSettingsList(resultado)
@@ -216,6 +219,10 @@ const PomodoroScreen = () => {
     }))
   }
 
+  const handleClose = () => {
+    setOpenModal(false)
+  }
+
   return (
     <>
       <section className="pomodoro">
@@ -229,11 +236,10 @@ const PomodoroScreen = () => {
         </main>
         <div>{pomodoroActive?.titulo}</div>
 
-
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={handleClickPausePomodoro}
-          sx={{           
+          sx={{
             width: 80,
             height: 80,
             borderRadius: 5,
@@ -241,13 +247,11 @@ const PomodoroScreen = () => {
           }}
           color="secondary"
         >
-          {<MoreHorizIcon className='dots__icon'/>}
+          {<MoreHorizIcon className="dots__icon" />}
         </Button>
 
-
-
-         <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={handleClickStartPomodoro}
           sx={{
             width: 128,
@@ -256,12 +260,12 @@ const PomodoroScreen = () => {
             margin: 1,
           }}
           color="secondary"
-        > 
-        {<PlayArrowIcon className='play__icon'/>} 
-        </Button> 
+        >
+          {<PlayArrowIcon className="play__icon" />}
+        </Button>
 
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={handleClickRestartPomodoro}
           sx={{
             width: 80,
@@ -271,7 +275,7 @@ const PomodoroScreen = () => {
           }}
           color="secondary"
         >
-        {<RefreshIcon className='refresh__icon'/>} 
+          {<RefreshIcon className="refresh__icon" />}
         </Button>
       </section>
 
@@ -283,6 +287,10 @@ const PomodoroScreen = () => {
         handleClickDelete={handleClickDelete}
         pomodoroSettingsList={pomodoroSettingsList}
       />
+
+      <Dialog open={openModal} onClose={handleClose}>
+        {colecao?.mensagem}
+      </Dialog>
     </>
   )
 }

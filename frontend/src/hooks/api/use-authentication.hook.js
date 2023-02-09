@@ -2,19 +2,17 @@
 import { useMemo } from 'react'
 import { useAxios } from './use-axios'
 
-const useAuthentication = () => {
-  const { post } = useAxios()
-  const login = async data => await post('/usuario/login', data)
+const UseAuthentication = () => {
+  const { get } = useAxios()
 
-  const register = data => post(`/usuario/cadastrar`, data)
+  const getControleAutenticacao = async () => await get('/autenticacao/controle')
 
   return useMemo(
     () => ({
-      register,
-      login,
+      getControleAutenticacao,
     }),
     []
   )
 }
 
-export { useAuthentication }
+export { UseAuthentication }

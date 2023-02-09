@@ -1,4 +1,4 @@
-import {LocalFireDepartment, DarkMode } from '@mui/icons-material'
+import { LocalFireDepartment, DarkMode } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 
 import './footer.style.scss'
