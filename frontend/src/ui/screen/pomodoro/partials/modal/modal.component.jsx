@@ -3,7 +3,6 @@ import { Delete } from '@mui/icons-material'
 import { Form, Input } from '@components'
 
 import './modal.style.scss'
-import { useState } from 'react'
 
 const ModalComponent = ({
   formData,
@@ -11,16 +10,12 @@ const ModalComponent = ({
   handleChange,
   handleClick,
   handleClickDelete,
+  handleClickClose,
   pomodoroSettingsList,
+  open,
 }) => {
-  const [openModal, setOpenModal] = useState(true)
-
-  const handleClose = () => {
-    setOpenModal(false)
-  }
-
   return (
-    <Dialog open={openModal} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClickClose}>
       <Form onSubmit={handleSubmit} formData={formData}>
         <Input {...formData.name} handleChange={handleChange} />
         <Input {...formData.pomodoro} handleChange={handleChange} />

@@ -1,16 +1,16 @@
 import { useEffect, useState, useCallback } from 'react'
-// import { CircularProgress } from '@mui/joy'; //circulo pomodoro
-import { useTimer } from 'react-timer-hook'
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
+import { PlayArrow, Refresh, MoreHoriz, Pause } from '@mui/icons-material'
 import { Button, Dialog } from '@mui/material'
+import { POMODORO_STATUS } from '@constants'
+import { useTimer } from 'react-timer-hook'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
-import { POMODORO_STATUS } from '@constants'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import RefreshIcon from '@mui/icons-material/Refresh'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 
 import './pomodoro.style.scss'
+import { Chip } from '@components'
+import { TYPES_CHIPS } from 'constants/types-chips.constants'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -27,6 +27,8 @@ const PomodoroScreen = () => {
   }) // refazer essa lógica TODO
   const [colecao, setColecao] = useState()
   const [openModal, setOpenModal] = useState()
+  const [openModalSettings, setOpenModalSettings] = useState()
+  const [value, setValue] = useState(0)
 
   const {
     getPomodoroConfig,
@@ -141,6 +143,16 @@ const PomodoroScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pomodoroActive, countdown])
 
+  useEffect(() => {
+    if (pomodoroActive) {
+      const tempoAtual = hours * 3600 + minutes * 60 + seconds
+
+      const valorAtual = Math.abs((100 * tempoAtual) / (pomodoroActive.tempo * 60) - 100)
+
+      setValue(valorAtual)
+    }
+  }, [pomodoroActive, seconds, hours, minutes])
+
   const handleClickStartPomodoroAfterPause = () => {
     const newDate = new Date()
     newDate.setSeconds(newDate.getSeconds() + seconds)
@@ -204,6 +216,7 @@ const PomodoroScreen = () => {
     setPomodoroSelected({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo })
     setPomodoroActive({ titulo: 'FOCO', tempo: tempoFoco })
     setStatus(POMODORO_STATUS.INITIAL)
+    setOpenModalSettings(false)
   }
 
   const handleChange = event => {
@@ -223,60 +236,86 @@ const PomodoroScreen = () => {
     setOpenModal(false)
   }
 
+  const handleClickModalSettings = () => {
+    setOpenModalSettings(!openModalSettings)
+  }
+
+  const buttonConfig =
+    status === POMODORO_STATUS.PROGRESS
+      ? { onClick: handleClickPausePomodoro, icon: <Pause className="pause__icon" /> }
+      : { onClick: handleClickStartPomodoro, icon: <PlayArrow className="play__icon" /> }
+
   return (
     <>
       <section className="pomodoro">
-        <main>
-          {!!hours && (
-            <>
-              <span>{formatDigit(hours)}</span>:
-            </>
-          )}
-          <span>{formatDigit(minutes)}</span>:<span>{formatDigit(seconds)}</span>
+        <main className="pomodoro__progress-bar">
+          <CircularProgressbarWithChildren
+            value={value}
+            strokeWidth={5}
+            styles={buildStyles({
+              pathColor: '#F29166',
+              trailColor: '#2E7F7B',
+              strokeLinecap: 'round',
+            })}
+          >
+            <div className="pomodoro__timer__text">
+              {!!hours && <span>{formatDigit(hours)}:</span>}
+              <span>{formatDigit(minutes)}</span>:<span>{formatDigit(seconds)}</span>
+            </div>
+          </CircularProgressbarWithChildren>
         </main>
-        <div>{pomodoroActive?.titulo}</div>
 
-        <Button
-          variant="contained"
-          onClick={handleClickPausePomodoro}
-          sx={{
-            width: 80,
-            height: 80,
-            borderRadius: 5,
-            opacity: 0.25,
-          }}
-          color="secondary"
-        >
-          {<MoreHorizIcon className="dots__icon" />}
-        </Button>
+        {/* <div>{pomodoroActive?.titulo}</div> */}
 
-        <Button
-          variant="contained"
-          onClick={handleClickStartPomodoro}
-          sx={{
-            width: 128,
-            height: 96,
-            borderRadius: 5,
-            margin: 1,
-          }}
-          color="secondary"
-        >
-          {<PlayArrowIcon className="play__icon" />}
-        </Button>
+        <div className='pomodoro__ciclo'>
+          <Chip type={TYPES_CHIPS.FOCUS} />
+          <Chip type={TYPES_CHIPS.SHORT_BREAK} />
+          <Chip type={TYPES_CHIPS.LONG_BREAK} />
+        </div>
 
-        <Button
-          variant="contained"
-          onClick={handleClickRestartPomodoro}
-          sx={{
-            width: 80,
-            height: 80,
-            borderRadius: 5,
-            opacity: 0.25,
-          }}
-          color="secondary"
-        >
-          {<RefreshIcon className="refresh__icon" />}
-        </Button>
+        <div>
+          <Button
+            variant="contained"
+            onClick={handleClickModalSettings}
+            sx={{
+              width: 80,
+              height: 80,
+              borderRadius: 5,
+              opacity: 0.25,
+            }}
+            color="secondary"
+          >
+            {<MoreHoriz className="dots__icon" />}
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={buttonConfig.onClick}
+            sx={{
+              width: 128,
+              height: 96,
+              borderRadius: 5,
+              margin: 1,
+            }}
+            color="secondary"
+          >
+            {buttonConfig.icon}
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={handleClickRestartPomodoro}
+            sx={{
+              width: 80,
+              height: 80,
+              borderRadius: 5,
+              opacity: 0.25,
+            }}
+            color="secondary"
+          >
+            {<Refresh className="refresh__icon" />}
+          </Button>
+        </div>
       </section>
 
       <ModalComponent
@@ -285,7 +324,9 @@ const PomodoroScreen = () => {
         handleChange={handleChange}
         handleClick={handleClick}
         handleClickDelete={handleClickDelete}
+        handleClickClose={handleClickModalSettings}
         pomodoroSettingsList={pomodoroSettingsList}
+        open={openModalSettings}
       />
 
       <Dialog open={openModal} onClose={handleClose}>
