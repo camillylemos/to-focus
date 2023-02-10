@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { useGlobalToken } from '@contexts'
 import { Form, Input } from '@components'
 import { UseUser } from '@hooks'
 
@@ -17,15 +16,22 @@ const FORM_DATA_INITIAL = {
     label: 'Senha',
     type: 'password',
   },
+  name: {
+    name: 'name',
+    label: 'Nome',
+  },
+  bdayDate: {
+    name: 'bdayDate',
+    label: 'Data de Nascimento',
+  },
 }
 
-const LoginScreen = () => {
+const CadastroScreen = () => {
   const [formData, setFormData] = useState(FORM_DATA_INITIAL)
-  const [, setToken] = useGlobalToken()
 
   const navigate = useNavigate()
 
-  const { login } = UseUser()
+  const { register } = UseUser()
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('token'))) {
@@ -38,15 +44,14 @@ const LoginScreen = () => {
       const data = {
         email: values.email,
         senha: values.password,
+        nome: values.name,
+        dataNascimento: values.bdayDate,
       }
 
-      const response = await login(data)
+      await register(data)
 
-      if (response) {
-        setToken(response.token)
-        localStorage.setItem('token', JSON.stringify(response.token))
-        navigate('/')
-      }
+      navigate('/login')
+      //todo verificar aqui
     }
   }
 
@@ -65,11 +70,13 @@ const LoginScreen = () => {
 
   return (
     <Form formData={formData} onSubmit={handleSubmit}>
+      <Input formData={formData.name} handleChange={handleChange} />
       <Input formData={formData.email} handleChange={handleChange} />
+      <Input formData={formData.bdayDate} handleChange={handleChange} />
       <Input formData={formData.password} handleChange={handleChange} />
-      <Button type="submit">Entrar</Button>
+      <Button type="submit">Cadastrar</Button>
     </Form>
   )
 }
 
-export { LoginScreen }
+export { CadastroScreen }

@@ -1,16 +1,15 @@
 import { useEffect, useState, useCallback } from 'react'
+import { useTimer } from 'react-timer-hook'
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
 import { PlayArrow, Refresh, MoreHoriz, Pause } from '@mui/icons-material'
 import { Button, Dialog } from '@mui/material'
-import { POMODORO_STATUS } from '@constants'
-import { useTimer } from 'react-timer-hook'
+import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
+import { Chip } from '@components'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 
 import './pomodoro.style.scss'
-import { Chip } from '@components'
-import { TYPES_CHIPS } from 'constants/types-chips.constants'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -267,7 +266,7 @@ const PomodoroScreen = () => {
 
         {/* <div>{pomodoroActive?.titulo}</div> */}
 
-        <div className='pomodoro__ciclo'>
+        <div className="pomodoro__ciclo">
           <Chip type={TYPES_CHIPS.FOCUS} />
           <Chip type={TYPES_CHIPS.SHORT_BREAK} />
           <Chip type={TYPES_CHIPS.LONG_BREAK} />
