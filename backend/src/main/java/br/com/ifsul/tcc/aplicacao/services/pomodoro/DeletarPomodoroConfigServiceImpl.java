@@ -21,6 +21,8 @@ public class DeletarPomodoroConfigServiceImpl implements DeletarPomodoroConfigSe
 
         pomodoroConfigValidator.accept(pomodoroConfig);
 
-        pomodoroConfigRepository.delete(pomodoroConfig);
+        pomodoroConfig.setIsVisivel(false);
+
+        pomodoroConfigRepository.save(pomodoroConfig);
     }
 }

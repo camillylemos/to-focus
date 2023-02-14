@@ -1,8 +1,9 @@
-import { Button, IconButton } from '@mui/material'
+import { Button, Dialog, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import { Form, Input } from '@components'
 
 import './modal.style.scss'
+import { useState } from 'react'
 
 const ModalComponent = ({
   formData,
@@ -12,9 +13,14 @@ const ModalComponent = ({
   handleClickDelete,
   pomodoroSettingsList,
 }) => {
-  console.log(pomodoroSettingsList)
+  const [openModal, setOpenModal] = useState(true)
+
+  const handleClose = () => {
+    setOpenModal(false)
+  }
+
   return (
-    <>
+    <Dialog open={openModal} onClose={handleClose}>
       <Form onSubmit={handleSubmit} formData={formData}>
         <Input {...formData.name} handleChange={handleChange} />
         <Input {...formData.pomodoro} handleChange={handleChange} />
@@ -24,33 +30,42 @@ const ModalComponent = ({
       </Form>
 
       <div>
-        {!!pomodoroSettingsList && pomodoroSettingsList?.map(
-          ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo }) => (
-            <div key={id}>
-              <Button
-                onClick={() =>
-                  handleClick({
-                    id,
-                    nomeCategoria,
-                    tempoFoco,
-                    tempoIntervaloCurto,
-                    tempoIntervaloLongo,
-                  })
-                }
-              >
-                <div>{nomeCategoria}</div>
-                <div>{tempoFoco}</div>
-                <div>{tempoIntervaloCurto}</div>
-                <div>{tempoIntervaloLongo}</div>
-              </Button>
-              <IconButton onClick={() => handleClickDelete(id)}>
-                <Delete />
-              </IconButton>
-            </div>
-          )
-        )}
+        {!!pomodoroSettingsList &&
+          pomodoroSettingsList?.map(
+            ({
+              id,
+              nomeCategoria,
+              tempoFoco,
+              tempoIntervaloCurto,
+              tempoIntervaloLongo,
+              isVisivel,
+            }) =>
+              !!isVisivel && (
+                <div key={id}>
+                  <Button
+                    onClick={() =>
+                      handleClick({
+                        id,
+                        nomeCategoria,
+                        tempoFoco,
+                        tempoIntervaloCurto,
+                        tempoIntervaloLongo,
+                      })
+                    }
+                  >
+                    <div>{nomeCategoria}</div>
+                    <div>{tempoFoco}</div>
+                    <div>{tempoIntervaloCurto}</div>
+                    <div>{tempoIntervaloLongo}</div>
+                  </Button>
+                  <IconButton onClick={() => handleClickDelete(id)}>
+                    <Delete />
+                  </IconButton>
+                </div>
+              )
+          )}
       </div>
-    </>
+    </Dialog>
   )
 }
 

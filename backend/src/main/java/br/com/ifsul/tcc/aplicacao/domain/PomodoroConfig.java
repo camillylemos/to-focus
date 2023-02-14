@@ -25,16 +25,19 @@ public class PomodoroConfig {
 
     protected Integer tempoIntervaloLongo;
 
+    private Boolean isVisivel;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
-    public PomodoroConfig(String nomeCategoria, Integer tempoFoco, Integer tempoIntervaloCurto, Integer tempoIntervaloLongo, Usuario usuario) {
+    public PomodoroConfig(String nomeCategoria, Integer tempoFoco, Integer tempoIntervaloCurto, Integer tempoIntervaloLongo, Boolean isVisivel, Usuario usuario) {
         this.nomeCategoria = nomeCategoria;
         this.tempoFoco = tempoFoco;
         this.tempoIntervaloCurto = tempoIntervaloCurto;
         this.tempoIntervaloLongo = tempoIntervaloLongo;
+        this.isVisivel = isVisivel;
         this.usuario = usuario;
     }
 }

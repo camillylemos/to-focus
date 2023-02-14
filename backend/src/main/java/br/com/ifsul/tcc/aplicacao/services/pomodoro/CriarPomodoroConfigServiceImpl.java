@@ -21,6 +21,7 @@ public class CriarPomodoroConfigServiceImpl implements CriarPomodoroConfigServic
         Usuario usuario = usuarioAutenticadoService.get();
 
         request.setUsuario(usuario);
+        request.setIsVisivel(true);
 
         return pomodoroConfigRepository.save(request);
     }

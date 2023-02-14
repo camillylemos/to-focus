@@ -2,7 +2,7 @@ package br.com.ifsul.tcc.aplicacao.controller;
 
 import br.com.ifsul.tcc.aplicacao.domain.Pomodoro;
 import br.com.ifsul.tcc.aplicacao.domain.PomodoroConfig;
-import br.com.ifsul.tcc.aplicacao.represetation.response.MensagemResponse;
+import br.com.ifsul.tcc.aplicacao.represetation.response.GamificacaoResponse;
 import br.com.ifsul.tcc.aplicacao.services.pomodoro.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +50,7 @@ public class PomodoroController {
     }
 
     @PutMapping("finalizar/{id}")
-    public MensagemResponse finalizarPomodoro(@PathVariable Integer id) {
+    public GamificacaoResponse finalizarPomodoro(@PathVariable Integer id) {
         return finalizarPomodoroService.finalizarPomodoro(id);
     }
 }
