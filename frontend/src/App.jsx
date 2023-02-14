@@ -2,9 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
 import { Footer, Header } from '@components'
-import { HomeScreen } from '@screen'
-
-import { LoginScreen } from 'ui/screen/login/login.screen'
+import { LoginScreen, CadastroScreen, HomeScreen } from '@screen'
 
 import './App.scss'
 
@@ -112,9 +110,8 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<HomeScreen />} exact />
-            </Routes>
-            <Routes>
               <Route path="/login" element={<LoginScreen />} exact />
+              <Route path="/cadastro" element={<CadastroScreen />} exact />
             </Routes>
             <Footer />
           </ThemeProvider>

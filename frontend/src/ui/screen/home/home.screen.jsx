@@ -1,8 +1,8 @@
+import { useCallback, useEffect, useState } from 'react'
 import { Menu } from '@components'
 import { RoutesConfigGlobal } from '@contexts'
 import { UseAuthentication } from '@hooks'
 import { Dialog } from '@mui/material'
-import { useCallback, useEffect, useState } from 'react'
 import { EisenhowerMatrixScreen } from '../eisenhower-matrix/eisenhower-matrix.screen'
 import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
 import { TaskScreen } from '../task/task.screen'
@@ -15,40 +15,40 @@ const ScreenComponents = {
   EisenhowerMatrixScreen: <EisenhowerMatrixScreen />,
 }
 
-const comoEsta = {
-  mensagem: 'Autenticacao numero 2',
-  colecao: [
-    {
-      id: 1,
-      album: { id: 1, nome: 'ALBUM_1' },
-      figura: { id: 1, nome: 'FRUTA_1', isPremium: false },
-    },
-    {
-      id: 2,
-      album: { id: 1, nome: 'ALBUM_1' },
-      figura: { id: 2, nome: 'FRUTA_2', isPremium: false },
-    },
-    {
-      id: 3,
-      album: { id: 1, nome: 'ALBUM_1' },
-      figura: { id: 3, nome: 'FRUTA_3', isPremium: false },
-    },
-  ],
-}
+// const comoEsta = {
+//   mensagem: 'Autenticacao numero 2',
+//   colecao: [
+//     {
+//       id: 1,
+//       album: { id: 1, nome: 'ALBUM_1' },
+//       figura: { id: 1, nome: 'FRUTA_1', isPremium: false },
+//     },
+//     {
+//       id: 2,
+//       album: { id: 1, nome: 'ALBUM_1' },
+//       figura: { id: 2, nome: 'FRUTA_2', isPremium: false },
+//     },
+//     {
+//       id: 3,
+//       album: { id: 1, nome: 'ALBUM_1' },
+//       figura: { id: 3, nome: 'FRUTA_3', isPremium: false },
+//     },
+//   ],
+// }
 
-const comoDeveria = {
-  mensagem: 'Autenticacao numero 2',
-  colecao: [
-    {
-      nome: 'ALBUM_1',
-      figuras: [
-        { id: 1, nome: 'FRUTA_1', isPremium: false },
-        { id: 2, nome: 'FRUTA_2', isPremium: false },
-        { id: 3, nome: 'FRUTA_3', isPremium: false },
-      ],
-    },
-  ],
-}
+// const comoDeveria = {
+//   mensagem: 'Autenticacao numero 2',
+//   colecao: [
+//     {
+//       nome: 'ALBUM_1',
+//       figuras: [
+//         { id: 1, nome: 'FRUTA_1', isPremium: false },
+//         { id: 2, nome: 'FRUTA_2', isPremium: false },
+//         { id: 3, nome: 'FRUTA_3', isPremium: false },
+//       ],
+//     },
+//   ],
+// }
 
 const HomeScreen = () => {
   const [colecao, setColecao] = useState()
@@ -77,8 +77,8 @@ const HomeScreen = () => {
   return (
     <section className="home">
       <div className="home__container">
-        <main>{ScreenComponents[routesConfig]}</main>
-        <Menu />
+        <main className="home__main">{ScreenComponents[routesConfig]}</main>
+        <Menu className="home__menu" />
       </div>
 
       <Dialog open={openModal} onClose={handleClose}>

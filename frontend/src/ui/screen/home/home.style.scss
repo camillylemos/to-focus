@@ -3,4 +3,15 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__main {
+    width: 94%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__menu {
+    width: 6%;
+  }
 }

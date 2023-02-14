@@ -1,16 +1,7 @@
-/* .button {
-  background-color: #f29166;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-} */
-
 .menu {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   &__button {
     margin-top: 10px;
