@@ -1,6 +1,5 @@
 package br.com.ifsul.tcc.aplicacao.represetation.response;
 
-import br.com.ifsul.tcc.aplicacao.domain.ColecaoUsuario;
 import lombok.*;
 
 import java.util.List;
@@ -14,5 +13,5 @@ public class GamificacaoResponse {
 
     private String mensagem;
 
-    private List<ColecaoUsuario> colecao;
+    private List<Colecao> colecao;
 }

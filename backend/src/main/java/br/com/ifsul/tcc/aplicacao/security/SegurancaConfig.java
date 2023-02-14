@@ -36,7 +36,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
     private static final RequestMatcher URLS_PROTEGIDAS = new OrRequestMatcher(
             new AntPathRequestMatcher("/pomodoro/**"),
             new AntPathRequestMatcher("/tarefa/**"),
-            new AntPathRequestMatcher("/autenticacao/**")
+            new AntPathRequestMatcher("/autenticacao/**"),
+            new AntPathRequestMatcher("/estatistica/**")
 
 
     );
