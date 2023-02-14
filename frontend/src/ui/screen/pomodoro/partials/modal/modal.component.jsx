@@ -25,40 +25,38 @@ const ModalComponent = ({
       </Form>
 
       <div>
-        {!!pomodoroSettingsList &&
-          pomodoroSettingsList?.map(
-            ({
-              id,
-              nomeCategoria,
-              tempoFoco,
-              tempoIntervaloCurto,
-              tempoIntervaloLongo,
-              isVisivel,
-            }) =>
-              !!isVisivel && (
-                <div key={id}>
-                  <Button
-                    onClick={() =>
-                      handleClick({
-                        id,
-                        nomeCategoria,
-                        tempoFoco,
-                        tempoIntervaloCurto,
-                        tempoIntervaloLongo,
-                      })
-                    }
-                  >
-                    <div>{nomeCategoria}</div>
-                    <div>{tempoFoco}</div>
-                    <div>{tempoIntervaloCurto}</div>
-                    <div>{tempoIntervaloLongo}</div>
-                  </Button>
+        {pomodoroSettingsList?.map(
+          (
+            { id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo, isVisivel },
+            index
+          ) =>
+            !!isVisivel && (
+              <div key={index}>
+                <Button
+                  onClick={() =>
+                    handleClick({
+                      id,
+                      nomeCategoria,
+                      tempoFoco,
+                      tempoIntervaloCurto,
+                      tempoIntervaloLongo,
+                    })
+                  }
+                >
+                  <div>{nomeCategoria}</div>
+                  <div>{tempoFoco}</div>
+                  <div>{tempoIntervaloCurto}</div>
+                  <div>{tempoIntervaloLongo}</div>
+                </Button>
+
+                {pomodoroSettingsList.length !== 1 && (
                   <IconButton onClick={() => handleClickDelete(id)}>
                     <Delete />
                   </IconButton>
-                </div>
-              )
-          )}
+                )}
+              </div>
+            )
+        )}
       </div>
     </Dialog>
   )
