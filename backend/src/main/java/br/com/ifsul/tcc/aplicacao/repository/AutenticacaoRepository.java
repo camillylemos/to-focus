@@ -13,4 +13,5 @@ public interface AutenticacaoRepository extends JpaRepository<Autenticacao, Inte
 
     @Query(value = "SELECT COUNT(*) FROM autenticacao a WHERE a.usuario_id = ?1", nativeQuery = true)
     Long qtsAutenticacoes(Integer id);
+
 }

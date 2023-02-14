@@ -2,16 +2,16 @@ package br.com.ifsul.tcc.aplicacao.represetation.response;
 
 import lombok.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GamificacaoResponse {
+public class TarefaEstatisticaResponse {
 
-    private String mensagem;
+    private Integer concluidas;
 
-    private List<Colecao> colecao;
+    private Map<Object, Long> porData;
 }

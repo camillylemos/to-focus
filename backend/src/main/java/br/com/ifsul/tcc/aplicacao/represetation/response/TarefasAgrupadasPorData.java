@@ -2,16 +2,17 @@ package br.com.ifsul.tcc.aplicacao.represetation.response;
 
 import lombok.*;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GamificacaoResponse {
+public class TarefasAgrupadasPorData {
 
-    private String mensagem;
+    private LocalDate data;
 
-    private List<Colecao> colecao;
+    private long tarefasFinalizadas;
+
 }

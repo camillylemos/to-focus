@@ -1,5 +1,6 @@
 package br.com.ifsul.tcc.aplicacao.represetation.response;
 
+import br.com.ifsul.tcc.aplicacao.domain.Figura;
 import lombok.*;
 
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GamificacaoResponse {
+public class Colecao {
 
-    private String mensagem;
+    private String nome;
 
-    private List<Colecao> colecao;
+    private List<Figura> figuras;
 }

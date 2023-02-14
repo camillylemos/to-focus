@@ -11,4 +11,6 @@ import java.util.List;
 public interface TarefaRepository extends JpaRepository<Tarefa, Integer> {
     @Query(value = "SELECT * FROM tarefa t WHERE t.usuario_id = ?1 ORDER BY t.prioridade, t.data_criacao", nativeQuery = true)
     List<Tarefa> buscarTarefasOrdenadasPorPrioridade(Integer id);
+
+    List<Tarefa> findByUsuarioIdAndEstaRealizado(Integer idUsuario, boolean estaRealizado);
 }
