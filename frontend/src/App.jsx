@@ -16,7 +16,7 @@ const defaultTheme = createTheme({
     secondary: {
       main: '#2E7F7B',
     },
-    third: {
+    tertiary: {
       main: '#808080',
     },
     background: {
