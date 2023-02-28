@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { useGlobalToken } from '@contexts'
 import { Form, Input } from '@components'
 import { UseUser } from '@hooks'
 
-// import './login.style.scss'
+import './login.style.scss'
 
 const FORM_DATA_INITIAL = {
   email: {
@@ -64,11 +64,25 @@ const LoginScreen = () => {
   }
 
   return (
-    <Form formData={formData} onSubmit={handleSubmit}>
-      <Input formData={formData.email} handleChange={handleChange} />
-      <Input formData={formData.password} handleChange={handleChange} />
-      <Button type="submit">Entrar</Button>
-    </Form>
+    <section className="login">
+      <h1 className="login__texto">Login</h1>
+      <Form className="login__form" formData={formData} onSubmit={handleSubmit}>
+        <Input
+          formData={formData.email}
+          handleChange={handleChange}
+          style={{ paddingBottom: '20px' }}
+        />
+        <Input
+          formData={formData.password}
+          handleChange={handleChange}
+          style={{ paddingBottom: '20px' }}
+        />
+        <Button type="submit">Entrar</Button>
+        <Link to={'/cadastro'} className="login__link">
+          Ainda não tem uma conta? Cadastre-se!
+        </Link>
+      </Form>
+    </section>
   )
 }
 

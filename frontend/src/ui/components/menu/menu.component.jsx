@@ -6,7 +6,6 @@ import {
   FormatListBulletedRounded,
   GridViewRounded,
   Insights,
-  StickyNote2Outlined,
   TimerOutlined,
 } from '@mui/icons-material'
 
@@ -19,7 +18,7 @@ const style = {
   height: 60,
 }
 
-const Menu = () => {
+const Menu = ({ handleClickModal }) => {
   const [, setRoutesConfig] = RoutesConfigGlobal()
   const [token] = useGlobalToken()
 
@@ -49,6 +48,10 @@ const Menu = () => {
         {<GridViewRounded className="matrix__icon" />}
       </Button>
 
+      <Button variant="contained" onClick={() => handleClickModal()} sx={style} color="primary">
+        {<CollectionsBookmarkRounded className="albun__icon" />}
+      </Button>
+
       <Button
         variant="contained"
         onClick={() => handleClick('TaskScreen')}
@@ -58,10 +61,6 @@ const Menu = () => {
         {<FormatListBulletedRounded className="list__icon" />}
       </Button>
 
-      <Button variant="contained" sx={style} color="primary">
-        {<CollectionsBookmarkRounded className="albun__icon" />}
-      </Button>
-
       <Button
         variant="contained"
         onClick={() => handleClick('RelatorioScreen')}
@@ -69,10 +68,6 @@ const Menu = () => {
         color="primary"
       >
         {<Insights className="graphic__icon" />}
-      </Button>
-
-      <Button variant="contained" sx={style} color="primary">
-        {<StickyNote2Outlined className="notes__icon" />}
       </Button>
     </>
   )
@@ -88,36 +83,39 @@ const Menu = () => {
         {<TimerOutlined className="pomodoro__icon" />}
       </Button>
 
-      <Tooltip title="Crie uma conta para acessar a Matriz de Eisenhower" placement="left">
+      <Tooltip
+        title="Crie uma conta para acessar a Matriz de Eisenhower"
+        placement="left"
+        arrow="true"
+      >
         <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
           {<GridViewRounded className="matrix__icon" />}
-        </Button>
-      </Tooltip>
-
-      <Tooltip title="Crie uma conta para acessar a Lista de Tarefas" placement="left">
-        <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
-          {<FormatListBulletedRounded className="list__icon" />}
         </Button>
       </Tooltip>
 
       <Tooltip
         title="Crie uma conta para ganhar conquistas em finalizar seus pomodoros"
         placement="left"
+        arrow="true"
       >
         <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
           {<CollectionsBookmarkRounded className="albun__icon" />}
         </Button>
       </Tooltip>
 
-      <Tooltip title="Crie uma conta para visualizar suas estátisticas" placement="left">
+      <Tooltip title="Crie uma conta para acessar a Lista de Tarefas" placement="left" arrow="true">
         <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
-          {<Insights className="graphic__icon" />}
+          {<FormatListBulletedRounded className="list__icon" />}
         </Button>
       </Tooltip>
 
-      <Tooltip title="Crie uma conta para criar anotações diversas" placement="left">
+      <Tooltip
+        title="Crie uma conta para visualizar suas estátisticas"
+        placement="left"
+        arrow="true"
+      >
         <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
-          {<StickyNote2Outlined className="notes__icon" />}
+          {<Insights className="graphic__icon" />}
         </Button>
       </Tooltip>
     </>

@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class Colecao {
 
-    private String nome;
+    private String album;
 
     private List<Figura> figuras;
 }

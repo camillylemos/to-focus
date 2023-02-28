@@ -1,20 +1,33 @@
-import { LocalFireDepartment, DarkMode } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
+import { useGlobalToken } from '@contexts'
+import { UseAuthentication } from '@hooks'
+import { LocalFireDepartment } from '@mui/icons-material'
+import { useCallback, useEffect, useState } from 'react'
 
 import './footer.style.scss'
 
 const Footer = () => {
+  const [dias, setDias] = useState()
+  const [token] = useGlobalToken()
+
+  const { getDiasAutenticacao } = UseAuthentication()
+
+  const getDiasAutenticacaoApi = useCallback(async () => {
+    const qntDias = await getDiasAutenticacao()
+    setDias(qntDias)
+  }, [getDiasAutenticacao])
+
+  useEffect(() => {
+    getDiasAutenticacaoApi()
+  }, [getDiasAutenticacaoApi])
+
   return (
     <footer className="footer">
-      <div className="footer__config">
-        <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <DarkMode sx={{ fontSize: 27 }} color="secondary" />
-        </IconButton>
-
-        <IconButton aria-label="música" sx={{ p: 0.5 }}>
-          <LocalFireDepartment sx={{ fontSize: 27 }} color="primary" />
-        </IconButton>
-      </div>
+      {token ? (
+        <div className="footer__config">
+          <LocalFireDepartment sx={{ fontSize: 29 }} color="primary" />
+          <div className="footer__dias">{dias} dias</div>
+        </div>
+      ) : null}
     </footer>
   )
 }

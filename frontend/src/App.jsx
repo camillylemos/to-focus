@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
+import { HelmetProvider } from 'react-helmet-async'
 import { Footer, Header } from '@components'
 import { LoginScreen, CadastroScreen, HomeScreen } from '@screen'
 
@@ -21,6 +22,13 @@ const defaultTheme = createTheme({
     },
     background: {
       default: '#F5F5F5',
+    },
+  },
+  components: {
+    MuiTextarea: {
+      defaultProps: {
+        disableFocusRipple: true,
+      },
     },
   },
 })
@@ -105,17 +113,19 @@ function App() {
   return (
     <div className="App">
       <RoutesConfigGlobalProvider>
-        <TokenGlobalProvider>
-          <ThemeProvider theme={defaultTheme}>
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomeScreen />} exact />
-              <Route path="/login" element={<LoginScreen />} exact />
-              <Route path="/cadastro" element={<CadastroScreen />} exact />
-            </Routes>
-            <Footer />
-          </ThemeProvider>
-        </TokenGlobalProvider>
+        <HelmetProvider>
+          <TokenGlobalProvider>
+            <ThemeProvider theme={defaultTheme}>
+              <Header />
+              <Routes>
+                <Route path="/" element={<HomeScreen />} exact />
+                <Route path="/login" element={<LoginScreen />} exact />
+                <Route path="/cadastro" element={<CadastroScreen />} exact />
+              </Routes>
+              <Footer />
+            </ThemeProvider>
+          </TokenGlobalProvider>
+        </HelmetProvider>
       </RoutesConfigGlobalProvider>
     </div>
   )

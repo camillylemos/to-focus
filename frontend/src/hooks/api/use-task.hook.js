@@ -7,6 +7,8 @@ const useTask = () => {
 
   const getTasks = () => get('/tarefa')
 
+  const getTasksMatrix = () => get('/tarefa/matriz')
+
   const createTask = data => post(`/tarefa`, data)
 
   const updateTask = ({ data, id }) => put(`/tarefa/${id}`, data)
@@ -16,6 +18,7 @@ const useTask = () => {
   return useMemo(
     () => ({
       getTasks,
+      getTasksMatrix,
       createTask,
       updateTask,
       deleteTask,
