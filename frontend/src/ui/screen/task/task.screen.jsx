@@ -1,11 +1,33 @@
 import { useEffect, useState, useCallback } from 'react'
-import { Button, IconButton } from '@mui/material'
-import { Delete, Edit } from '@mui/icons-material'
-import { Checkbox, Form, Input, Select, Textarea } from '@components'
+import { Button } from '@mui/material'
+import { Form, Input, Select, TaskItem, Textarea, TituloPagina } from '@components'
 import { useTask } from '@hooks'
 import { FORM_DATA_INITIAL } from './form-data.constant'
 
 import './task.style.scss'
+
+const CONFIG_TASK = {
+  URGENTE_IMPORTANTE: {
+    class: 'urgente-importante',
+    color: '#f29166',
+    name: 'Urgente e Importante',
+  },
+  NAO_URGENTE_IMPORTANTE: {
+    class: 'nao-urgente-importante',
+    color: '#f3ca40',
+    name: 'Não Urgente e Importante',
+  },
+  URGENTE_NAO_IMPORTANTE: {
+    class: 'urgente-nao-importante',
+    color: '#2e7f7b',
+    name: 'Urgente e Não Importante',
+  },
+  NAO_URGENTE_NAO_IMPORTANTE: {
+    class: 'nao-urgente-nao-importante',
+    color: '#788bf5',
+    name: 'Não Urgente e Não Importante',
+  },
+}
 
 const TaskScreen = () => {
   const [taskList, setTaskList] = useState()
@@ -28,11 +50,9 @@ const TaskScreen = () => {
   const handleChangeTask = async ({ task, check }) => {
     const data = check ? { ...task, estaRealizado: !task.estaRealizado } : task
 
-    const resultado = await updateTask({ data, id: task.id })
+    await updateTask({ data, id: task.id })
 
-    if (resultado) {
-      getTaskList()
-    }
+    getTaskList()
   }
 
   const handleChangeDeleteTask = async ({ id }) => {
@@ -43,41 +63,31 @@ const TaskScreen = () => {
     }
   }
 
-  const handleChangeEditTask = ({ task }) => {
-    setFormData({
-      priority: { ...formData.priority, value: task.prioridade },
-      description: { ...formData.description, value: task.descricao },
-      title: { ...formData.title, value: task.titulo },
-      task,
-    })
-  }
+  const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
 
   const renderTasks = () => {
     if (taskList) {
-      return Object.values(taskList)?.map(tasks =>
-        tasks?.map(task => {
-          const value = task.estaRealizado ? { checked: true } : { checked: false }
+      return taskList.map(task =>
+        Object.values(task)?.map(tasks =>
+          tasks?.map((task, index) => {
+            return (
+              //   <IconButton onClick={() => handleChangeDeleteTask({ id: task.id })}>
+              //     <Delete />
+              //   </IconButton>
 
-          return (
-            <li key={task.id}>
-              <Checkbox
-                value={value}
-                handleChange={() => handleChangeTask({ task, check: true })}
+              <TaskItem
+                key={index}
+                task={task}
+                color={CONFIG_TASK[task.prioridade].color}
+                className={CONFIG_TASK[task.prioridade].class}
+                name={CONFIG_TASK[task.prioridade].name}
+                handleChangeTask={handleChangeTask}
+                handleClickSaveAlter={handleClickSaveAlter}
+                isTask={true}
               />
-              <div>{task.titulo}</div>
-              <div>{task.descricao}</div>
-              <div>{task.prioridade}</div>
-
-              <IconButton onClick={() => handleChangeEditTask({ task })}>
-                <Edit />
-              </IconButton>
-
-              <IconButton onClick={() => handleChangeDeleteTask({ id: task.id })}>
-                <Delete />
-              </IconButton>
-            </li>
-          )
-        })
+            )
+          })
+        )
       )
     }
   }
@@ -114,10 +124,6 @@ const TaskScreen = () => {
   const handleChange = event => {
     const { name, value } = event.target
 
-    //TODO
-    //add validação
-    //CampoFormulario
-
     setFormData(formData => ({
       ...formData,
       [name]: {
@@ -128,16 +134,31 @@ const TaskScreen = () => {
     }))
   }
 
+  // SpeedDialIcon
+
   return (
-    <section>
-      <Form onSubmit={handleSubmit} formData={formData}>
+    <section className="task">
+      <TituloPagina titulo="Lista de Tarefas" />
+      <Form className="task__form" onSubmit={handleSubmit} formData={formData}>
         <Input formData={formData.title} handleChange={handleChange} />
         <Select formData={formData.priority} handleChange={handleChange} />
-        <Textarea formData={formData.description} handleChange={handleChange} />
-        <Button type="submit">Salvar</Button>
+        <Textarea
+          className="task__form__textarea"
+          formData={formData.description}
+          handleChange={handleChange}
+        />
+        <Button
+          sx={{
+            color: 'white',
+          }}
+          variant="contained"
+          type="submit"
+        >
+          Salvar
+        </Button>
       </Form>
 
-      <ul>{renderTasks()}</ul>
+      <ul className="task__lista">{renderTasks()}</ul>
     </section>
   )
 }

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Menu } from '@components'
+import { Menu, ModalColecao } from '@components'
 import { RoutesConfigGlobal } from '@contexts'
-import { UseAuthentication } from '@hooks'
-import { Dialog } from '@mui/material'
+import { UseAuthentication, UseCollection } from '@hooks'
 import { EisenhowerMatrixScreen } from '../eisenhower-matrix/eisenhower-matrix.screen'
 import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
 import { TaskScreen } from '../task/task.screen'
+import { RelatorioScreen } from '../relatorio/relatorio.screen'
 
 import './home.style.scss'
 
@@ -13,56 +13,29 @@ const ScreenComponents = {
   PomodoroScreen: <PomodoroScreen />,
   TaskScreen: <TaskScreen />,
   EisenhowerMatrixScreen: <EisenhowerMatrixScreen />,
+  RelatorioScreen: <RelatorioScreen />,
 }
-
-// const comoEsta = {
-//   mensagem: 'Autenticacao numero 2',
-//   colecao: [
-//     {
-//       id: 1,
-//       album: { id: 1, nome: 'ALBUM_1' },
-//       figura: { id: 1, nome: 'FRUTA_1', isPremium: false },
-//     },
-//     {
-//       id: 2,
-//       album: { id: 1, nome: 'ALBUM_1' },
-//       figura: { id: 2, nome: 'FRUTA_2', isPremium: false },
-//     },
-//     {
-//       id: 3,
-//       album: { id: 1, nome: 'ALBUM_1' },
-//       figura: { id: 3, nome: 'FRUTA_3', isPremium: false },
-//     },
-//   ],
-// }
-
-// const comoDeveria = {
-//   mensagem: 'Autenticacao numero 2',
-//   colecao: [
-//     {
-//       nome: 'ALBUM_1',
-//       figuras: [
-//         { id: 1, nome: 'FRUTA_1', isPremium: false },
-//         { id: 2, nome: 'FRUTA_2', isPremium: false },
-//         { id: 3, nome: 'FRUTA_3', isPremium: false },
-//       ],
-//     },
-//   ],
-// }
 
 const HomeScreen = () => {
   const [colecao, setColecao] = useState()
-  const [openModal, setOpenModal] = useState()
+  const [openModal, setOpenModal] = useState(false)
   const [routesConfig] = RoutesConfigGlobal()
 
   const { getControleAutenticacao } = UseAuthentication()
+  const { getColletion } = UseCollection()
 
   const getStickerAutenticacao = useCallback(async () => {
     const resultado = await getControleAutenticacao()
 
     if (resultado?.mensagem) {
-      setColecao({ mensagem: resultado.mensagem })
+      setColecao(resultado)
       setOpenModal(true)
+    } else {
+      if (colecao?.mensagem) {
+        const colecao = await getColletion()
+
+        setColecao(colecao)
+      }
     }
   }, [getControleAutenticacao])
 
@@ -74,16 +47,20 @@ const HomeScreen = () => {
     setOpenModal(false)
   }
 
+  const handleClickModal = async () => {
+    const resultado = await getColletion()
+
+    setColecao(resultado)
+    setOpenModal(true)
+  }
+
   return (
     <section className="home">
       <div className="home__container">
         <main className="home__main">{ScreenComponents[routesConfig]}</main>
-        <Menu className="home__menu" />
+        <Menu className="home__menu" handleClickModal={handleClickModal} />
       </div>
-
-      <Dialog open={openModal} onClose={handleClose}>
-        {colecao?.mensagem}
-      </Dialog>
+      <ModalColecao open={openModal} handleClose={handleClose} colecao={colecao} />
     </section>
   )
 }

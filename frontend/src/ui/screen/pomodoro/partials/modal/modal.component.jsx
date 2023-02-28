@@ -59,9 +59,21 @@ const ModalComponent = ({
           sx={{ mr: 1, ml: 1, display: 'flex', justifyContent: 'center' }}
         />
         <Box display="flex" justifyContent="space-between">
-          <Input {...formData.pomodoro} handleChange={handleChange} sx={{ width: '30%', mt:1, mr: 0, ml:1 }} />
-          <Input {...formData.shortBreak} handleChange={handleChange} sx={{ width: '30%', mt:1, mr: 0, ml:1 }} />
-          <Input {...formData.longBreak} handleChange={handleChange} sx={{ width: '30%', mt:1, mr: 1, ml:1 }} />
+          <Input
+            {...formData.pomodoro}
+            handleChange={handleChange}
+            sx={{ width: '30%', mt: 1, mr: 0, ml: 1 }}
+          />
+          <Input
+            {...formData.shortBreak}
+            handleChange={handleChange}
+            sx={{ width: '30%', mt: 1, mr: 0, ml: 1 }}
+          />
+          <Input
+            {...formData.longBreak}
+            handleChange={handleChange}
+            sx={{ width: '30%', mt: 1, mr: 1, ml: 1 }}
+          />
         </Box>
         <Box textAlign="center" sx={{ mt: 2 }}>
           <Button variant="contained" color="secondary" type="submit">
@@ -75,7 +87,7 @@ const ModalComponent = ({
           color="secondary"
           sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 2, fontSize: 16 }}
         >
-          Pomodoros Salvos 
+          Pomodoros Salvos
           <Icon
             size="small"
             sx={{
@@ -94,67 +106,72 @@ const ModalComponent = ({
 
       <Box>
         <Box>
-          <Box  width="100%" display="flex" justifyContent="space-between">
+          <Box width="100%" display="flex" justifyContent="space-between">
             <Typography
-              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb:2}}
+              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb: 2 }}
               color="gray"
             >
               Nome
             </Typography>
             <Typography
-              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb:2 }}
+              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb: 2 }}
               color="gray"
             >
               Tempo de Foco
             </Typography>
             <Typography
-              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb:2 }}
+              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mt: 1, mb: 2 }}
               color="gray"
             >
               Intervalo Curto
             </Typography>
             <Typography
-              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mr:7,  mt: 1, mb:2 }}
+              sx={{ display: 'flex', justifyContent: 'flex-start', ml: 1, mr: 7, mt: 1, mb: 2 }}
               color="gray"
             >
               Intervalo Longo
             </Typography>
           </Box>
-          {!!pomodoroSettingsList &&
-            pomodoroSettingsList?.map(
-              ({
-                id,
-                nomeCategoria,
-                tempoFoco,
-                tempoIntervaloCurto,
-                tempoIntervaloLongo,
-                isVisivel,
-              }) =>
-                !!isVisivel && (
-                  <Box key={id}>
-                    <button
-                      className="button__config__time__focus"
-                      onClick={() =>
-                        handleClick({
-                          id,
-                          nomeCategoria,
-                          tempoFoco,
-                          tempoIntervaloCurto,
-                          tempoIntervaloLongo,
-                        })
-                      }
+          {pomodoroSettingsList?.map(
+            ({
+              id,
+              nomeCategoria,
+              tempoFoco,
+              tempoIntervaloCurto,
+              tempoIntervaloLongo,
+              isVisivel,
+            }) =>
+              !!isVisivel && (
+                <Box key={id}>
+                  <button
+                    className="button__config__time__focus"
+                    onClick={() =>
+                      handleClick({
+                        id,
+                        nomeCategoria,
+                        tempoFoco,
+                        tempoIntervaloCurto,
+                        tempoIntervaloLongo,
+                      })
+                    }
+                  >
+                    <div>{nomeCategoria}</div>
+                    <div>{tempoFoco}</div>
+                    <div>{tempoIntervaloCurto}</div>
+                    <div>{tempoIntervaloLongo}</div>
+                  </button>
+
+                  {pomodoroSettingsList.length !== 1 && (
+                    <IconButton
+                      className="icon__delete__pomodoro"
+                      onClick={() => handleClickDelete(id)}
                     >
-                      <div>{nomeCategoria}</div>
-                      <div>{tempoFoco}</div>
-                      <div>{tempoIntervaloCurto}</div>
-                      <div>{tempoIntervaloLongo}</div>
-                    </button>
-                    <IconButton className="icon__delete__pomodoro"  onClick={() => handleClickDelete(id)}>
                       <Delete />
                     </IconButton>
-                  </Box>
-                )
-            )}
+                  )}
+                </Box>
+              )
+          )}
         </Box>
       </Box>
     </Dialog>

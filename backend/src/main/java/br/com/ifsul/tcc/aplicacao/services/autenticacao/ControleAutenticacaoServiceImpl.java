@@ -6,6 +6,7 @@ import br.com.ifsul.tcc.aplicacao.repository.AlbumRepository;
 import br.com.ifsul.tcc.aplicacao.repository.AutenticacaoRepository;
 import br.com.ifsul.tcc.aplicacao.repository.ColecaoUsuarioRepository;
 import br.com.ifsul.tcc.aplicacao.repository.FiguraRepository;
+import br.com.ifsul.tcc.aplicacao.represetation.response.Colecao;
 import br.com.ifsul.tcc.aplicacao.represetation.response.GamificacaoResponse;
 import br.com.ifsul.tcc.aplicacao.services.usuario.UsuarioAutenticadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoService {
@@ -39,12 +42,14 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
         Autenticacao autenticacao = autenticacaoRepository.findByUsuarioIdUltimoRegistro(usuario.getId());
 
+        Long qntsAutenticacoes = autenticacaoRepository.qtsAutenticacoes(usuario.getId());
+
         if (autenticacao == null || !autenticacao.getDataAutenticacao().isEqual(LocalDate.now())) {
             Autenticacao novaAutenticacao = new Autenticacao(LocalDate.now(), LocalTime.now(), usuario);
 
             autenticacaoRepository.save(novaAutenticacao);
 
-            return retornoPremio(usuario);
+            return retornoPremio(usuario, qntsAutenticacoes);
 
         } else {
             throw new RegistroNaoEncontradoException("Autenticação já realizada hoje");
@@ -53,9 +58,7 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
     //TODO
     //PASSAR PARA SERVICE DE GAMIFICACAO
-    private GamificacaoResponse retornoPremio(Usuario usuario) {
-        Long qntsAutenticacoes = autenticacaoRepository.qtsAutenticacoes(usuario.getId());
-
+    private GamificacaoResponse retornoPremio(Usuario usuario, Long qntsAutenticacoes) {
         List<Album> listaAlbuns = albumRepository.findAll();
 
         List<Figura> listaFigura = figuraRepository.findAll();
@@ -71,7 +74,13 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
             List<ColecaoUsuario> listaFiguras = colecaoUsuarioRepository.findAllByUsuarioId(usuario.getId());
 
-            return new GamificacaoResponse("Primeira autenticacao", listaFiguras);
+            Map<String, List<Figura>> figurasPorAlbum = listaFiguras.stream().collect(Collectors.groupingBy(c -> c.getAlbum().getNome(), Collectors.mapping(c -> c.getFigura(), Collectors.toList())));
+
+            List<Colecao> novosAlbuns = figurasPorAlbum.entrySet().stream()
+                    .map(e -> new Colecao(e.getKey(), e.getValue()))
+                    .collect(Collectors.toList());
+
+            return new GamificacaoResponse("Primeira autenticacao", novosAlbuns);
 
         }
 
@@ -99,7 +108,13 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
             List<ColecaoUsuario> listaFiguras = colecaoUsuarioRepository.findAllByUsuarioId(usuario.getId());
 
-            return new GamificacaoResponse("Autenticacao numero " + qntsAutenticacoes, listaFiguras);
+            Map<String, List<Figura>> figurasPorAlbum = listaFiguras.stream().collect(Collectors.groupingBy(c -> c.getAlbum().getNome(), Collectors.mapping(c -> c.getFigura(), Collectors.toList())));
+
+            List<Colecao> novosAlbuns = figurasPorAlbum.entrySet().stream()
+                    .map(e -> new Colecao(e.getKey(), e.getValue()))
+                    .collect(Collectors.toList());
+
+            return new GamificacaoResponse("Você recebeu uma nova figura por estar a " + qntsAutenticacoes + " dias consecutivos mantendo o foco conosco!", novosAlbuns);
         }
 
         return null;

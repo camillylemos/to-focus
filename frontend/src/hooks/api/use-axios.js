@@ -29,8 +29,8 @@ const useAxios = () => {
     } catch (requisicaoFalha) {
       const { response, status } = requisicaoFalha
       if (status === 401) {
-        setToken({})
-        localStorage.setItem('token', JSON.stringify({}))
+        setToken(null)
+        localStorage.setItem('token', JSON.stringify(null))
       }
       // return response?.data TODO ARRUMAR AQUI
       return null

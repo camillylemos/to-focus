@@ -1,24 +1,27 @@
-import { break_, focus } from '@assets'
+// import { break_, } from '@assets'
+import { ReactComponent as Focus } from '@assets/icons/focus.svg'
+import { ReactComponent as Break } from '@assets/icons/break.svg'
 
 const TYPES_CHIPS = {
-  LONG_BREAK: {
-    icon: { src: break_, alt: 'Ícone de um café.' },
-    text: 'Intervalo Longo',
-    class: 'long-break',
-  },
   FOCUS: {
-    icon: {
-      src: focus,
-      alt: 'Ícone de um cérebro.',
-    },
+    icon: <Focus />,
     text: 'Foco',
     class: 'focus',
+    key: 'FOCO',
   },
   SHORT_BREAK: {
-    icon: { src: break_, alt: 'Ícone de um café.' },
+    icon: <Break />,
     text: 'Intervalo Curto',
     class: 'short-break',
+    key: 'INTERVALO_CURTO',
   },
+  LONG_BREAK: {
+    icon: <Break />,
+    text: 'Intervalo Longo',
+    class: 'long-break',
+    key: 'INTERVALO_LONGO',
+  },
+  PADRAO: { icone: null, texto: '', class: 'padrao' },
 }
 
 export { TYPES_CHIPS }

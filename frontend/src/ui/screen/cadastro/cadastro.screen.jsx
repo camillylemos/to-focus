@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { Form, Input } from '@components'
 import { UseUser } from '@hooks'
 
-// import './login.style.scss'
+import './cadastro.style.scss'
 
 const FORM_DATA_INITIAL = {
   email: {
@@ -69,13 +69,35 @@ const CadastroScreen = () => {
   }
 
   return (
-    <Form formData={formData} onSubmit={handleSubmit}>
-      <Input formData={formData.name} handleChange={handleChange} />
-      <Input formData={formData.email} handleChange={handleChange} />
-      <Input formData={formData.bdayDate} handleChange={handleChange} />
-      <Input formData={formData.password} handleChange={handleChange} />
-      <Button type="submit">Cadastrar</Button>
-    </Form>
+    <section className="cadastro">
+      <h1 className="cadastro__texto">Cadastro</h1>
+      <Form className="cadastro__form" formData={formData} onSubmit={handleSubmit}>
+        <Input
+          style={{ paddingBottom: '20px' }}
+          formData={formData.name}
+          handleChange={handleChange}
+        />
+        <Input
+          style={{ paddingBottom: '20px' }}
+          formData={formData.email}
+          handleChange={handleChange}
+        />
+        <Input
+          style={{ paddingBottom: '20px' }}
+          formData={formData.bdayDate}
+          handleChange={handleChange}
+        />
+        <Input
+          style={{ paddingBottom: '20px' }}
+          formData={formData.password}
+          handleChange={handleChange}
+        />
+        <Button type="submit">Cadastrar</Button>
+        <Link to={'/login'} className="cadastro__link">
+          Já tem uma conta? Entre!
+        </Link>
+      </Form>
+    </section>
   )
 }
 

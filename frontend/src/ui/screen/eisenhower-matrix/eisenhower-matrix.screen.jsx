@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Delete } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
-import { Checkbox } from '@components'
+import { TaskItem, TituloPagina } from '@components'
 import { PRIORITY } from '@constants'
 import { useTask } from '@hooks'
 
@@ -10,15 +8,15 @@ import './eisenhower-matrix.style.scss'
 const EisenhowerMatrixScreen = () => {
   const [taskList, setTaskList] = useState()
 
-  const { getTasks, updateTask, deleteTask } = useTask()
+  const { getTasksMatrix, updateTask, deleteTask } = useTask()
 
   const getTaskList = useCallback(async () => {
-    const resultado = await getTasks()
+    const resultado = await getTasksMatrix()
 
     if (resultado) {
       setTaskList(resultado)
     }
-  }, [getTasks])
+  }, [getTasksMatrix])
 
   useEffect(() => {
     getTaskList()
@@ -27,57 +25,72 @@ const EisenhowerMatrixScreen = () => {
   const handleChangeTask = async ({ task, check }) => {
     const data = check ? { ...task, estaRealizado: !task.estaRealizado } : task
 
-    const resultado = await updateTask({ data, id: task.id })
+    await updateTask({ data, id: task.id })
 
-    if (resultado) {
-      getTaskList()
-    }
+    getTaskList()
   }
 
   const handleChangeDeleteTask = async ({ id }) => {
-    const resultado = await deleteTask(id)
+    await deleteTask(id)
 
-    if (resultado) {
-      getTaskList()
-    }
+    getTaskList()
   }
 
-  const renderTaskItem = key => {
-    return taskList[key].map(task => {
-      const value = task.estaRealizado ? { checked: true } : { checked: false }
+  const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
 
-      return (
-        <li className="eisenhower-matrix__item" key={task.id}>
-          <Checkbox value={value} handleChange={() => handleChangeTask({ task, check: true })} />
-          <div>{task.titulo}</div>
-          <div>{task.descricao}</div>
+  const renderTaskItem = ({ key, color, className }) => {
+    return taskList[key].map(task => (
+      <TaskItem
+        key={key}
+        task={task}
+        handleChangeTask={handleChangeTask}
+        color={color}
+        className={className}
+        handleClickSaveAlter={handleClickSaveAlter}
+      />
+    ))
+  }
 
-          {/* <IconButton onClick={() => handleChangeEditTask({ task })}>
-                        <Edit />
-                    </IconButton> */}
-
-          <IconButton onClick={() => handleChangeDeleteTask({ id: task.id })}>
-            <Delete />
-          </IconButton>
-        </li>
-      )
-    })
+  const CONFIG_MATRIX = {
+    URGENTE_IMPORTANTE: { class: 'urgente-importante', color: '#f29166' },
+    NAO_URGENTE_IMPORTANTE: { class: 'nao-urgente-importante', color: '#f3ca40' },
+    URGENTE_NAO_IMPORTANTE: { class: 'urgente-nao-importante', color: '#2e7f7b' },
+    NAO_URGENTE_NAO_IMPORTANTE: { class: 'nao-urgente-nao-importante', color: '#788bf5' },
   }
 
   const renderTaskList = () => {
     if (taskList) {
-      return PRIORITY.map(({ name, key }, index) => {
+      return PRIORITY.map(({ name, key, value }, index) => {
         return (
-          <ul className="eisenhower-matrix__list" key={index}>
-            <div>{name}</div>
-            {renderTaskItem(key)}
-          </ul>
+          <div
+            className={`eisenhower-matrix__container eisenhower-matrix__container__${CONFIG_MATRIX[value].class}`}
+            key={index}
+          >
+            <div
+              className={`eisenhower-matrix__titulo eisenhower-matrix__titulo__${CONFIG_MATRIX[value].class}`}
+            >
+              {name}
+            </div>
+
+            <ul className="eisenhower-matrix__list">
+              {renderTaskItem({
+                key,
+                color: CONFIG_MATRIX[value].color,
+                className: CONFIG_MATRIX[value].class,
+              })}
+            </ul>
+          </div>
         )
       })
     }
   }
 
-  return <section className="eisenhower-matrix">{renderTaskList()}</section>
+  return (
+    <section className="eisenhower-matrix">
+      <TituloPagina titulo="Matriz de Eisenhower" />
+      <div className="eisenhower-matrix__conteudo">{renderTaskList()}</div>
+    </section>
+  )
 }
 
 export { EisenhowerMatrixScreen }
