@@ -42,12 +42,14 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
         Autenticacao autenticacao = autenticacaoRepository.findByUsuarioIdUltimoRegistro(usuario.getId());
 
+        Long qntsAutenticacoes = autenticacaoRepository.qtsAutenticacoes(usuario.getId());
+
         if (autenticacao == null || !autenticacao.getDataAutenticacao().isEqual(LocalDate.now())) {
             Autenticacao novaAutenticacao = new Autenticacao(LocalDate.now(), LocalTime.now(), usuario);
 
             autenticacaoRepository.save(novaAutenticacao);
 
-            return retornoPremio(usuario);
+            return retornoPremio(usuario, qntsAutenticacoes);
 
         } else {
             throw new RegistroNaoEncontradoException("Autenticação já realizada hoje");
@@ -56,9 +58,7 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
 
     //TODO
     //PASSAR PARA SERVICE DE GAMIFICACAO
-    private GamificacaoResponse retornoPremio(Usuario usuario) {
-        Long qntsAutenticacoes = autenticacaoRepository.qtsAutenticacoes(usuario.getId());
-
+    private GamificacaoResponse retornoPremio(Usuario usuario, Long qntsAutenticacoes) {
         List<Album> listaAlbuns = albumRepository.findAll();
 
         List<Figura> listaFigura = figuraRepository.findAll();
@@ -114,7 +114,7 @@ public class ControleAutenticacaoServiceImpl implements ControleAutenticacaoServ
                     .map(e -> new Colecao(e.getKey(), e.getValue()))
                     .collect(Collectors.toList());
 
-            return new GamificacaoResponse("Autenticacao numero " + qntsAutenticacoes, novosAlbuns);
+            return new GamificacaoResponse("Você recebeu uma nova figura por estar a " + qntsAutenticacoes + " dias consecutivos mantendo o foco conosco!", novosAlbuns);
         }
 
         return null;

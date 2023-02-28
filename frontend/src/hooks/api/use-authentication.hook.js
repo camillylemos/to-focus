@@ -7,9 +7,12 @@ const UseAuthentication = () => {
 
   const getControleAutenticacao = async () => await get('/autenticacao/controle')
 
+  const getDiasAutenticacao = async () => await get('/autenticacao')
+
   return useMemo(
     () => ({
       getControleAutenticacao,
+      getDiasAutenticacao,
     }),
     []
   )

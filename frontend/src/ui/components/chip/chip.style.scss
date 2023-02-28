@@ -18,14 +18,71 @@
   }
 
   &__focus {
-    background: #788bf5cc;
+    border: 2px solid #788bf5cc;
+    color: #788bf5cc;
+
+    & > svg {
+      margin-right: 5px;
+      width: 21px;
+      fill: #788bf5cc;
+    }
+
+    &.ativo {
+      background: #788bf5cc;
+      color: white;
+      border: none;
+
+      & > svg {
+        margin-right: 5px;
+        width: 20px;
+        fill: white;
+      }
+    }
   }
 
   &__short-break {
-    background: #73a84acc;
+    border: 2px solid #73a84acc;
+    color: #73a84acc;
+
+    & > svg {
+      margin-right: 5px;
+      width: 20px;
+      fill: #73a84acc;
+    }
+
+    &.ativo {
+      background: #73a84acc;
+      color: white;
+      border: none;
+
+      & > svg {
+        margin-right: 5px;
+        width: 20px;
+        fill: white;
+      }
+    }
   }
 
   &__long-break {
-    background: #9196b4cc;
+    border: 2px solid #9196b4cc;
+    color: #9196b4cc;
+
+    & > svg {
+      margin-right: 5px;
+      width: 20px;
+      fill: #9196b4cc;
+    }
+
+    &.ativo {
+      background: #9196b4cc;
+      color: white;
+      border: none;
+
+      & > svg {
+        margin-right: 5px;
+        width: 20px;
+        fill: white;
+      }
+    }
   }
 }

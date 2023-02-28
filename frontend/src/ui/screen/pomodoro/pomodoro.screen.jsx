@@ -17,7 +17,7 @@ const PomodoroScreen = () => {
   const [pomodoroSettingsList, setPomodoroSettingsList] = useState()
   const [pomodoroId, setPomodoroId] = useState()
   const [pomodoroSelected, setPomodoroSelected] = useState()
-  const [pomodoroActive, setPomodoroActive] = useState()
+  const [pomodoroActive, setPomodoroActive] = useState({ titulo: '', tempo: null })
   const [pomodoroSettings, setPomodoroSettings] = useState({
     focus: 1,
     shortBreak: 0,
@@ -104,7 +104,7 @@ const PomodoroScreen = () => {
     if (!pomodoroSelected && pomodoroSettingsList) {
       setPomodoroSelected(pomodoroSettingsList[0])
       setPomodoroActive({
-        titulo: pomodoroSettingsList[0].nomeCategoria,
+        titulo: 'FOCO',
         tempo: pomodoroSettingsList[0].tempoFoco,
       })
     }
@@ -254,9 +254,9 @@ const PomodoroScreen = () => {
         {/* <div>{pomodoroActive?.titulo}</div> */}
 
         <div className="pomodoro__ciclo">
-          <Chip type={TYPES_CHIPS.FOCUS} />
-          <Chip type={TYPES_CHIPS.SHORT_BREAK} />
-          <Chip type={TYPES_CHIPS.LONG_BREAK} />
+          <Chip type={TYPES_CHIPS.FOCUS} className={pomodoroActive.titulo} />
+          <Chip type={TYPES_CHIPS.SHORT_BREAK} className={pomodoroActive.titulo} />
+          <Chip type={TYPES_CHIPS.LONG_BREAK} className={pomodoroActive.titulo} />
         </div>
 
         <div>

@@ -1,32 +1,109 @@
+import { arrow } from '@assets'
+import { COLECAO_FIGURAS } from '@constants'
 import { Dialog } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { TituloPagina } from '../titulo-pagina/titulo-pagina.componente'
+
 import './modal-colecao.style.scss'
 
-const ModalColecao = ({ open, handleClose, colecao }) => {
-  return (
-    <Dialog open={open} onClose={handleClose}>
-      {colecao?.mensagem}
+const dialogStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  '& .MuiPaper-root': {
+    backgroundColor: '#D9D9D9',
+    maxWidth: '800px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 0 30px',
+    borderRadius: '10px',
+  },
+}
 
-      <body>
-        <div id="wrapper">
-          <div id="container">
-            <section class="open-book">
-              <header>
-                <h1>CWI Software</h1>
-                <h6>Projeto Crescer</h6>
-              </header>
-              <article></article>
-              <footer>
-                <ol id="page-numbers">
-                  <li>1</li>
-                  <li>2</li>
-                </ol>
-              </footer>
-            </section>
+const ModalColecao = ({ open, handleClose, colecao }) => {
+  const [page, setPage] = useState(colecao?.colecao.length - 1 || 0)
+
+  useEffect(() => {
+    setPage(colecao?.colecao.length - 1 || 0)
+  }, [colecao])
+
+  const handleClickPaginaMuralVoltar = () => {
+    setPage(page - 1)
+  }
+
+  const handleClickPaginaMuralAvancar = () => {
+    setPage(page + 1)
+  }
+
+  const renderizarMensagem = ({ colecao }) => {
+    if (colecao?.mensagem) {
+      return (
+        <div className={`modal-colecao__mensagem`}>
+          {/* <img
+          src={iconeExclamacaoComentarioBranco}
+          alt="ícone de comentário com um ponto de exclamação dentro"
+        /> */}
+          <span>
+            {
+              'Você recebeu uma nova figura por estar a 10 dias consecutivos mantendo o foco conosco!'
+            }
+          </span>
+        </div>
+      )
+    }
+  }
+
+  return colecao ? (
+    <Dialog className="modal-colecao" open={open} onClose={handleClose} sx={dialogStyle}>
+      <TituloPagina titulo={'Coleção de Murais'} className="modal-colecao__titulo" />
+      <div className="modal-colecao__container">
+        {colecao?.colecao.length > 0 && page > 0 ? (
+          <button
+            onClick={handleClickPaginaMuralVoltar}
+            className="modal-colecao__flecha modal-colecao__flecha--esquerda"
+          >
+            <img src={arrow} alt="" />
+          </button>
+        ) : (
+          <button className="modal-colecao__flecha--invisivel"></button>
+        )}
+
+        <div className="modal-colecao__mural">
+          <div className="modal-colecao__mural__circulo"></div>
+
+          <div>
+            <span className="modal-colecao__mural__titulo">{colecao?.colecao[page].album}</span>
+
+            <div className="modal-colecao__figuras">
+              {colecao?.colecao[page].figuras.map(({ id, nome, isPremium }) => {
+                return (
+                  <img
+                    key={id}
+                    className="modal-colecao__figura"
+                    src={COLECAO_FIGURAS[colecao?.colecao[page].album][nome]}
+                    alt=""
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
-      </body>
+
+        {colecao?.colecao.length - 1 !== page ? (
+          <button
+            onClick={handleClickPaginaMuralAvancar}
+            className="modal-colecao__flecha modal-colecao__flecha--direita"
+          >
+            <img src={arrow} alt="" />
+          </button>
+        ) : (
+          <button className="modal-colecao__flecha--invisivel"></button>
+        )}
+      </div>
+
+      {renderizarMensagem({ colecao })}
     </Dialog>
-  )
+  ) : null
 }
 
 export { ModalColecao }

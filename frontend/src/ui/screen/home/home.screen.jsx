@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Menu } from '@components'
+import { Menu, ModalColecao } from '@components'
 import { RoutesConfigGlobal } from '@contexts'
-import { UseAuthentication } from '@hooks'
-import { Dialog } from '@mui/material'
+import { UseAuthentication, UseCollection } from '@hooks'
 import { EisenhowerMatrixScreen } from '../eisenhower-matrix/eisenhower-matrix.screen'
 import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
 import { TaskScreen } from '../task/task.screen'
@@ -23,13 +22,20 @@ const HomeScreen = () => {
   const [routesConfig] = RoutesConfigGlobal()
 
   const { getControleAutenticacao } = UseAuthentication()
+  const { getColletion } = UseCollection()
 
   const getStickerAutenticacao = useCallback(async () => {
     const resultado = await getControleAutenticacao()
 
     if (resultado?.mensagem) {
-      setColecao({ mensagem: resultado.mensagem })
+      setColecao(resultado)
       setOpenModal(true)
+    } else {
+      if (colecao?.mensagem) {
+        const colecao = await getColletion()
+
+        setColecao(colecao)
+      }
     }
   }, [getControleAutenticacao])
 
@@ -41,16 +47,20 @@ const HomeScreen = () => {
     setOpenModal(false)
   }
 
+  const handleClickModal = async () => {
+    const resultado = await getColletion()
+
+    setColecao(resultado)
+    setOpenModal(true)
+  }
+
   return (
     <section className="home">
       <div className="home__container">
         <main className="home__main">{ScreenComponents[routesConfig]}</main>
-        <Menu className="home__menu" />
+        <Menu className="home__menu" handleClickModal={handleClickModal} />
       </div>
-
-      <Dialog open={openModal} onClose={handleClose}>
-        {colecao?.mensagem}
-      </Dialog>
+      <ModalColecao open={openModal} handleClose={handleClose} colecao={colecao} />
     </section>
   )
 }

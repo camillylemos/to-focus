@@ -37,9 +37,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/pomodoro/**"),
             new AntPathRequestMatcher("/tarefa/**"),
             new AntPathRequestMatcher("/autenticacao/**"),
-            new AntPathRequestMatcher("/estatistica/**")
-
-
+            new AntPathRequestMatcher("/estatistica/**"),
+            new AntPathRequestMatcher("/colecao/**")
     );
 
     @Bean
