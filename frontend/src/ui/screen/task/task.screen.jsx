@@ -56,11 +56,9 @@ const TaskScreen = () => {
   }
 
   const handleChangeDeleteTask = async ({ id }) => {
-    const resultado = await deleteTask(id)
+    await deleteTask(id)
 
-    if (resultado) {
-      getTaskList()
-    }
+    getTaskList()
   }
 
   const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
@@ -84,6 +82,7 @@ const TaskScreen = () => {
                 handleChangeTask={handleChangeTask}
                 handleClickSaveAlter={handleClickSaveAlter}
                 isTask={true}
+                handleClickDelete={handleChangeDeleteTask}
               />
             )
           })

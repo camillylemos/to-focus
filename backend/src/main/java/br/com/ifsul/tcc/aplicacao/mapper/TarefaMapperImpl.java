@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class TarefaMapperImpl implements TarefaMapper {
     @Override
     public Tarefa toDomain(TarefaRequest request, Usuario usuario) {
-        Tarefa tarefa = new Tarefa(request.getTitulo(), request.getDescricao(), false, LocalDateTime.now(), null, request.getPrioridade(), usuario);
+        Tarefa tarefa = new Tarefa(request.getTitulo(), request.getDescricao(), false, LocalDateTime.now(), null, request.getPrioridade(), usuario, true);
 
         return tarefa;
     }

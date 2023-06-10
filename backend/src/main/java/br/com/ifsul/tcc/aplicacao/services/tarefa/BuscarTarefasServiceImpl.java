@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,9 @@ public class BuscarTarefasServiceImpl implements BuscarTarefasService {
     public List<TarefaResponse> buscarTarefas() {
         Usuario usuario = usuarioAutenticadoService.get();
 
-        List<Tarefa> tarefas = tarefaRepository.buscarTarefasOrdenadasPorPrioridade(usuario.getId());
+        List<Tarefa> tarefas = tarefaRepository.buscarTarefasOrdenadasPorPrioridade(usuario.getId()).stream()
+                .sorted(Comparator.comparing(Tarefa::getDataCriacao).reversed().thenComparing(Comparator.comparing(Tarefa::getPrioridade)))
+                .collect(Collectors.toList());
 
         TarefaResponse tarefaRealizada = new TarefaResponse();
 

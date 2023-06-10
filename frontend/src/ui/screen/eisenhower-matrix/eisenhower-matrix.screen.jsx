@@ -33,20 +33,23 @@ const EisenhowerMatrixScreen = () => {
   const handleChangeDeleteTask = async ({ id }) => {
     await deleteTask(id)
 
+    console.log(id)
+
     getTaskList()
   }
 
   const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
 
   const renderTaskItem = ({ key, color, className }) => {
-    return taskList[key].map(task => (
+    return taskList[key].map((task, index) => (
       <TaskItem
-        key={key}
+        key={index}
         task={task}
         handleChangeTask={handleChangeTask}
         color={color}
         className={className}
         handleClickSaveAlter={handleClickSaveAlter}
+        handleClickDelete={handleChangeDeleteTask}
       />
     ))
   }

@@ -1,4 +1,5 @@
-import { LocalOffer } from '@mui/icons-material'
+import { LocalOffer, Clear } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Checkbox } from '../checkbox/checkbox.component'
 
@@ -12,6 +13,7 @@ const TaskItem = ({
   className,
   handleClickSaveAlter,
   isTask,
+  handleClickDelete,
 }) => {
   const [valueTitle, setValueTitle] = useState(task?.titulo)
   const [valueDescription, setValueDescription] = useState(task.descricao)
@@ -38,59 +40,76 @@ const TaskItem = ({
   }
 
   return (
-    <li className={classeTipo} key={task.id}>
-      <div className="eisenhower-matrix__item__principal">
-        <div className={`${classeTipo}__principal__esquerda`}>
-          <Checkbox
-            value={value}
-            handleChange={() => handleChangeTask({ task, check: true })}
-            color={color}
-          />
+    !!task.visivel && (
+      <li className={classeTipo} key={task.id}>
+        <div className="eisenhower-matrix__item__principal">
+          <div className={`${classeTipo}__principal__esquerda`}>
+            <Checkbox
+              value={value}
+              handleChange={() => handleChangeTask({ task, check: true })}
+              color={color}
+            />
 
+            <textarea
+              disabled={task.estaRealizado}
+              autoComplete="off"
+              rows="1"
+              spellcheck="false"
+              className={`eisenhower-matrix__item__principal__esquerda__texto${classRealizado}`}
+              value={valueTitle}
+              onChange={handleChangeTitle}
+              onBlur={handleBlurSaveAlter}
+            />
+          </div>
+
+          {/* PRIORITY */}
+
+          {/* onClick={() => handleChangeDeleteTask({ id: task.id })} */}
+
+          {/* {adicionar X quando tiver hover TODO} */}
+
+          {isTask && (
+            <div
+              className={`task__item__principal__esquerda__${className} task__item__principal__esquerda${classRealizado}`}
+            >
+              <span>{name}</span>
+              <LocalOffer />
+            </div>
+          )}
+
+          {/* {console.log(task.id)} */}
+
+          {!task.estaRealizado && <IconButton
+            sx={{
+              color: '#f5f5f5',
+              '&:hover': {
+                color: 'rgba(0, 0, 0, 0.54)',
+                // outras propriedades que você quer mudar no hover
+              },
+            }}
+            className="botao"
+            onClick={() => {
+              handleClickDelete({ id: task.id })
+            }}
+          >
+            <Clear />
+          </IconButton>}
+        </div>
+
+        {task.descricao && (
           <textarea
             disabled={task.estaRealizado}
             autoComplete="off"
             rows="1"
             spellcheck="false"
-            className={`eisenhower-matrix__item__principal__esquerda__texto${classRealizado}`}
-            value={valueTitle}
-            onChange={handleChangeTitle}
+            className={`${classeTipo}__descricao${classRealizado} ${classeTipo}__descricao__${className}`}
+            value={valueDescription}
+            onChange={handleChangeDescription}
             onBlur={handleBlurSaveAlter}
           />
-        </div>
-
-        {/* PRIORITY */}
-
-        {/* onClick={() => handleChangeDeleteTask({ id: task.id })} */}
-        {/* <IconButton onClick={console.log('deletar editar sla faça algo')}>
-                <Edit />
-              </IconButton> */}
-
-        {/* {adicionar X quando tiver hover TODO} */}
-
-        {isTask && (
-          <div
-            className={`task__item__principal__esquerda__${className} task__item__principal__esquerda${classRealizado}`}
-          >
-            <span>{name}</span>
-            <LocalOffer />
-          </div>
         )}
-      </div>
-
-      {task.descricao && (
-        <textarea
-          disabled={task.estaRealizado}
-          autoComplete="off"
-          rows="1"
-          spellcheck="false"
-          className={`${classeTipo}__descricao${classRealizado} ${classeTipo}__descricao__${className}`}
-          value={valueDescription}
-          onChange={handleChangeDescription}
-          onBlur={handleBlurSaveAlter}
-        />
-      )}
-    </li>
+      </li>
+    )
   )
 }
 

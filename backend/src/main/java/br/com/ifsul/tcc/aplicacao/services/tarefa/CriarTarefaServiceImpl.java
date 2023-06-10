@@ -26,6 +26,7 @@ public class CriarTarefaServiceImpl implements CriarTarefaService {
         Usuario usuario = usuarioAutenticadoService.get();
 
         Tarefa tarefa = tarefaMapper.toDomain(request, usuario);
+     
 
         return tarefaRepository.save(tarefa);
     }

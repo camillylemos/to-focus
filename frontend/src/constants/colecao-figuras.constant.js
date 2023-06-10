@@ -1,4 +1,16 @@
-import { avocado, grapes, lemon, strawberry, tomato } from '@assets'
+import {
+  avocado,
+  chocolate,
+  egg,
+  fish,
+  fruitCake,
+  grapes,
+  lemon,
+  panetone,
+  salada,
+  strawberry,
+  tomato,
+} from '@assets'
 
 const COLECAO_FIGURAS = {
   FRUTAS: {
@@ -9,11 +21,12 @@ const COLECAO_FIGURAS = {
     FRUTA_5: lemon,
   },
   ALIMENTOS: {
-    ALIMENTO_1: grapes,
-    ALIMENTO_2: grapes,
-    ALIMENTO_3: grapes,
-    ALIMENTO_4: grapes,
-    ALIMENTO_5: grapes,
+    ALIMENTO_1: salada,
+    ALIMENTO_2: fish,
+    ALIMENTO_3: chocolate,
+    ALIMENTO_4: egg,
+    ALIMENTO_5: fruitCake,
+    ALIMENTO_6: panetone,
   },
 }
 

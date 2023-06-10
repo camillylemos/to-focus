@@ -150,7 +150,7 @@ const RelatorioScreen = () => {
             <p className="relatorio__texto">{`Total de tarefas realizadas: ${relatorio.tarefa.concluidas}`}</p>
           </div>
         </div>
-        <p className="relatorio__autenticacao">{`Você esteve conosco por ${relatorio.autenticacao.diasAutenticados} dias`}</p>
+        <p className="relatorio__autenticacao">{`Você esteve conosco por ${relatorio.autenticacao.diasAutenticados + 1} dias`}</p>
       </section>
     )
   )
