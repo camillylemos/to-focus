@@ -48,7 +48,12 @@ const Menu = ({ handleClickModal }) => {
         {<GridViewRounded className="matrix__icon" />}
       </Button>
 
-      <Button variant="contained" onClick={() => handleClickModal()} sx={style} color="primary">
+      <Button
+        variant="contained"
+        onClick={() => handleClickModal()}
+        sx={style}
+        color="primary"
+      >
         {<CollectionsBookmarkRounded className="albun__icon" />}
       </Button>
 
@@ -113,7 +118,11 @@ const Menu = ({ handleClickModal }) => {
         </Button>
       </Tooltip>
 
-      <Tooltip title="Crie uma conta para acessar a Lista de Tarefas" placement="left" arrow="true">
+      <Tooltip
+        title="Crie uma conta para acessar a Lista de Tarefas"
+        placement="left"
+        arrow="true"
+      >
         <Button
           variant="contained"
           onClick={() => navigate('/cadastro')}
@@ -142,7 +151,9 @@ const Menu = ({ handleClickModal }) => {
   )
 
   return (
-    <aside className="menu">{token ? renderButtons() : renderButtonsWithoutAuthentication()}</aside>
+    <aside className="menu">
+      {token ? renderButtons() : renderButtonsWithoutAuthentication()}
+    </aside>
   )
 }
 

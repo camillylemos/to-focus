@@ -15,7 +15,6 @@ const FORM_DATA_INITIAL = {
     name: 'priority',
     label: 'Prioridade',
     options: PRIORITY,
-    // value: 'NAO_URGENTE_NAO_IMPORTANTE',
   },
 }
 

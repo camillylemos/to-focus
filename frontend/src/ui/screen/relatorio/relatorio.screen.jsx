@@ -19,7 +19,15 @@ import {
   adicionarFormatacaoPortuguesParaIngles,
 } from 'formatadores/data.formatador'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 const options = {
   responsive: true,
@@ -78,7 +86,10 @@ const renderizarRelatorioTarefa = tarefa => {
   )
 
   const datasets = labels.map(label => {
-    return { label: label, data: tarefa.porData[adicionarFormatacaoPortuguesParaIngles(label)] }
+    return {
+      label: label,
+      data: tarefa.porData[adicionarFormatacaoPortuguesParaIngles(label)],
+    }
   })
 
   const data = {
@@ -126,12 +137,16 @@ const RelatorioScreen = () => {
           <div className="relatorio__legenda">
             <div className="relatorio__grafico__legenda">
               <div className="relatorio__grafico__legenda__cor--verde"></div>
-              <p className="relatorio__grafico__legenda__texto">Pomodoros concluídos</p>
+              <p className="relatorio__grafico__legenda__texto">
+                Pomodoros concluídos
+              </p>
             </div>
 
             <div className="relatorio__grafico__legenda">
               <div className="relatorio__grafico__legenda__cor--laranja"></div>
-              <p className="relatorio__grafico__legenda__texto">Pomodoros não concluídos</p>
+              <p className="relatorio__grafico__legenda__texto">
+                Pomodoros não concluídos
+              </p>
             </div>
 
             <p className="relatorio__texto">{`Tempo total de foco: ${relatorio.pomodoro.tempoTotalFoco} minutos`}</p>
@@ -139,18 +154,24 @@ const RelatorioScreen = () => {
         </div>
 
         <div className="relatorio__tarefa">
-          <div className="relatorio__grafico">{renderizarRelatorioTarefa(relatorio.tarefa)}</div>
+          <div className="relatorio__grafico">
+            {renderizarRelatorioTarefa(relatorio.tarefa)}
+          </div>
 
           <div className="relatorio__legenda">
             <div className="relatorio__grafico__legenda">
               <div className="relatorio__grafico__legenda__cor--verde"></div>
-              <p className="relatorio__grafico__legenda__texto">Tarefas realizadas</p>
+              <p className="relatorio__grafico__legenda__texto">
+                Tarefas realizadas
+              </p>
             </div>
 
             <p className="relatorio__texto">{`Total de tarefas realizadas: ${relatorio.tarefa.concluidas}`}</p>
           </div>
         </div>
-        <p className="relatorio__autenticacao">{`Você esteve conosco por ${relatorio.autenticacao.diasAutenticados + 1} dias`}</p>
+        <p className="relatorio__autenticacao">{`Você esteve conosco por ${
+          relatorio.autenticacao.diasAutenticados + 1
+        } dias`}</p>
       </section>
     )
   )

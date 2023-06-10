@@ -51,7 +51,6 @@ const CadastroScreen = () => {
       await register(data)
 
       navigate('/login')
-      //todo verificar aqui
     }
   }
 
@@ -71,7 +70,11 @@ const CadastroScreen = () => {
   return (
     <section className="cadastro">
       <h1 className="cadastro__texto">Cadastro</h1>
-      <Form className="cadastro__form" formData={formData} onSubmit={handleSubmit}>
+      <Form
+        className="cadastro__form"
+        formData={formData}
+        onSubmit={handleSubmit}
+      >
         <Input
           style={{ paddingBottom: '20px' }}
           formData={formData.name}

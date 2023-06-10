@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useState } from 'react'
+import { LocalFireDepartment } from '@mui/icons-material'
 import { useGlobalToken } from '@contexts'
 import { UseAuthentication } from '@hooks'
-import { LocalFireDepartment } from '@mui/icons-material'
-import { useCallback, useEffect, useState } from 'react'
 
 import './footer.style.scss'
 

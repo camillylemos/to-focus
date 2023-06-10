@@ -60,7 +60,11 @@ const HomeScreen = () => {
         <main className="home__main">{ScreenComponents[routesConfig]}</main>
         <Menu className="home__menu" handleClickModal={handleClickModal} />
       </div>
-      <ModalColecao open={openModal} handleClose={handleClose} colecao={colecao} />
+      <ModalColecao
+        open={openModal}
+        handleClose={handleClose}
+        colecao={colecao}
+      />
     </section>
   )
 }

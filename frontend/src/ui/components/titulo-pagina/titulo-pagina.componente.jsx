@@ -9,7 +9,11 @@ const TituloPagina = ({ titulo, className = '', tituloVisivel, ...props }) => {
       <Helmet>
         <title>{`${titulo} | To Focus`}</title>
       </Helmet>
-      <h1 data-cy="titulo-principal" className={`c-titulo ${className}`} {...props}>
+      <h1
+        data-cy="titulo-principal"
+        className={`c-titulo ${className}`}
+        {...props}
+      >
         {tituloVisivel || titulo}
       </h1>
     </>

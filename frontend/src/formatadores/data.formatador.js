@@ -10,4 +10,7 @@ const adicionarFormatacaoPortuguesParaIngles = data => {
   return `${ano}-${mes}-${dia}`
 }
 
-export { adicionarFormatacaoInglesParaPortugues, adicionarFormatacaoPortuguesParaIngles }
+export {
+  adicionarFormatacaoInglesParaPortugues,
+  adicionarFormatacaoPortuguesParaIngles,
+}

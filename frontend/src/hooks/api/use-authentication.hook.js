@@ -5,7 +5,8 @@ import { useAxios } from './use-axios'
 const UseAuthentication = () => {
   const { get } = useAxios()
 
-  const getControleAutenticacao = async () => await get('/autenticacao/controle')
+  const getControleAutenticacao = async () =>
+    await get('/autenticacao/controle')
 
   const getDiasAutenticacao = async () => await get('/autenticacao')
 

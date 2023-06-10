@@ -1,6 +1,13 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Button } from '@mui/material'
-import { Form, Input, Select, TaskItem, Textarea, TituloPagina } from '@components'
+import {
+  Form,
+  Input,
+  Select,
+  TaskItem,
+  Textarea,
+  TituloPagina,
+} from '@components'
 import { useTask } from '@hooks'
 import { FORM_DATA_INITIAL } from './form-data.constant'
 
@@ -61,7 +68,8 @@ const TaskScreen = () => {
     getTaskList()
   }
 
-  const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
+  const handleClickSaveAlter = async task =>
+    await updateTask({ data: task, id: task.id })
 
   const renderTasks = () => {
     if (taskList) {
