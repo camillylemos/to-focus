@@ -4,7 +4,7 @@ import { RoutesConfigGlobal } from '@contexts'
 import { UseAuthentication, UseCollection } from '@hooks'
 import { EisenhowerMatrixScreen } from '../eisenhower-matrix/eisenhower-matrix.screen'
 import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
-import { RelatorioScreen } from '../relatorio/relatorio.screen'
+import { RelatorioScreen } from '../data/data.screen'
 import { TaskScreen } from '../task/task.screen'
 import './home.style.scss'
 

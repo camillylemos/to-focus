@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { Form, Input } from '@components'
 import { UseUser } from '@hooks'
-import './cadastro.style.scss'
+import './register.style.scss'
 
 const FORM_DATA_INITIAL = {
   email: {

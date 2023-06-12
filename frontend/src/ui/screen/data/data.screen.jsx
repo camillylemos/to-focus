@@ -16,7 +16,7 @@ import {
   addFormatationPortugueseToEnglish,
 } from '@formatters'
 import { UseData } from '@hooks'
-import './relatorio.style.scss'
+import './data.style.scss'
 
 ChartJS.register(
   CategoryScale,
