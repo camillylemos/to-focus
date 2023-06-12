@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { RoutesConfigGlobal, useGlobalToken } from '@contexts'
-import { Button, Tooltip } from '@mui/material'
 import {
   CollectionsBookmarkRounded,
   FormatListBulletedRounded,
@@ -8,7 +6,8 @@ import {
   Insights,
   TimerOutlined,
 } from '@mui/icons-material'
-
+import { Button, Tooltip } from '@mui/material'
+import { RoutesConfigGlobal, useGlobalToken } from '@contexts'
 import './menu.style.scss'
 
 const style = {

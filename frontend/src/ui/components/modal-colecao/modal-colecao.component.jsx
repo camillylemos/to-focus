@@ -1,9 +1,8 @@
+import { useEffect, useState } from 'react'
+import { Dialog } from '@mui/material'
 import { arrow } from '@assets'
 import { COLECAO_FIGURAS } from '@constants'
-import { Dialog } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { TituloPagina } from '../titulo-pagina/titulo-pagina.componente'
-
+import { PageTitle } from '../page-title/page-title.component'
 import './modal-colecao.style.scss'
 
 const dialogStyle = {
@@ -52,7 +51,7 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
       onClose={handleClose}
       sx={dialogStyle}
     >
-      <TituloPagina
+      <PageTitle
         titulo={'Coleção de Murais'}
         className="modal-colecao__titulo"
       />

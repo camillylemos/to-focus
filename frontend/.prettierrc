@@ -15,5 +15,7 @@
   "singleQuote": true,
   "tabWidth": 2,
   "useTabs": false,
-  "htmlWhitespaceSensitivity": "css"
+  "htmlWhitespaceSensitivity": "css",
+  "importOrder": ["^react", "<THIRD_PARTY_MODULES>", "^@.*s$", "^[./]","\\s", "/\\.scss/"],
+  "importOrderSortSpecifiers": true
 }

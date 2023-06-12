@@ -1,16 +1,15 @@
+import { HelmetProvider } from 'react-helmet-async'
 import { Route, Routes } from 'react-router-dom'
-import { Alert, createTheme, ThemeProvider } from '@mui/material'
+import { ThemeProvider, createTheme } from '@mui/material'
+import { CadastroScreen, HomeScreen, LoginScreen } from '@screen'
+import { Footer, Header } from '@components'
 import {
   AlertGlobalProvider,
   RoutesConfigGlobalProvider,
   TokenGlobalProvider,
+  UserGlobalProvider,
 } from '@contexts'
-import { HelmetProvider } from 'react-helmet-async'
-import { Footer, Header } from '@components'
-import { LoginScreen, CadastroScreen, HomeScreen } from '@screen'
-
 import './App.scss'
-import { UserGlobalProvider } from 'contexts/user.context'
 
 const defaultTheme = createTheme({
   palette: {

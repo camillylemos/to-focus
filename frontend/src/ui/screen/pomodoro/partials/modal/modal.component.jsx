@@ -1,9 +1,9 @@
-import { Button, Dialog, IconButton, Typography } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { Form, Input } from '@components'
-import Box from '@mui/material/Box'
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import { Button, Dialog, IconButton, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import { Form, Input } from '@components'
 import './modal.style.scss'
 
 const dialogStyle = {

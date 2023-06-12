@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { useGlobalToken } from '@contexts'
 import { Form, Input } from '@components'
+import { useGlobalToken } from '@contexts'
 import { UseUser } from '@hooks'
-
 import './login.style.scss'
 
 const FORM_DATA_INITIAL = {

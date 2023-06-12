@@ -1,10 +1,9 @@
-import { logo } from '@assets'
-import { useGlobalAlert, useGlobalToken } from '@contexts'
-import { AccountCircle } from '@mui/icons-material'
-import { Alert, Typography } from '@mui/material'
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { AccountCircle } from '@mui/icons-material'
+import { Alert, Typography } from '@mui/material'
+import { logo } from '@assets'
+import { useGlobalAlert, useGlobalToken } from '@contexts'
 import './header.style.scss'
 
 let timeoutID

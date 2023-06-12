@@ -1,5 +1,5 @@
-import { ReactComponent as Focus } from '@assets/icons/focus.svg'
 import { ReactComponent as Break } from '@assets/icons/break.svg'
+import { ReactComponent as Focus } from '@assets/icons/focus.svg'
 
 const TYPES_CHIPS = {
   FOCUS: {

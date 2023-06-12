@@ -1,23 +1,22 @@
-import { UseEstatistica } from '@hooks'
 import { useEffect, useState } from 'react'
 import { Bar, Doughnut } from 'react-chartjs-2'
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
+  ArcElement,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
-  ArcElement,
 } from 'chart.js'
-
-import './relatorio.style.scss'
-import { TituloPagina } from 'ui/components/titulo-pagina/titulo-pagina.componente'
+import { PageTitle } from '@components'
 import {
-  adicionarFormatacaoInglesParaPortugues,
-  adicionarFormatacaoPortuguesParaIngles,
-} from 'formatadores/data.formatador'
+  addFormatationEnglishToPortuguese,
+  addFormatationPortugueseToEnglish,
+} from '@formatters'
+import { UseData } from '@hooks'
+import './relatorio.style.scss'
 
 ChartJS.register(
   CategoryScale,
@@ -82,15 +81,13 @@ const renderizarRelatorioPomodoro = pomodoro => {
 
 const renderizarRelatorioTarefa = tarefa => {
   const labels = Object.keys(tarefa.porData).map(label =>
-    adicionarFormatacaoInglesParaPortugues(label)
+    addFormatationEnglishToPortuguese(label)
   )
 
-  const datasets = labels.map(label => {
-    return {
-      label: label,
-      data: tarefa.porData[adicionarFormatacaoPortuguesParaIngles(label)],
-    }
-  })
+  const datasets = labels.map(label => ({
+    label,
+    data: tarefa.porData[addFormatationPortugueseToEnglish(label)],
+  }))
 
   const data = {
     labels,
@@ -107,14 +104,14 @@ const renderizarRelatorioTarefa = tarefa => {
   return <Bar options={optionsBar} data={data} />
 }
 
-const RelatorioScreen = () => {
+function RelatorioScreen() {
   const [relatorio, setRelatorio] = useState()
 
-  const { getEstatistica } = UseEstatistica()
+  const { getData } = UseData()
 
   useEffect(() => {
     const getRelatorio = async () => {
-      const resultado = await getEstatistica()
+      const resultado = await getData()
 
       if (resultado) {
         setRelatorio(resultado)
@@ -122,12 +119,12 @@ const RelatorioScreen = () => {
     }
 
     getRelatorio()
-  }, [getEstatistica])
+  }, [getData])
 
   return (
     relatorio && (
       <section className="relatorio">
-        <TituloPagina titulo="Relatório de Produtividade" />
+        <PageTitle titulo="Relatório de Produtividade" />
 
         <div className="relatorio__pomodoro">
           <div className="relatorio__grafico">
@@ -136,14 +133,14 @@ const RelatorioScreen = () => {
 
           <div className="relatorio__legenda">
             <div className="relatorio__grafico__legenda">
-              <div className="relatorio__grafico__legenda__cor--verde"></div>
+              <div className="relatorio__grafico__legenda__cor--verde" />
               <p className="relatorio__grafico__legenda__texto">
                 Pomodoros concluídos
               </p>
             </div>
 
             <div className="relatorio__grafico__legenda">
-              <div className="relatorio__grafico__legenda__cor--laranja"></div>
+              <div className="relatorio__grafico__legenda__cor--laranja" />
               <p className="relatorio__grafico__legenda__texto">
                 Pomodoros não concluídos
               </p>
@@ -160,7 +157,7 @@ const RelatorioScreen = () => {
 
           <div className="relatorio__legenda">
             <div className="relatorio__grafico__legenda">
-              <div className="relatorio__grafico__legenda__cor--verde"></div>
+              <div className="relatorio__grafico__legenda__cor--verde" />
               <p className="relatorio__grafico__legenda__texto">
                 Tarefas realizadas
               </p>
@@ -169,9 +166,11 @@ const RelatorioScreen = () => {
             <p className="relatorio__texto">{`Total de tarefas realizadas: ${relatorio.tarefa.concluidas}`}</p>
           </div>
         </div>
-        <p className="relatorio__autenticacao">{`Você esteve conosco por ${
-          relatorio.autenticacao.diasAutenticados + 1
-        } dias`}</p>
+        <p className="relatorio__autenticacao">
+          {`Você esteve conosco por ${
+            relatorio.autenticacao.diasAutenticados + 1
+          } dias`}
+        </p>
       </section>
     )
   )

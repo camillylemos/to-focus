@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { TaskItem, TituloPagina } from '@components'
+import { PageTitle, TaskItem } from '@components'
 import { PRIORITY } from '@constants'
 import { useTask } from '@hooks'
-
 import './eisenhower-matrix.style.scss'
 
 const EisenhowerMatrixScreen = () => {
@@ -98,7 +97,7 @@ const EisenhowerMatrixScreen = () => {
 
   return (
     <section className="eisenhower-matrix">
-      <TituloPagina titulo="Matriz de Eisenhower" />
+      <PageTitle titulo="Matriz de Eisenhower" />
       <div className="eisenhower-matrix__conteudo">{renderTaskList()}</div>
     </section>
   )

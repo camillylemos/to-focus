@@ -1,16 +1,8 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@mui/material'
-import {
-  Form,
-  Input,
-  Select,
-  TaskItem,
-  Textarea,
-  TituloPagina,
-} from '@components'
+import { Form, Input, PageTitle, Select, TaskItem, Textarea } from '@components'
 import { useTask } from '@hooks'
 import { FORM_DATA_INITIAL } from './form-data.constant'
-
 import './task.style.scss'
 
 const CONFIG_TASK = {
@@ -77,10 +69,6 @@ const TaskScreen = () => {
         Object.values(task)?.map(tasks =>
           tasks?.map((task, index) => {
             return (
-              //   <IconButton onClick={() => handleChangeDeleteTask({ id: task.id })}>
-              //     <Delete />
-              //   </IconButton>
-
               <TaskItem
                 key={index}
                 task={task}
@@ -145,7 +133,7 @@ const TaskScreen = () => {
 
   return (
     <section className="task">
-      <TituloPagina titulo="Lista de Tarefas" />
+      <PageTitle titulo="Lista de Tarefas" />
       <Form className="task__form" onSubmit={handleSubmit} formData={formData}>
         <Input formData={formData.title} handleChange={handleChange} />
         <Select formData={formData.priority} handleChange={handleChange} />

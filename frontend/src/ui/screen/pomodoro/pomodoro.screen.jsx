@@ -1,20 +1,19 @@
+import { useCallback, useEffect, useState } from 'react'
 import {
-  buildStyles,
   CircularProgressbarWithChildren,
+  buildStyles,
 } from 'react-circular-progressbar'
-import { PlayArrow, Refresh, MoreHoriz, Pause } from '@mui/icons-material'
-import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
-import { useEffect, useState, useCallback } from 'react'
-import { Chip, ModalColecao } from '@components'
+import { Helmet } from 'react-helmet-async'
 import { useTimer } from 'react-timer-hook'
+import { MoreHoriz, Pause, PlayArrow, Refresh } from '@mui/icons-material'
 import { Button } from '@mui/material'
+import { Chip, ModalColecao } from '@components'
+import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
+import { useGlobalAlert } from '@contexts'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
-
 import './pomodoro.style.scss'
-import { Helmet } from 'react-helmet-async'
-import { useGlobalAlert } from '@contexts'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)

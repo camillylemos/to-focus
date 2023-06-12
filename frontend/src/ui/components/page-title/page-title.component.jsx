@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import PropTypes from 'prop-types'
+import './page-title.style.scss'
 
-import './titulo-pagina.estilo.scss'
-
-const TituloPagina = ({ titulo, className = '', tituloVisivel, ...props }) => {
+const PageTitle = ({ titulo, className = '', tituloVisivel, ...props }) => {
   return (
     <>
       <Helmet>
@@ -20,14 +19,14 @@ const TituloPagina = ({ titulo, className = '', tituloVisivel, ...props }) => {
   )
 }
 
-TituloPagina.propTypes = {
+PageTitle.propTypes = {
   titulo: PropTypes.string.isRequired,
   tituloVisivel: PropTypes.string,
   className: PropTypes.string,
 }
 
-TituloPagina.defaultProps = {
+PageTitle.defaultProps = {
   tituloVisivel: '',
 }
 
-export { TituloPagina }
+export { PageTitle }

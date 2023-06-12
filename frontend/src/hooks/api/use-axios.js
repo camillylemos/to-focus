@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { RequestParams } from '@utils'
 import { METODOS_API } from '@constants'
 import { useGlobalToken } from '@contexts'
+import { RequestParams } from '@utils'
 
 const requisicaoAxios = axios.create({
   baseURL: 'http://localhost:8080/',

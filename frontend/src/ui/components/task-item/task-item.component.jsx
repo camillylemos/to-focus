@@ -1,8 +1,7 @@
-import { LocalOffer, Clear } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Checkbox } from '../checkbox/checkbox.component'
-
+import { Clear, LocalOffer } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
+import { Checkbox } from '@components'
 import './task-item.style.scss'
 
 const TaskItem = ({
