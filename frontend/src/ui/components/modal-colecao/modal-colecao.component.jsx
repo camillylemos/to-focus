@@ -43,11 +43,7 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
           src={iconeExclamacaoComentarioBranco}
           alt="ícone de comentário com um ponto de exclamação dentro"
         /> */}
-          <span>
-            {
-              'Você recebeu uma nova figura por estar a 10 dias consecutivos mantendo o foco conosco!'
-            }
-          </span>
+          <span>{colecao.mensagem}</span>
         </div>
       )
     }
@@ -76,10 +72,11 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
 
             <div className="modal-colecao__figuras">
               {colecao?.colecao[page].figuras.map(({ id, nome, isPremium }) => {
+                const premiumClass = isPremium ? '--premium' : ''
                 return (
                   <img
                     key={id}
-                    className="modal-colecao__figura"
+                    className={`modal-colecao__figura${premiumClass}`}
                     src={COLECAO_FIGURAS[colecao?.colecao[page].album][nome]}
                     alt=""
                   />

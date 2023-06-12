@@ -7,9 +7,14 @@ import './footer.style.scss'
 
 const Footer = () => {
   const [dias, setDias] = useState()
+  const [mostrar, setMostrar] = useState()
   const [token] = useGlobalToken()
 
   const { getDiasAutenticacao } = UseAuthentication()
+
+  useEffect(() => {
+    setMostrar(!!token)
+  }, [token])
 
   const getDiasAutenticacaoApi = useCallback(async () => {
     const qntDias = await getDiasAutenticacao()
@@ -22,10 +27,10 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {token ? (
+      {mostrar ? (
         <div className="footer__config">
           <LocalFireDepartment sx={{ fontSize: 29 }} color="primary" />
-          <div className="footer__dias">{dias} dias</div>
+          <div className="footer__dias">12 dias</div>
         </div>
       ) : null}
     </footer>

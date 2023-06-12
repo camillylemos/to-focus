@@ -4,12 +4,14 @@ import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
 import { useEffect, useState, useCallback } from 'react'
 import { Chip, ModalColecao } from '@components'
 import { useTimer } from 'react-timer-hook'
-import { Button } from '@mui/material'
+import { Alert, Button } from '@mui/material'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
 
 import './pomodoro.style.scss'
+import { Helmet } from 'react-helmet-async'
+import { useGlobalAlert } from '@contexts'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -28,6 +30,8 @@ const PomodoroScreen = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openModalSettings, setOpenModalSettings] = useState(false)
   const [value, setValue] = useState(0)
+
+  const [, setAlert] = useGlobalAlert()
 
   const {
     getPomodoroConfig,
@@ -49,6 +53,8 @@ const PomodoroScreen = () => {
 
   const endPomodoro = async () => {
     const resultado = await finishPomodoro(pomodoroId)
+
+    setAlert(true)
 
     if (resultado?.mensagem) {
       setColecao({ mensagem: resultado.mensagem })
@@ -102,10 +108,10 @@ const PomodoroScreen = () => {
 
   useEffect(() => {
     if (!pomodoroSelected && pomodoroSettingsList) {
-      setPomodoroSelected(pomodoroSettingsList[0])
+      setPomodoroSelected(pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true))
       setPomodoroActive({
         titulo: 'FOCO',
-        tempo: pomodoroSettingsList[0].tempoFoco,
+        tempo: pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true).tempoFoco,
       })
     }
   }, [pomodoroSelected, pomodoroSettingsList])
@@ -187,7 +193,9 @@ const PomodoroScreen = () => {
     }
   }
 
-  const handleClickDelete = async id => {
+  const handleClickDelete = async ({ id, evento }) => {
+    evento.stopPropagation()
+
     await deletePomodoroConfig(id)
     getPomodoroConfigList()
   }
@@ -233,6 +241,9 @@ const PomodoroScreen = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`Pomodoro | To Focus`}</title>
+      </Helmet>
       <section className="pomodoro">
         <main className="pomodoro__progress-bar">
           <CircularProgressbarWithChildren

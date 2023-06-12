@@ -122,9 +122,21 @@
 
   &:hover {
     background-color: #e1dfdf85;
+
+    & > button {
+      color: 'rgba(0, 0, 0, 0.54)';
+    }
   }
 
   &__principal {
+    &:hover {
+      background-color: #e1dfdf85;
+
+      &.botao {
+        color: 'rgba(0, 0, 0, 0.54)';
+      }
+    }
+
     &__esquerda {
       display: flex;
       align-items: center;
@@ -182,6 +194,7 @@
         text-decoration: line-through rgba(55, 53, 47, 0.25);
         color: rgba(55, 53, 47, 0.65);
         font-weight: 400;
+        margin-right: 40px;
 
         & > svg {
           color: rgba(55, 53, 47, 0.65);
@@ -191,7 +204,7 @@
   }
 
   &__descricao {
-    width: 80%;
+    width: 89%;
     border-radius: 5px;
     height: 25px;
     display: flex;
@@ -225,7 +238,7 @@
     }
 
     &--realizado {
-      width: 80%;
+      width: 89%;
       border-radius: 5px;
       height: 25px;
       display: flex;

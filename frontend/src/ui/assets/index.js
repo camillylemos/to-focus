@@ -12,6 +12,12 @@ import strawberry from './icons/strawberry.png'
 import lemon from './icons/lemon.png'
 import grapes from './icons/grapes.png'
 import arrow from './icons/arrow.svg'
+import salada from './icons/oat.png'
+import chocolate from './icons/chocolate (1).png'
+import fish from './icons/fish-and-chips.png'
+import egg from './icons/fried-eggs.png'
+import fruitCake from './icons/fruit-cake.png'
+import panetone from './icons/fruit-cake (1).png'
 
 export {
   listCheck,
@@ -28,4 +34,10 @@ export {
   lemon,
   grapes,
   arrow,
+  salada,
+  chocolate,
+  fish,
+  egg,
+  fruitCake,
+  panetone,
 }

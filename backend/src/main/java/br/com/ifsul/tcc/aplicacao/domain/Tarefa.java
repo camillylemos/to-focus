@@ -33,13 +33,15 @@ public class Tarefa {
 
     private CATEGORIA prioridade;
 
+    private boolean isVisivel;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
 
-    public Tarefa(String titulo, String descricao, boolean estaRealizado, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, CATEGORIA prioridade, Usuario usuario) {
+    public Tarefa(String titulo, String descricao, boolean estaRealizado, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, CATEGORIA prioridade, Usuario usuario, boolean isVisivel) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.estaRealizado = estaRealizado;
@@ -47,5 +49,6 @@ public class Tarefa {
         this.dataFinalizacao = dataFinalizacao;
         this.prioridade = prioridade;
         this.usuario = usuario;
+        this.isVisivel = isVisivel;
     }
 }

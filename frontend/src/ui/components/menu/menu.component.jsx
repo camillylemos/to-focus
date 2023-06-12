@@ -88,7 +88,12 @@ const Menu = ({ handleClickModal }) => {
         placement="left"
         arrow="true"
       >
-        <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
+        <Button
+          variant="contained"
+          onClick={() => navigate('/cadastro')}
+          sx={style}
+          color="primary"
+        >
           {<GridViewRounded className="matrix__icon" />}
         </Button>
       </Tooltip>
@@ -98,13 +103,23 @@ const Menu = ({ handleClickModal }) => {
         placement="left"
         arrow="true"
       >
-        <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
+        <Button
+          variant="contained"
+          onClick={() => navigate('/cadastro')}
+          sx={style}
+          color="primary"
+        >
           {<CollectionsBookmarkRounded className="albun__icon" />}
         </Button>
       </Tooltip>
 
       <Tooltip title="Crie uma conta para acessar a Lista de Tarefas" placement="left" arrow="true">
-        <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
+        <Button
+          variant="contained"
+          onClick={() => navigate('/cadastro')}
+          sx={style}
+          color="primary"
+        >
           {<FormatListBulletedRounded className="list__icon" />}
         </Button>
       </Tooltip>
@@ -114,7 +129,12 @@ const Menu = ({ handleClickModal }) => {
         placement="left"
         arrow="true"
       >
-        <Button variant="contained" onClick={() => navigate('/login')} sx={style} color="primary">
+        <Button
+          variant="contained"
+          onClick={() => navigate('/cadastro')}
+          sx={style}
+          color="primary"
+        >
           {<Insights className="graphic__icon" />}
         </Button>
       </Tooltip>

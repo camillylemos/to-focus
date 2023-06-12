@@ -19,6 +19,6 @@ public class DiasAutenticacaoServiceImpl implements DiasAutenticacaoService {
     public Long diasAutenticacao() {
         Usuario usuario = usuarioAutenticadoService.get();
 
-        return autenticacaoRepository.qtsAutenticacoes(usuario.getId());
+        return autenticacaoRepository.qtsAutenticacoes(usuario.getId()) - 1;
     }
 }

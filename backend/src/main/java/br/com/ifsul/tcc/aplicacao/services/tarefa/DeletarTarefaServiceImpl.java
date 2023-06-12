@@ -22,6 +22,9 @@ public class DeletarTarefaServiceImpl implements DeletarTarefaService {
 
         tarefaValidator.accept(tarefa);
 
-        tarefaRepository.delete(tarefa);
+        tarefa.setVisivel(false);
+
+
+        tarefaRepository.save(tarefa);
     }
 }
