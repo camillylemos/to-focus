@@ -26,12 +26,12 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {mostrar ? (
+      {mostrar && (
         <div className="footer__config">
           <LocalFireDepartment sx={{ fontSize: 29 }} color="primary" />
-          <div className="footer__dias">12 dias</div>
+          <div className="footer__dias">{dias}</div>
         </div>
-      ) : null}
+      )}
     </footer>
   )
 }
