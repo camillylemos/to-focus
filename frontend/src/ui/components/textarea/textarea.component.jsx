@@ -1,6 +1,6 @@
 import { TextareaAutosize } from '@mui/material'
 
-const Textarea = ({ formData, handleChange, ...handleChangeprops }) => {
+const Textarea = ({ formData, handleChange }) => {
   return (
     <TextareaAutosize
       {...formData}

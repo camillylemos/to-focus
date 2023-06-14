@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { TaskItem, TituloPagina } from '@components'
+import { PageTitle, TaskItem } from '@components'
 import { PRIORITY } from '@constants'
 import { useTask } from '@hooks'
-
 import './eisenhower-matrix.style.scss'
 
 const EisenhowerMatrixScreen = () => {
@@ -33,12 +32,11 @@ const EisenhowerMatrixScreen = () => {
   const handleChangeDeleteTask = async ({ id }) => {
     await deleteTask(id)
 
-    console.log(id)
-
     getTaskList()
   }
 
-  const handleClickSaveAlter = async task => await updateTask({ data: task, id: task.id })
+  const handleClickSaveAlter = async task =>
+    await updateTask({ data: task, id: task.id })
 
   const renderTaskItem = ({ key, color, className }) => {
     return taskList[key].map((task, index) => (
@@ -56,9 +54,18 @@ const EisenhowerMatrixScreen = () => {
 
   const CONFIG_MATRIX = {
     URGENTE_IMPORTANTE: { class: 'urgente-importante', color: '#f29166' },
-    NAO_URGENTE_IMPORTANTE: { class: 'nao-urgente-importante', color: '#f3ca40' },
-    URGENTE_NAO_IMPORTANTE: { class: 'urgente-nao-importante', color: '#2e7f7b' },
-    NAO_URGENTE_NAO_IMPORTANTE: { class: 'nao-urgente-nao-importante', color: '#788bf5' },
+    NAO_URGENTE_IMPORTANTE: {
+      class: 'nao-urgente-importante',
+      color: '#f3ca40',
+    },
+    URGENTE_NAO_IMPORTANTE: {
+      class: 'urgente-nao-importante',
+      color: '#2e7f7b',
+    },
+    NAO_URGENTE_NAO_IMPORTANTE: {
+      class: 'nao-urgente-nao-importante',
+      color: '#788bf5',
+    },
   }
 
   const renderTaskList = () => {
@@ -90,7 +97,7 @@ const EisenhowerMatrixScreen = () => {
 
   return (
     <section className="eisenhower-matrix">
-      <TituloPagina titulo="Matriz de Eisenhower" />
+      <PageTitle titulo="Matriz de Eisenhower" />
       <div className="eisenhower-matrix__conteudo">{renderTaskList()}</div>
     </section>
   )

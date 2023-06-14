@@ -8,7 +8,8 @@
       "@components": ["./ui/components"],
       "@assets": ["./ui/assets"],
       "@screen": ["./ui/screen"],
-      "@contexts": ["./contexts"]
+      "@contexts": ["./contexts"],
+      "@formatters": ["./formatters"]
     }
   }
 }

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { Form, Input } from '@components'
 import { UseUser } from '@hooks'
-
-import './cadastro.style.scss'
+import './register.style.scss'
 
 const FORM_DATA_INITIAL = {
   email: {
@@ -51,7 +50,6 @@ const CadastroScreen = () => {
       await register(data)
 
       navigate('/login')
-      //todo verificar aqui
     }
   }
 
@@ -71,7 +69,11 @@ const CadastroScreen = () => {
   return (
     <section className="cadastro">
       <h1 className="cadastro__texto">Cadastro</h1>
-      <Form className="cadastro__form" formData={formData} onSubmit={handleSubmit}>
+      <Form
+        className="cadastro__form"
+        formData={formData}
+        onSubmit={handleSubmit}
+      >
         <Input
           style={{ paddingBottom: '20px' }}
           formData={formData.name}

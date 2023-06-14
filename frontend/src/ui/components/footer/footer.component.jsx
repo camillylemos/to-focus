@@ -1,8 +1,7 @@
+import { useCallback, useEffect, useState } from 'react'
+import { LocalFireDepartment } from '@mui/icons-material'
 import { useGlobalToken } from '@contexts'
 import { UseAuthentication } from '@hooks'
-import { LocalFireDepartment } from '@mui/icons-material'
-import { useCallback, useEffect, useState } from 'react'
-
 import './footer.style.scss'
 
 const Footer = () => {
@@ -10,20 +9,20 @@ const Footer = () => {
   const [mostrar, setMostrar] = useState()
   const [token] = useGlobalToken()
 
-  const { getDiasAutenticacao } = UseAuthentication()
+  const { getAuthenticationDays } = UseAuthentication()
 
   useEffect(() => {
     setMostrar(!!token)
   }, [token])
 
-  const getDiasAutenticacaoApi = useCallback(async () => {
-    const qntDias = await getDiasAutenticacao()
+  const getAuthenticationDaysApi = useCallback(async () => {
+    const qntDias = await getAuthenticationDays()
     setDias(qntDias)
-  }, [getDiasAutenticacao])
+  }, [getAuthenticationDays])
 
   useEffect(() => {
-    getDiasAutenticacaoApi()
-  }, [getDiasAutenticacaoApi])
+    getAuthenticationDaysApi()
+  }, [getAuthenticationDaysApi])
 
   return (
     <footer className="footer">

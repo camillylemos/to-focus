@@ -1,5 +1,9 @@
 const PRIORITY = [
-  { value: 'URGENTE_IMPORTANTE', key: 'urgenteImportante', name: 'Urgente e Importante' },
+  {
+    value: 'URGENTE_IMPORTANTE',
+    key: 'urgenteImportante',
+    name: 'Urgente e Importante',
+  },
   {
     value: 'NAO_URGENTE_IMPORTANTE',
     key: 'naoUrgenteImportante',

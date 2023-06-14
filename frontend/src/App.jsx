@@ -1,12 +1,15 @@
-import { Route, Routes } from 'react-router-dom'
-import { Alert, createTheme, ThemeProvider } from '@mui/material'
-import { AlertGlobalProvider, RoutesConfigGlobalProvider, TokenGlobalProvider } from '@contexts'
 import { HelmetProvider } from 'react-helmet-async'
+import { Route, Routes } from 'react-router-dom'
+import { ThemeProvider, createTheme } from '@mui/material'
+import { CadastroScreen, HomeScreen, LoginScreen } from '@screen'
 import { Footer, Header } from '@components'
-import { LoginScreen, CadastroScreen, HomeScreen } from '@screen'
-
+import {
+  AlertGlobalProvider,
+  RoutesConfigGlobalProvider,
+  TokenGlobalProvider,
+  UserGlobalProvider,
+} from '@contexts'
 import './App.scss'
-import { UserGlobalProvider } from 'contexts/user.context'
 
 const defaultTheme = createTheme({
   palette: {
@@ -33,29 +36,35 @@ const defaultTheme = createTheme({
 })
 
 function App() {
-  return (<>
-    <div className="App">
-      <RoutesConfigGlobalProvider>
-        <HelmetProvider>
-          <AlertGlobalProvider>
-            <TokenGlobalProvider>
-              <UserGlobalProvider>
-                <ThemeProvider theme={defaultTheme}>
-                  <Header />
-                  <Routes>
-                    <Route path="/" element={<HomeScreen />} exact />
-                    <Route path="/login" element={<LoginScreen />} exact />
-                    <Route path="/cadastro" element={<CadastroScreen />} exact />
-                  </Routes>
-                  <Footer />
-                </ThemeProvider>
-              </UserGlobalProvider>
-            </TokenGlobalProvider>
-          </AlertGlobalProvider>
-        </HelmetProvider>
-      </RoutesConfigGlobalProvider>
-    </div>
-  </>)
+  return (
+    <>
+      <div className="App">
+        <RoutesConfigGlobalProvider>
+          <HelmetProvider>
+            <AlertGlobalProvider>
+              <TokenGlobalProvider>
+                <UserGlobalProvider>
+                  <ThemeProvider theme={defaultTheme}>
+                    <Header />
+                    <Routes>
+                      <Route path="/" element={<HomeScreen />} exact />
+                      <Route path="/login" element={<LoginScreen />} exact />
+                      <Route
+                        path="/cadastro"
+                        element={<CadastroScreen />}
+                        exact
+                      />
+                    </Routes>
+                    <Footer />
+                  </ThemeProvider>
+                </UserGlobalProvider>
+              </TokenGlobalProvider>
+            </AlertGlobalProvider>
+          </HelmetProvider>
+        </RoutesConfigGlobalProvider>
+      </div>
+    </>
+  )
 }
 
 export default App

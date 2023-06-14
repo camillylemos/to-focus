@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { RoutesConfigGlobal, useGlobalToken } from '@contexts'
-import { Button, Tooltip } from '@mui/material'
 import {
   CollectionsBookmarkRounded,
   FormatListBulletedRounded,
@@ -8,7 +6,8 @@ import {
   Insights,
   TimerOutlined,
 } from '@mui/icons-material'
-
+import { Button, Tooltip } from '@mui/material'
+import { RoutesConfigGlobal, useGlobalToken } from '@contexts'
 import './menu.style.scss'
 
 const style = {
@@ -48,7 +47,12 @@ const Menu = ({ handleClickModal }) => {
         {<GridViewRounded className="matrix__icon" />}
       </Button>
 
-      <Button variant="contained" onClick={() => handleClickModal()} sx={style} color="primary">
+      <Button
+        variant="contained"
+        onClick={() => handleClickModal()}
+        sx={style}
+        color="primary"
+      >
         {<CollectionsBookmarkRounded className="albun__icon" />}
       </Button>
 
@@ -113,7 +117,11 @@ const Menu = ({ handleClickModal }) => {
         </Button>
       </Tooltip>
 
-      <Tooltip title="Crie uma conta para acessar a Lista de Tarefas" placement="left" arrow="true">
+      <Tooltip
+        title="Crie uma conta para acessar a Lista de Tarefas"
+        placement="left"
+        arrow="true"
+      >
         <Button
           variant="contained"
           onClick={() => navigate('/cadastro')}
@@ -142,7 +150,9 @@ const Menu = ({ handleClickModal }) => {
   )
 
   return (
-    <aside className="menu">{token ? renderButtons() : renderButtonsWithoutAuthentication()}</aside>
+    <aside className="menu">
+      {token ? renderButtons() : renderButtonsWithoutAuthentication()}
+    </aside>
   )
 }
 

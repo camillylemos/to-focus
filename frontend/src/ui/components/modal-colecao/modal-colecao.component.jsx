@@ -1,9 +1,8 @@
+import { useEffect, useState } from 'react'
+import { Dialog } from '@mui/material'
 import { arrow } from '@assets'
 import { COLECAO_FIGURAS } from '@constants'
-import { Dialog } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { TituloPagina } from '../titulo-pagina/titulo-pagina.componente'
-
+import { PageTitle } from '../page-title/page-title.component'
 import './modal-colecao.style.scss'
 
 const dialogStyle = {
@@ -39,10 +38,6 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
     if (colecao?.mensagem) {
       return (
         <div className={`modal-colecao__mensagem`}>
-          {/* <img
-          src={iconeExclamacaoComentarioBranco}
-          alt="ícone de comentário com um ponto de exclamação dentro"
-        /> */}
           <span>{colecao.mensagem}</span>
         </div>
       )
@@ -50,8 +45,16 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
   }
 
   return colecao ? (
-    <Dialog className="modal-colecao" open={open} onClose={handleClose} sx={dialogStyle}>
-      <TituloPagina titulo={'Coleção de Murais'} className="modal-colecao__titulo" />
+    <Dialog
+      className="modal-colecao"
+      open={open}
+      onClose={handleClose}
+      sx={dialogStyle}
+    >
+      <PageTitle
+        titulo={'Coleção de Murais'}
+        className="modal-colecao__titulo"
+      />
       <div className="modal-colecao__container">
         {colecao?.colecao.length > 0 && page > 0 ? (
           <button
@@ -68,7 +71,9 @@ const ModalColecao = ({ open, handleClose, colecao }) => {
           <div className="modal-colecao__mural__circulo"></div>
 
           <div>
-            <span className="modal-colecao__mural__titulo">{colecao?.colecao[page].album}</span>
+            <span className="modal-colecao__mural__titulo">
+              {colecao?.colecao[page].album}
+            </span>
 
             <div className="modal-colecao__figuras">
               {colecao?.colecao[page].figuras.map(({ id, nome, isPremium }) => {

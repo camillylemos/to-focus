@@ -1,8 +1,7 @@
-import { LocalOffer, Clear } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Checkbox } from '../checkbox/checkbox.component'
-
+import { Clear, LocalOffer } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
+import { Checkbox } from '@components'
 import './task-item.style.scss'
 
 const TaskItem = ({
@@ -31,11 +30,14 @@ const TaskItem = ({
 
   const handleChangeTitle = event => setValueTitle(event.target.value)
 
-  const handleChangeDescription = event => setValueDescription(event.target.value)
+  const handleChangeDescription = event =>
+    setValueDescription(event.target.value)
 
   const handleBlurSaveAlter = () => {
     if (valueTitle !== task.titulo || valueDescription !== task.descricao) {
-      handleClickSaveAlter((task = { ...task, titulo: valueTitle, descricao: valueDescription }))
+      handleClickSaveAlter(
+        (task = { ...task, titulo: valueTitle, descricao: valueDescription })
+      )
     }
   }
 
@@ -62,12 +64,6 @@ const TaskItem = ({
             />
           </div>
 
-          {/* PRIORITY */}
-
-          {/* onClick={() => handleChangeDeleteTask({ id: task.id })} */}
-
-          {/* {adicionar X quando tiver hover TODO} */}
-
           {isTask && (
             <div
               className={`task__item__principal__esquerda__${className} task__item__principal__esquerda${classRealizado}`}
@@ -77,23 +73,22 @@ const TaskItem = ({
             </div>
           )}
 
-          {/* {console.log(task.id)} */}
-
-          {!task.estaRealizado && <IconButton
-            sx={{
-              color: '#f5f5f5',
-              '&:hover': {
-                color: 'rgba(0, 0, 0, 0.54)',
-                // outras propriedades que você quer mudar no hover
-              },
-            }}
-            className="botao"
-            onClick={() => {
-              handleClickDelete({ id: task.id })
-            }}
-          >
-            <Clear />
-          </IconButton>}
+          {!task.estaRealizado && (
+            <IconButton
+              sx={{
+                color: '#f5f5f5',
+                '&:hover': {
+                  color: 'rgba(0, 0, 0, 0.54)',
+                },
+              }}
+              className="botao"
+              onClick={() => {
+                handleClickDelete({ id: task.id })
+              }}
+            >
+              <Clear />
+            </IconButton>
+          )}
         </div>
 
         {task.descricao && (

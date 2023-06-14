@@ -1,9 +1,9 @@
-import { Button, Dialog, IconButton, Typography } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { Form, Input } from '@components'
-import Box from '@mui/material/Box'
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
 import TaskAltIcon from '@mui/icons-material/TaskAlt'
+import { Button, Dialog, IconButton, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import { Form, Input } from '@components'
 import './modal.style.scss'
 
 const dialogStyle = {
@@ -102,14 +102,6 @@ const ModalComponent = ({
           {<TaskAltIcon color="secondary" sx={{ marginLeft: 1 }} />}
         </Typography>
       </Box>
-      {/* 
-      padding: 0;
-    margin-top: 5px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 140px;
-    width: 100%;
-} */}
 
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <Box
@@ -123,25 +115,45 @@ const ModalComponent = ({
           }}
         >
           <Typography
-            sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+            sx={{
+              fontWeight: 500,
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
             color="secondary"
           >
             Nome
           </Typography>
           <Typography
-            sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+            sx={{
+              fontWeight: 500,
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
             color="secondary"
           >
             Tempo de Foco
           </Typography>
           <Typography
-            sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+            sx={{
+              fontWeight: 500,
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
             color="secondary"
           >
             Intervalo Curto
           </Typography>
           <Typography
-            sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+            sx={{
+              fontWeight: 500,
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
             color="secondary"
           >
             Intervalo Longo
@@ -151,7 +163,14 @@ const ModalComponent = ({
           </Box>
         </Box>
         {pomodoroSettingsList?.map(
-          ({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo, isVisivel }) =>
+          ({
+            id,
+            nomeCategoria,
+            tempoFoco,
+            tempoIntervaloCurto,
+            tempoIntervaloLongo,
+            isVisivel,
+          }) =>
             !!isVisivel && (
               <button
                 className="button__config__time__focus"
@@ -166,22 +185,42 @@ const ModalComponent = ({
                 }
               >
                 <Typography
-                  sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+                  sx={{
+                    fontWeight: 500,
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                 >
                   {nomeCategoria}
                 </Typography>
                 <Typography
-                  sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+                  sx={{
+                    fontWeight: 500,
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                 >
                   {tempoFoco}
                 </Typography>
                 <Typography
-                  sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+                  sx={{
+                    fontWeight: 500,
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                 >
                   {tempoIntervaloCurto}
                 </Typography>
                 <Typography
-                  sx={{ fontWeight: 500, flex: 1, display: 'flex', justifyContent: 'center' }}
+                  sx={{
+                    fontWeight: 500,
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                 >
                   {tempoIntervaloLongo}
                 </Typography>
@@ -190,14 +229,23 @@ const ModalComponent = ({
                   <IconButton
                     className="icon__delete__pomodoro"
                     onClick={evento => handleClickDelete({ id, evento })}
-                    sx={{ flex: 0.5, display: 'flex', justifyContent: 'center', padding: 0 }}
+                    sx={{
+                      flex: 0.5,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      padding: 0,
+                    }}
                   >
                     <Delete />
                   </IconButton>
                 ) : (
                   <IconButton
                     className="icon__delete__pomodoro"
-                    sx={{ flex: 0.5, display: 'flex', justifyContent: 'center' }}
+                    sx={{
+                      flex: 0.5,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
                   >
                     <Delete style={{ color: '#D9D9D9' }} />
                   </IconButton>

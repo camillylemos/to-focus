@@ -1,5 +1,10 @@
 /* eslint-disable react/jsx-pascal-case */
-import { FormControl, InputLabel, MenuItem, Select as _Select } from '@mui/material'
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select as _Select,
+} from '@mui/material'
 
 const Select = ({ formData, handleChange }) => {
   return (

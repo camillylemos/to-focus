@@ -2,17 +2,17 @@
 import { useMemo } from 'react'
 import { useAxios } from './use-axios'
 
-const UseEstatistica = () => {
+const UseData = () => {
   const { get } = useAxios()
 
-  const getEstatistica = () => get('/estatistica')
+  const getData = () => get('/estatistica')
 
   return useMemo(
     () => ({
-      getEstatistica,
+      getData,
     }),
     []
   )
 }
 
-export { UseEstatistica }
+export { UseData }

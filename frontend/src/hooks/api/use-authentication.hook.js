@@ -5,14 +5,14 @@ import { useAxios } from './use-axios'
 const UseAuthentication = () => {
   const { get } = useAxios()
 
-  const getControleAutenticacao = async () => await get('/autenticacao/controle')
+  const getAuthenticationControl = async () => get('/autenticacao/controle')
 
-  const getDiasAutenticacao = async () => await get('/autenticacao')
+  const getAuthenticationDays = async () => get('/autenticacao')
 
   return useMemo(
     () => ({
-      getControleAutenticacao,
-      getDiasAutenticacao,
+      getAuthenticationControl,
+      getAuthenticationDays,
     }),
     []
   )

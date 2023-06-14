@@ -1,17 +1,19 @@
-import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
-import { PlayArrow, Refresh, MoreHoriz, Pause } from '@mui/icons-material'
-import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
-import { useEffect, useState, useCallback } from 'react'
-import { Chip, ModalColecao } from '@components'
+import { useCallback, useEffect, useState } from 'react'
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from 'react-circular-progressbar'
+import { Helmet } from 'react-helmet-async'
 import { useTimer } from 'react-timer-hook'
-import { Alert, Button } from '@mui/material'
+import { MoreHoriz, Pause, PlayArrow, Refresh } from '@mui/icons-material'
+import { Button } from '@mui/material'
+import { Chip, ModalColecao } from '@components'
+import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
+import { useGlobalAlert } from '@contexts'
 import { usePomodoro } from '@hooks'
 import { formatDigit } from '@utils'
 import { FORM_DATA_INITIAL, ModalComponent } from './partials'
-
 import './pomodoro.style.scss'
-import { Helmet } from 'react-helmet-async'
-import { useGlobalAlert } from '@contexts'
 
 const PomodoroScreen = () => {
   const [status, setStatus] = useState(POMODORO_STATUS.INITIAL)
@@ -19,13 +21,16 @@ const PomodoroScreen = () => {
   const [pomodoroSettingsList, setPomodoroSettingsList] = useState()
   const [pomodoroId, setPomodoroId] = useState()
   const [pomodoroSelected, setPomodoroSelected] = useState()
-  const [pomodoroActive, setPomodoroActive] = useState({ titulo: '', tempo: null })
+  const [pomodoroActive, setPomodoroActive] = useState({
+    titulo: '',
+    tempo: null,
+  })
   const [pomodoroSettings, setPomodoroSettings] = useState({
     focus: 1,
     shortBreak: 0,
     longBreak: 0,
     allPomodoro: false,
-  }) // refazer essa lógica TODO
+  })
   const [colecao, setColecao] = useState()
   const [openModal, setOpenModal] = useState(false)
   const [openModalSettings, setOpenModalSettings] = useState(false)
@@ -81,7 +86,10 @@ const PomodoroScreen = () => {
     }
 
     if (pomodoroSettings.focus > pomodoroSettings.shortBreak) {
-      setPomodoroSettings({ ...pomodoroSettings, shortBreak: pomodoroSettings.shortBreak + 1 })
+      setPomodoroSettings({
+        ...pomodoroSettings,
+        shortBreak: pomodoroSettings.shortBreak + 1,
+      })
       return setPomodoroActive({
         titulo: 'INTERVALO_CURTO',
         tempo: pomodoroSelected.tempoIntervaloCurto,
@@ -89,8 +97,14 @@ const PomodoroScreen = () => {
     }
 
     if (pomodoroSettings.shortBreak >= pomodoroSettings.focus) {
-      setPomodoroSettings({ ...pomodoroSettings, focus: pomodoroSettings.focus + 1 })
-      return setPomodoroActive({ titulo: 'FOCO', tempo: pomodoroSelected.tempoFoco })
+      setPomodoroSettings({
+        ...pomodoroSettings,
+        focus: pomodoroSettings.focus + 1,
+      })
+      return setPomodoroActive({
+        titulo: 'FOCO',
+        tempo: pomodoroSelected.tempoFoco,
+      })
     }
   }
 
@@ -108,10 +122,13 @@ const PomodoroScreen = () => {
 
   useEffect(() => {
     if (!pomodoroSelected && pomodoroSettingsList) {
-      setPomodoroSelected(pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true))
+      setPomodoroSelected(
+        pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true)
+      )
       setPomodoroActive({
         titulo: 'FOCO',
-        tempo: pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true).tempoFoco,
+        tempo: pomodoroSettingsList.find(({ isVisivel }) => isVisivel === true)
+          .tempoFoco,
       })
     }
   }, [pomodoroSelected, pomodoroSettingsList])
@@ -139,7 +156,9 @@ const PomodoroScreen = () => {
     if (pomodoroActive) {
       const tempoAtual = hours * 3600 + minutes * 60 + seconds
 
-      const valorAtual = Math.abs((100 * tempoAtual) / (pomodoroActive.tempo * 60) - 100)
+      const valorAtual = Math.abs(
+        (100 * tempoAtual) / (pomodoroActive.tempo * 60) - 100
+      )
 
       setValue(valorAtual)
     }
@@ -207,7 +226,13 @@ const PomodoroScreen = () => {
     tempoIntervaloCurto,
     tempoIntervaloLongo,
   }) => {
-    setPomodoroSelected({ id, nomeCategoria, tempoFoco, tempoIntervaloCurto, tempoIntervaloLongo })
+    setPomodoroSelected({
+      id,
+      nomeCategoria,
+      tempoFoco,
+      tempoIntervaloCurto,
+      tempoIntervaloLongo,
+    })
     setPomodoroActive({ titulo: 'FOCO', tempo: tempoFoco })
     setStatus(POMODORO_STATUS.INITIAL)
     setOpenModalSettings(false)
@@ -236,8 +261,14 @@ const PomodoroScreen = () => {
 
   const buttonConfig =
     status === POMODORO_STATUS.PROGRESS
-      ? { onClick: handleClickPausePomodoro, icon: <Pause className="pause__icon" /> }
-      : { onClick: handleClickStartPomodoro, icon: <PlayArrow className="play__icon" /> }
+      ? {
+          onClick: handleClickPausePomodoro,
+          icon: <Pause className="pause__icon" />,
+        }
+      : {
+          onClick: handleClickStartPomodoro,
+          icon: <PlayArrow className="play__icon" />,
+        }
 
   return (
     <>
@@ -257,7 +288,8 @@ const PomodoroScreen = () => {
           >
             <div className="pomodoro__timer__text">
               {!!hours && <span>{formatDigit(hours)}:</span>}
-              <span>{formatDigit(minutes)}</span>:<span>{formatDigit(seconds)}</span>
+              <span>{formatDigit(minutes)}</span>:
+              <span>{formatDigit(seconds)}</span>
             </div>
           </CircularProgressbarWithChildren>
         </main>
@@ -266,8 +298,14 @@ const PomodoroScreen = () => {
 
         <div className="pomodoro__ciclo">
           <Chip type={TYPES_CHIPS.FOCUS} className={pomodoroActive.titulo} />
-          <Chip type={TYPES_CHIPS.SHORT_BREAK} className={pomodoroActive.titulo} />
-          <Chip type={TYPES_CHIPS.LONG_BREAK} className={pomodoroActive.titulo} />
+          <Chip
+            type={TYPES_CHIPS.SHORT_BREAK}
+            className={pomodoroActive.titulo}
+          />
+          <Chip
+            type={TYPES_CHIPS.LONG_BREAK}
+            className={pomodoroActive.titulo}
+          />
         </div>
 
         <div>
@@ -326,7 +364,11 @@ const PomodoroScreen = () => {
         open={openModalSettings}
       />
 
-      <ModalColecao open={openModal} handleClose={handleClose} colecao={colecao} />
+      <ModalColecao
+        open={openModal}
+        handleClose={handleClose}
+        colecao={colecao}
+      />
     </>
   )
 }

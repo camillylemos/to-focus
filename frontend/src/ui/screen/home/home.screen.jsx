@@ -4,9 +4,8 @@ import { RoutesConfigGlobal } from '@contexts'
 import { UseAuthentication, UseCollection } from '@hooks'
 import { EisenhowerMatrixScreen } from '../eisenhower-matrix/eisenhower-matrix.screen'
 import { PomodoroScreen } from '../pomodoro/pomodoro.screen'
+import { RelatorioScreen } from '../data/data.screen'
 import { TaskScreen } from '../task/task.screen'
-import { RelatorioScreen } from '../relatorio/relatorio.screen'
-
 import './home.style.scss'
 
 const ScreenComponents = {
@@ -21,11 +20,11 @@ const HomeScreen = () => {
   const [openModal, setOpenModal] = useState(false)
   const [routesConfig] = RoutesConfigGlobal()
 
-  const { getControleAutenticacao } = UseAuthentication()
+  const { getAuthenticationControl } = UseAuthentication()
   const { getColletion } = UseCollection()
 
   const getStickerAutenticacao = useCallback(async () => {
-    const resultado = await getControleAutenticacao()
+    const resultado = await getAuthenticationControl()
 
     if (resultado?.mensagem) {
       setColecao(resultado)
@@ -37,7 +36,7 @@ const HomeScreen = () => {
         setColecao(colecao)
       }
     }
-  }, [getControleAutenticacao])
+  }, [getAuthenticationControl])
 
   useEffect(() => {
     getStickerAutenticacao()
@@ -60,7 +59,11 @@ const HomeScreen = () => {
         <main className="home__main">{ScreenComponents[routesConfig]}</main>
         <Menu className="home__menu" handleClickModal={handleClickModal} />
       </div>
-      <ModalColecao open={openModal} handleClose={handleClose} colecao={colecao} />
+      <ModalColecao
+        open={openModal}
+        handleClose={handleClose}
+        colecao={colecao}
+      />
     </section>
   )
 }

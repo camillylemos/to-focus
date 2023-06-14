@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from 'react'
-import { useAxios } from './use-axios'
 import { useGlobalToken } from '@contexts'
+import { useAxios } from './use-axios'
 
 const pomodoroConfig = [
   {
