@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import {
-  CollectionsBookmarkRounded,
   FormatListBulletedRounded,
   GridViewRounded,
   Insights,
@@ -17,7 +16,7 @@ const style = {
   height: 60,
 }
 
-const Menu = ({ handleClickModal }) => {
+const Menu = () => {
   const [, setRoutesConfig] = RoutesConfigGlobal()
   const [token] = useGlobalToken()
 
@@ -45,15 +44,6 @@ const Menu = ({ handleClickModal }) => {
         color="primary"
       >
         {<GridViewRounded className="matrix__icon" />}
-      </Button>
-
-      <Button
-        variant="contained"
-        onClick={() => handleClickModal()}
-        sx={style}
-        color="primary"
-      >
-        {<CollectionsBookmarkRounded className="albun__icon" />}
       </Button>
 
       <Button
@@ -99,21 +89,6 @@ const Menu = ({ handleClickModal }) => {
           color="primary"
         >
           {<GridViewRounded className="matrix__icon" />}
-        </Button>
-      </Tooltip>
-
-      <Tooltip
-        title="Crie uma conta para ganhar conquistas em finalizar seus pomodoros"
-        placement="left"
-        arrow="true"
-      >
-        <Button
-          variant="contained"
-          onClick={() => navigate('/cadastro')}
-          sx={style}
-          color="primary"
-        >
-          {<CollectionsBookmarkRounded className="albun__icon" />}
         </Button>
       </Tooltip>
 
