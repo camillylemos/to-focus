@@ -173,7 +173,6 @@ const ModalComponent = ({
           }) =>
             !!isVisivel && (
               <button
-                key={id}
                 className="button__config__time__focus"
                 onClick={() =>
                   handleClick({
