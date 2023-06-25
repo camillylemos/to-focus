@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async'
 import { useTimer } from 'react-timer-hook'
 import { MoreHoriz, Pause, PlayArrow, Refresh } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import { Chip } from '@components'
+import { Chip, ModalColecao } from '@components'
 import { POMODORO_STATUS, TYPES_CHIPS } from '@constants'
 import { useGlobalAlert } from '@contexts'
 import { usePomodoro } from '@hooks'
@@ -31,6 +31,8 @@ const PomodoroScreen = () => {
     longBreak: 0,
     allPomodoro: false,
   })
+  const [colecao, setColecao] = useState()
+  const [openModal, setOpenModal] = useState(false)
   const [openModalSettings, setOpenModalSettings] = useState(false)
   const [value, setValue] = useState(0)
 
@@ -55,9 +57,14 @@ const PomodoroScreen = () => {
   }
 
   const endPomodoro = async () => {
-    await finishPomodoro(pomodoroId)
+    const resultado = await finishPomodoro(pomodoroId)
 
     setAlert(true)
+
+    if (resultado?.mensagem) {
+      setColecao({ mensagem: resultado.mensagem })
+      setOpenModal(true)
+    }
   }
 
   const timeActive = () => {
@@ -244,6 +251,10 @@ const PomodoroScreen = () => {
     }))
   }
 
+  const handleClose = () => {
+    setOpenModal(false)
+  }
+
   const handleClickModalSettings = () => {
     setOpenModalSettings(!openModalSettings)
   }
@@ -282,6 +293,8 @@ const PomodoroScreen = () => {
             </div>
           </CircularProgressbarWithChildren>
         </main>
+
+        {/* <div>{pomodoroActive?.titulo}</div> */}
 
         <div className="pomodoro__ciclo">
           <Chip type={TYPES_CHIPS.FOCUS} className={pomodoroActive.titulo} />
@@ -349,6 +362,12 @@ const PomodoroScreen = () => {
         handleClickClose={handleClickModalSettings}
         pomodoroSettingsList={pomodoroSettingsList}
         open={openModalSettings}
+      />
+
+      <ModalColecao
+        open={openModal}
+        handleClose={handleClose}
+        colecao={colecao}
       />
     </>
   )
